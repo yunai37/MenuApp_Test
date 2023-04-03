@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MenuApp_Test"
         tools:targetApi="31">
         <activity
-            android:name=".ListActivity"
+            android:name=".JoinActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,5 +23,6 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".JoinActivity2" />
     </application>
 </manifest>

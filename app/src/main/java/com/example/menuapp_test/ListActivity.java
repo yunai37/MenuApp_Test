@@ -48,7 +48,6 @@ public class ListActivity extends AppCompatActivity {
 
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
-
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
@@ -82,10 +81,10 @@ public class ListActivity extends AppCompatActivity {
                 Log.d(TAG, "response code : " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == conn.HTTP_OK){
+                if(responseStatusCode == conn.HTTP_OK){         // 연결 성공 시
                     inputStream = conn.getInputStream();
                 }
-                else {
+                else {                                          // 연결 실패 시
                     inputStream = conn.getErrorStream();
                 }
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
@@ -136,6 +135,7 @@ public class ListActivity extends AppCompatActivity {
                     new int[]{R.id.rname_list, R.id.address_item_list, R.id.category_list, R.id.img_list}
             );
             mlistView.setAdapter(adapter);                          // xml에서의 출력을 위한 리스트뷰에 넣어줌
+
 
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
