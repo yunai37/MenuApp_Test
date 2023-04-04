@@ -1,0 +1,145 @@
+package com.example.menuapp_test;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+
+public class LoginActivity extends AppCompatActivity {
+
+    private static String ADDRESS = "http://52.78.72.175/account/login";
+    private static String TAG = "logintest";
+    private TextInputEditText email, password;
+    private Button findpw, next, join;
+    private TextView txt_result;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        email = findViewById(R.id.login_email);
+        password = findViewById(R.id.login_pwd);
+        findpw = findViewById(R.id.btn_login_find);
+        next = findViewById(R.id.btn_login);
+        join = findViewById(R.id.btn_login2);
+        txt_result = findViewById(R.id.txt_result);
+
+        /*
+        findpw.setOnClickListener(v -> {
+            Intent intent = new Intent(this, FindPwActivity.class);
+            startActivity(intent);
+        });
+         */
+
+        next.setOnClickListener(v -> {
+
+            String Email = ""; String Password = "";
+            if(email.getText() != null & password.getText() != null){
+                Email = email.getText().toString();
+                Password = password.getText().toString();
+
+                InsertData task = new InsertData();
+                task.execute(ADDRESS, Email, Password);
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(LoginActivity.this, "이메일 또는 비밀번호를 입력해 주세요.", Toast.LENGTH_LONG).show();
+            }
+
+
+        });
+
+        join.setOnClickListener(v -> {
+            Intent intent = new Intent(this, JoinActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    class InsertData extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(LoginActivity.this, "Please Wait", null, true, true);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            progressDialog.dismiss();
+            txt_result.setText(result);
+            Log.d(TAG, "POST response - " + result);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String Email = params[1];
+            String Password = params[2];
+
+            String serverURL = params[0];
+            String postParameters = "email=" + Email + "&password=" + Password;
+
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setReadTimeout(5000);
+                conn.setConnectTimeout(5000);
+                conn.setRequestMethod("POST");
+                conn.connect();
+
+                OutputStream outputStream = conn.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = conn.getResponseCode();
+                Log.d(TAG, "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if (responseStatusCode == conn.HTTP_OK) {
+                    inputStream = conn.getInputStream();
+                }
+                else {
+                    inputStream = conn.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine())!= null)  {
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+                return sb.toString();
+            }
+            catch (Exception e) {
+                Log.d(TAG, "InsertData : Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+        }
+    }
+}
