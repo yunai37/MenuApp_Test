@@ -1,9 +1,11 @@
 package com.example.menuapp_test;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -23,11 +25,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ListActivity extends AppCompatActivity {
+    private static String ADDRESS = "http://52.78.72.175/data/restaurant";
     private static String TAG = "data";
     private static final String TAG_NAME = "name";
     private static final String TAG_ADDRESS = "address";
     private static final String TAG_CATEGORY_NAME = "category_name";
     private static final String TAG_IMAGE = "image";
+    Button pre;
     ListView mlistView;
     ArrayList<HashMap<String, String>> listItems;
     String mJsonString;
@@ -37,11 +41,17 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        pre = findViewById(R.id.btn_list);
         mlistView = (ListView) findViewById(R.id.listv_list);
         listItems = new ArrayList<>();
 
         GetData task = new GetData();
-        task.execute("http://52.78.72.175/data/restaurant");
+        task.execute(ADDRESS);
+
+        pre.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        });
 
 
     }
