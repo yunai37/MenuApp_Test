@@ -2,6 +2,8 @@ package com.example.menuapp_test;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,28 +33,22 @@ public class ListActivity extends AppCompatActivity {
     private static final String TAG_ADDRESS = "address";
     private static final String TAG_CATEGORY_NAME = "category_name";
     private static final String TAG_IMAGE = "image";
-    Button pre;
-    ListView mlistView;
-    ArrayList<HashMap<String, String>> listItems;
-    String mJsonString;
+    private ListView mlistView;
+    //private ArrayList<HashMap<String, String>> listItems;
+    private ArrayList<ListItem> listItems;
+    private RAdapter adapter;
+    private String mJsonString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        pre = findViewById(R.id.btn_list);
         mlistView = (ListView) findViewById(R.id.listv_list);
         listItems = new ArrayList<>();
 
         GetData task = new GetData();
         task.execute(ADDRESS);
-
-        pre.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-        });
-
 
     }
 
@@ -123,28 +119,38 @@ public class ListActivity extends AppCompatActivity {
     private void showResult() {
         try {
             JSONArray jsonArray = new JSONArray(mJsonString);       // 전체 데이터를 배열에 저장
+            JSONObject item = jsonArray.getJSONObject(0);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
+            String name = item.getString(TAG_NAME);
+            String address = item.getString(TAG_ADDRESS);
+            String category_name = item.getString(TAG_CATEGORY_NAME);
+            String image = item.getString(TAG_IMAGE);
+            adapter = new RAdapter();
+            adapter.addRItem(name, address, category_name, "http://52.78.72.175" + image);
 
-            for (int i = 0; i < jsonArray.length(); i++) {                // 한 그룹{} 씩 읽음
-                JSONObject item = jsonArray.getJSONObject(i);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
-                String name = item.getString(TAG_NAME);
-                String address = item.getString(TAG_ADDRESS);
-                String category_name = item.getString(TAG_CATEGORY_NAME);
-                String image = item.getString(TAG_IMAGE);
+            for (int i = 1; i < jsonArray.length(); i++) {                // 한 그룹{} 씩 읽음
+                item = jsonArray.getJSONObject(i);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
+                name = item.getString(TAG_NAME);
+                address = item.getString(TAG_ADDRESS);
+                category_name = item.getString(TAG_CATEGORY_NAME);
+                adapter.addRItem(name, address, category_name, "http://52.78.72.175/media/restaurant/%EC%96%91%ED%8F%89%ED%95%B4%EC%9E%A5%EA%B5%AD_Hf5rN0M.png");
+            }
 
-                HashMap<String, String> hashMap = new HashMap<>();
+            mlistView.setAdapter(adapter);
+
+                /*HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put(TAG_NAME, name);
                 hashMap.put(TAG_ADDRESS, address);
                 hashMap.put(TAG_CATEGORY_NAME, category_name);
-                hashMap.put(TAG_IMAGE, image);                      // hashmap에 짝 지어 넣음
+                hashMap.put(TAG_IMAGE, "http://52.78.72.175"+image);                      // hashmap에 짝 지어 넣음
 
                 listItems.add(hashMap);                             // 데이터 저장된 최종 변수
-            }
-            ListAdapter adapter = new SimpleAdapter(
+                ListAdapter adapter = new SimpleAdapter(                // 이미지 불러오기 위해 어댑터 클래스 새로 만들어야 함
                     ListActivity.this, listItems, R.layout.item_list,
                     new String[]{TAG_NAME, TAG_ADDRESS, TAG_CATEGORY_NAME, TAG_IMAGE},
                     new int[]{R.id.rname_list, R.id.address_item_list, R.id.category_list, R.id.img_list}
-            );
-            mlistView.setAdapter(adapter);                          // xml에서의 출력을 위한 리스트뷰에 넣어줌
+                );
+                mlistView.setAdapter(adapter);
+                 */
 
 
         } catch (JSONException e) {

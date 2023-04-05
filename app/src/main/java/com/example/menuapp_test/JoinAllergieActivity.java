@@ -67,8 +67,8 @@ public class JoinAllergieActivity extends AppCompatActivity {
                 //InsertAllergie task2 = new InsertAllergie();
                 //task2.execute(ADDRESS_ALLERGIE, allergieres);
 
-                //Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -150,7 +150,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
                 Log.d(TAG_SIGNUP, "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if (responseStatusCode == conn.HTTP_OK) {
+                if (responseStatusCode == conn.HTTP_OK || responseStatusCode == 201) {
                     inputStream = conn.getInputStream();
                 }
                 else {

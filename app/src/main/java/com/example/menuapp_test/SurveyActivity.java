@@ -18,15 +18,16 @@ public class SurveyActivity extends AppCompatActivity {
         save = findViewById(R.id.btn_save);
 
         skip.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
 
         save.setOnClickListener(v -> {
             Toast.makeText(SurveyActivity.this, "취향 정보가 저장되었습니다.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
 
     }
+
 }

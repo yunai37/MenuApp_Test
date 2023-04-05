@@ -13,18 +13,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 
 public class LoginActivity extends AppCompatActivity {
 
     private static String ADDRESS = "http://52.78.72.175/account/login";
     private static String TAG = "logintest";
+    private String duplicate;
     private TextInputEditText email, password;
     private Button findpw, next, join;
     private TextView txt_result;
@@ -49,21 +55,31 @@ public class LoginActivity extends AppCompatActivity {
 
         next.setOnClickListener(v -> {
 
-            String Email = ""; String Password = "";
-            if(email.getText() != null & password.getText() != null){
-                Email = email.getText().toString();
-                Password = password.getText().toString();
+            try{
+                String Email = email.getText().toString();
+                String Password = password.getText().toString();
+                if(Email.equals("") || Password.equals("")){
+                    Toast.makeText(LoginActivity.this, "이메일 또는 비밀번호를 입력해 주세요.", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    InsertData task = new InsertData();
+                    task.execute(ADDRESS, Email, Password);
 
-                InsertData task = new InsertData();
-                task.execute(ADDRESS, Email, Password);
+                    duplicate = task.get();
 
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                    if(duplicate.contains("success")){
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "이메일 또는 비밀번호를 다시 입력해 주세요.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-            else {
-                Toast.makeText(LoginActivity.this, "이메일 또는 비밀번호를 입력해 주세요.", Toast.LENGTH_LONG).show();
-            }
-
 
         });
 
