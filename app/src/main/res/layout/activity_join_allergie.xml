@@ -146,10 +146,20 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btn_join_end"
-                android:layout_width="330dp"
+                android:id="@+id/btn_join_save"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:text="저장하기"
+                android:backgroundTint="#faf4c0"
+                android:textColor="@color/black"
+                android:textStyle="bold">
+
+            </Button>
+            <Button
+                android:id="@+id/btn_join_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:text="회원가입"
                 android:backgroundTint="#faf4c0"
                 android:textColor="@color/black"

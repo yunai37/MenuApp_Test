@@ -37,18 +37,21 @@ public class ListActivity extends AppCompatActivity {
     //private ArrayList<HashMap<String, String>> listItems;
     private ArrayList<ListItem> listItems;
     private RAdapter adapter;
-    private String mJsonString;
+    private String token, mJsonString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        Intent getIntent = getIntent();
+        token = getIntent.getStringExtra("token");
+
         mlistView = (ListView) findViewById(R.id.listv_list);
         listItems = new ArrayList<>();
 
         GetData task = new GetData();
-        task.execute(ADDRESS);
+        task.execute(ADDRESS, token);
 
     }
 
@@ -74,6 +77,7 @@ public class ListActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params){
             String serverURL = params[0];
+            String Token = params[1];
 
             try {
                 URL url = new URL(serverURL);
@@ -81,6 +85,7 @@ public class ListActivity extends AppCompatActivity {
 
                 conn.setReadTimeout(5000);
                 conn.setConnectTimeout(5000);
+                conn.setRequestProperty("Authorization", "TOKEN " + Token);
                 conn.connect();
 
                 int responseStatusCode = conn.getResponseCode();
@@ -119,20 +124,23 @@ public class ListActivity extends AppCompatActivity {
     private void showResult() {
         try {
             JSONArray jsonArray = new JSONArray(mJsonString);       // 전체 데이터를 배열에 저장
-            JSONObject item = jsonArray.getJSONObject(0);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
+            /*JSONObject item = jsonArray.getJSONObject(i);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
+            int id = Integer.parseInt(item.getString("id"));
             String name = item.getString(TAG_NAME);
             String address = item.getString(TAG_ADDRESS);
             String category_name = item.getString(TAG_CATEGORY_NAME);
-            String image = item.getString(TAG_IMAGE);
+            String image = item.getString(TAG_IMAGE);*/
             adapter = new RAdapter();
-            adapter.addRItem(name, address, category_name, "http://52.78.72.175" + image);
+            //adapter.addRItem(id, name, address, category_name, "http://52.78.72.175" + image);
 
-            for (int i = 1; i < jsonArray.length(); i++) {                // 한 그룹{} 씩 읽음
-                item = jsonArray.getJSONObject(i);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
-                name = item.getString(TAG_NAME);
-                address = item.getString(TAG_ADDRESS);
-                category_name = item.getString(TAG_CATEGORY_NAME);
-                adapter.addRItem(name, address, category_name, "http://52.78.72.175/media/restaurant/%EC%96%91%ED%8F%89%ED%95%B4%EC%9E%A5%EA%B5%AD_Hf5rN0M.png");
+            for (int i = 0; i < jsonArray.length(); i++) {                // 한 그룹{} 씩 읽음
+                JSONObject item = jsonArray.getJSONObject(i);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
+                int id = Integer.parseInt(item.getString("id"));
+                String name = item.getString(TAG_NAME);
+                String address = item.getString(TAG_ADDRESS);
+                String category_name = item.getString(TAG_CATEGORY_NAME);
+                String image = item.getString(TAG_IMAGE);
+                adapter.addRItem(id, name, address, category_name, "http://52.78.72.175" + image);
             }
 
             mlistView.setAdapter(adapter);

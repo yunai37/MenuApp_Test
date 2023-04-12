@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -25,10 +24,12 @@ import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class JoinActivity extends AppCompatActivity {
+    private static String ADDRESS = "http://52.78.72.175/account/signup";
+    private static String ADDRESS_LOGIN = "http://52.78.72.175/account/login";
     private static String ADDRESS_EMAIL = "http://52.78.72.175/account/checkemail";
     private static String ADDRESS_NICKNAME = "http://52.78.72.175/account/checknickname";
     private static String TAG = "duplicatetest";
-    private String duplicate;           // 중복 검사 결과 리턴 변수
+    private String duplicate, token;           // 중복 검사 결과 리턴 변수
     private boolean echeck, pcheck, ncheck;
     private TextInputEditText email, password, password2, nickname, age, gender;
     private Button idcheck, pwcheck, namecheck, next;
@@ -67,17 +68,15 @@ public class JoinActivity extends AppCompatActivity {
 
                 duplicate = checkEmail.get();
                 if(duplicate.contains("true")) {
-                    Toast.makeText(getApplicationContext(), "사용할 수 있는 이메일입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "사용할 수 있는 이메일입니다.", Toast.LENGTH_SHORT).show();
                     echeck = true ;
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "이미 사용 중인 이메일입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "이미 사용 중인 이메일입니다.", Toast.LENGTH_SHORT).show();
                     email.setText("");
                 }
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                Log.d("email", "Error ", e);
             }
 
         });
@@ -90,28 +89,26 @@ public class JoinActivity extends AppCompatActivity {
 
                 duplicate = checkNickname.get();
                 if(duplicate.contains("true")) {
-                    Toast.makeText(getApplicationContext(), "사용할 수 있는 닉네임입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "사용할 수 있는 닉네임입니다.", Toast.LENGTH_SHORT).show();
                     ncheck = true;
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "이미 사용 중인 닉네임입니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "이미 사용 중인 닉네임입니다.", Toast.LENGTH_SHORT).show();
                     nickname.setText("");
                 }
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                Log.d("nickname", "Error ", e);
             }
 
         });
 
         pwcheck.setOnClickListener(v -> {
             if(password.getText().toString().equals(password2.getText().toString())){
-                Toast.makeText(JoinActivity.this, "비밀번호가 일치합니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(JoinActivity.this, "비밀번호가 일치합니다.", Toast.LENGTH_SHORT).show();
                 pcheck = true;
             }
             else {
-                Toast.makeText(JoinActivity.this, "비밀번호가 다릅니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(JoinActivity.this, "비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show();
             }
         });
 /*
@@ -152,26 +149,37 @@ public class JoinActivity extends AppCompatActivity {
             if(echeck){
                 if(pcheck){
                     if(ncheck){
-                        String Email = ""; String Password = ""; String Nickname = ""; String Gender = ""; String Age = "";
-                        Email = email.getText().toString();
-                        Password = password.getText().toString();
-                        Nickname = nickname.getText().toString();
-                        Gender = gender.getText().toString();
-                        Age = age.getText().toString();
+                        String Email = email.getText().toString();
+                        String Password = password.getText().toString();
+                        String Nickname = nickname.getText().toString();
+                        String Gender = gender.getText().toString();
+                        String Age = age.getText().toString();
+
+                        PostSignup task = new PostSignup(JoinActivity.this);
+                        task.execute(ADDRESS, Email, Password, Nickname, Gender, Age);
+
+                        PostLogin postLogin = new PostLogin(JoinActivity.this);
+                        postLogin.execute(ADDRESS_LOGIN, Email, Password);
+
+                        try{
+                            JSONObject jsonObject = new JSONObject(postLogin.get());
+                            token = jsonObject.getString("token");
+                        }
+                        catch (Exception e) {
+                            Log.d("token", "Error ", e);
+                        }
+
+                        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(getApplicationContext(), JoinAllergieActivity.class);
-                        intent.putExtra("email", Email);
-                        intent.putExtra("password", Password);
-                        intent.putExtra("nickname", Nickname);
-                        intent.putExtra("gender", Gender);
-                        intent.putExtra("age", Age);
+                        intent.putExtra("token", token);
                         startActivity(intent);
                     }
-                    else Toast.makeText(getApplicationContext(), "닉네임 중복을 확인해 주세요.", Toast.LENGTH_LONG).show();
+                    else Toast.makeText(getApplicationContext(), "닉네임 중복을 확인해 주세요.", Toast.LENGTH_SHORT).show();
                 }
-                else Toast.makeText(getApplicationContext(), "비밀번호가 확인되지 않았습니다.", Toast.LENGTH_LONG).show();
+                else Toast.makeText(getApplicationContext(), "비밀번호가 확인되지 않았습니다.", Toast.LENGTH_SHORT).show();
             }
-            else Toast.makeText(getApplicationContext(), "이메일 중복을 확인해 주세요.", Toast.LENGTH_LONG).show();
+            else Toast.makeText(getApplicationContext(), "이메일 중복을 확인해 주세요.", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -190,15 +198,6 @@ public class JoinActivity extends AppCompatActivity {
             progressDialog.dismiss();
             txt_result.setText(result);
             Log.d(TAG, "POST response - " + result);
-/*
-            JSONObject jsonObject = null;
-            try {
-                jsonObject = new JSONObject(result);
-                duplicate = jsonObject.getBoolean("available");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }*/
-
         }
 
         @Override

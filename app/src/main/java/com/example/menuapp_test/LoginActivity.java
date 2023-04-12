@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private static String ADDRESS = "http://52.78.72.175/account/login";
     private static String TAG = "logintest";
+
+    public String token;
     private String duplicate;
     private TextInputEditText email, password;
     private Button findpw, next, join;
@@ -62,13 +64,22 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "이메일 또는 비밀번호를 입력해 주세요.", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    InsertData task = new InsertData();
+                    PostLogin task = new PostLogin(LoginActivity.this);
                     task.execute(ADDRESS, Email, Password);
 
                     duplicate = task.get();
 
+                    try{
+                        JSONObject jsonObject = new JSONObject(duplicate);
+                        token = jsonObject.getString("token");
+                    }
+                    catch (Exception e) {
+                        Log.d("token", "Error ", e);
+                    }
+
                     if(duplicate.contains("success")){
                         Intent intent = new Intent(this, MainActivity.class);
+                        intent.putExtra("token", token);
                         startActivity(intent);
                     }
                     else {
@@ -87,75 +98,5 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, JoinActivity.class);
             startActivity(intent);
         });
-    }
-
-    class InsertData extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(LoginActivity.this, "Please Wait", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            progressDialog.dismiss();
-            txt_result.setText(result);
-            Log.d(TAG, "POST response - " + result);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String Email = params[1];
-            String Password = params[2];
-
-            String serverURL = params[0];
-            String postParameters = "email=" + Email + "&password=" + Password;
-
-            try {
-                URL url = new URL(serverURL);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-                conn.setReadTimeout(5000);
-                conn.setConnectTimeout(5000);
-                conn.setRequestMethod("POST");
-                conn.connect();
-
-                OutputStream outputStream = conn.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-                int responseStatusCode = conn.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if (responseStatusCode == conn.HTTP_OK) {
-                    inputStream = conn.getInputStream();
-                }
-                else {
-                    inputStream = conn.getErrorStream();
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while((line = bufferedReader.readLine())!= null)  {
-                    sb.append(line);
-                }
-
-                bufferedReader.close();
-                return sb.toString();
-            }
-            catch (Exception e) {
-                Log.d(TAG, "InsertData : Error ", e);
-                return new String("Error: " + e.getMessage());
-            }
-        }
     }
 }

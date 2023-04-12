@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -17,18 +16,21 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class JoinAllergieActivity extends AppCompatActivity {
-    private static String ADDRESS_ALLERGIE = "";
-    private static String ADDRESS_SIGNUP = "http://52.78.72.175/account/signup";
-    private static String TAG_SIGNUP = "signuptest";
+    private static String ADDRESS_LOGIN = "http://52.78.72.175/account/login";
+    private static String ADDRESS_ALLERGIE = "http://52.78.72.175/data/allergy";
     private static String TAG_ALLERGIE = "allergietest";
     private CheckBox egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab;
-    private Button end;
+    private String e, m, w, b, p, f, me, s, c;
+    private boolean scheck;
+    private Button save, end;
     private TextView txt_result;
-    private String allergieres, email, password, nickname, gender, age;
+    private String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,67 +46,71 @@ public class JoinAllergieActivity extends AppCompatActivity {
         shellfish = (CheckBox) findViewById(R.id.chk_shellfish);
         crab = (CheckBox) findViewById(R.id.chk_crab);
 
+        save = findViewById(R.id.btn_join_save);
         end = findViewById(R.id.btn_join_end);
         txt_result = findViewById(R.id.txt_result);
 
-        end.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent getintent = getIntent();
-                email = getintent.getStringExtra("email");
-                password = getintent.getStringExtra("password");
-                nickname = getintent.getStringExtra("nickname");
-                gender = getintent.getStringExtra("gender");
-                age = getintent.getStringExtra("age");
+        scheck = false;
 
-                InsertSignup task = new InsertSignup();
-                task.execute(ADDRESS_SIGNUP, email, password, nickname, gender, age);
+        save.setOnClickListener(v -> {
+            Intent getintent = getIntent();
+            token = getintent.getStringExtra("token");
 
-                sendAllergie(egg, milk, wheat, bean, fish, meat, shellfish, crab);
+            e = "0"; m = "0"; w = "0"; b = "0"; p = "0"; f = "0"; me = "0"; s = "0"; c = "0";
 
-                Toast.makeText(getApplicationContext(), allergieres, Toast.LENGTH_LONG).show();
+            sendAllergie(egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab);
+            scheck = true;
 
-                //InsertAllergie task2 = new InsertAllergie();
-                //task2.execute(ADDRESS_ALLERGIE, allergieres);
+            Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
+        });
+
+        end.setOnClickListener(view -> {
+            if(scheck){
+                InsertAllergie insertAllergie = new InsertAllergie();
+                insertAllergie.execute(ADDRESS_ALLERGIE, e, m, w, b, p, f, me, s, c);
 
                 Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
+            else Toast.makeText(JoinAllergieActivity.this, "저장하기 버튼을 눌러주세요.", Toast.LENGTH_SHORT).show();
         });
 
     }
 
-    private String sendAllergie(CheckBox egg, CheckBox milk, CheckBox wheat, CheckBox bean,
+    private void sendAllergie(CheckBox egg, CheckBox milk, CheckBox wheat, CheckBox bean, CheckBox peanut,
                                 CheckBox fish, CheckBox meat, CheckBox shellfish, CheckBox crab){
-        String allergie = "";
-        if(egg.isChecked())
-            allergie += (egg.getText().toString() + ",");
-        if(milk.isChecked())
-            allergie += (milk.getText().toString() + ",");
-        if(wheat.isChecked())
-            allergie += (wheat.getText().toString() + ",");
-        if(bean.isChecked())
-            allergie += (bean.getText().toString() + ",");
-        if(fish.isChecked())
-            allergie += (fish.getText().toString() + ",");
-        if(meat.isChecked())
-            allergie += (meat.getText().toString() + ",");
-        if(shellfish.isChecked())
-            allergie += (shellfish.getText().toString() + ",");
-        if(crab.isChecked())
-            allergie += (crab.getText().toString());
-        String[] hArr = allergie.split(",");            // ,로 분리해서 배열에 넣어줌
 
-        allergieres = "";
-        for(int i=0; i<hArr.length; i++){                   // 리턴 변수에 넣어줌
-            if(i == hArr.length-1)                          // 배열의 마지막이면 , 안 붙이고 넣음
-                allergieres += hArr[i];
-            else allergieres += (hArr[i] + ", ");           // 마지막 아니면 뒤에 , 붙여서 넣음
+        if(egg.isChecked()){
+            e = "1";
         }
-        return allergieres;
+        if(milk.isChecked()){
+            m = "1";
+        }
+        if(wheat.isChecked()){
+            w = "1";
+        }
+        if(bean.isChecked()){
+            b = "1";
+        }
+        if(peanut.isChecked()){
+            p = "1";
+        }
+        if(fish.isChecked()){
+            f = "1";
+        }
+        if(meat.isChecked()){
+            me = "1";
+        }
+        if(shellfish.isChecked()){
+            s = "1";
+        }
+        if(crab.isChecked()){
+            c = "1";
+        }
     }
 
-    class InsertSignup extends AsyncTask<String, Void, String> {
+    class InsertAllergie extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
         @Override
@@ -118,19 +124,25 @@ public class JoinAllergieActivity extends AppCompatActivity {
             super.onPostExecute(result);
             progressDialog.dismiss();
             txt_result.setText(result);
-            Log.d(TAG_SIGNUP, "POST response - " + result);
+            Log.d(TAG_ALLERGIE, "POST response - " + result);
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            String Email = params[1];
-            String Password = params[2];
-            String Nickname = params[3];
-            String Gender = params[4];
-            String Age = params[5];
+        protected String doInBackground(String ... params) {
+            int Egg = Integer.parseInt(params[1]);
+            int Milk = Integer.parseInt(params[2]);
+            int Wheat = Integer.parseInt(params[3]);
+            int Bean = Integer.parseInt(params[4]);
+            int Peanut = Integer.parseInt(params[5]);
+            int Fish = Integer.parseInt(params[6]);
+            int Meat = Integer.parseInt(params[7]);
+            int Shellfish = Integer.parseInt(params[8]);
+            int Crustaceans = Integer.parseInt(params[9]);
 
             String serverURL = params[0];
-            String postParameters = "email=" + Email + "&password=" + Password + "&nickname=" + Nickname + "&gender=" + Gender + "&age=" + Age ;
+
+            String postParameters = "달걀=" + Egg + "&우유=" + Milk + "&밀=" + Wheat + "&콩=" + Bean
+                    + "&땅콩=" + Peanut + "&생선=" + Fish + "&고기=" + Meat + "&조개=" + Shellfish+ "&갑각류=" + Crustaceans;
 
             try {
                 URL url = new URL(serverURL);
@@ -138,85 +150,20 @@ public class JoinAllergieActivity extends AppCompatActivity {
 
                 conn.setReadTimeout(5000);
                 conn.setConnectTimeout(5000);
+                conn.setRequestProperty("Authorization", "TOKEN " + token);
                 conn.setRequestMethod("POST");
-                conn.connect();
 
-                OutputStream outputStream = conn.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+
+                OutputStream output = conn.getOutputStream();
+                OutputStreamWriter outputStream = new OutputStreamWriter(output, StandardCharsets.UTF_8);
+                outputStream.write(postParameters);
                 outputStream.flush();
                 outputStream.close();
 
                 int responseStatusCode = conn.getResponseCode();
-                Log.d(TAG_SIGNUP, "POST response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if (responseStatusCode == conn.HTTP_OK || responseStatusCode == 201) {
-                    inputStream = conn.getInputStream();
-                }
-                else {
-                    inputStream = conn.getErrorStream();
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while((line = bufferedReader.readLine())!= null)  {
-                    sb.append(line);
-                }
-
-                bufferedReader.close();
-                return sb.toString();
-            }
-            catch (Exception e) {
-                Log.d(TAG_SIGNUP, "InsertSignup : Error ", e);
-                return new String("Error: " + e.getMessage());
-            }
-        }
-    }
-
-    /*class InsertAllergie extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(JoinAllergieActivity.this, "Please Wait", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            progressDialog.dismiss();
-            txt_result.setText(result);
-            Log.d(TAG, "POST response - " + result);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String Allergie = params[1];
-
-            String serverURL = params[0];
-            String postParameters = "&allergie=" + Allergie ;
-
-            try {
-                URL url = new URL(serverURL);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-                conn.setReadTimeout(5000);
-                conn.setConnectTimeout(5000);
-                conn.setRequestMethod("POST");
-                conn.connect();
-
-                OutputStream outputStream = conn.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-                int responseStatusCode = conn.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
+                Log.d(TAG_ALLERGIE, "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
                 if (responseStatusCode == conn.HTTP_OK) {
@@ -226,7 +173,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
                     inputStream = conn.getErrorStream();
                 }
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
@@ -240,9 +187,9 @@ public class JoinAllergieActivity extends AppCompatActivity {
                 return sb.toString();
             }
             catch (Exception e) {
-                Log.d(TAG, "InsertData : Error ", e);
+                Log.d(TAG_ALLERGIE, "InsertData : Error ", e);
                 return new String("Error: " + e.getMessage());
             }
         }
-    }*/
+    }
 }

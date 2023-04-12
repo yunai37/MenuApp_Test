@@ -1,6 +1,7 @@
 package com.example.menuapp_test;
 
 public class ListItem {
+    private int id;
     private String name;
     private String address;
     private String category_name;
@@ -36,5 +37,12 @@ public class ListItem {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:text="마이페이지"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -102,7 +102,7 @@
                     android:src="@drawable/heart" />
 
                 <TextView
-                    android:id="@+id/txt_btn_mypage"
+                    android:id="@+id/txt_btn_wish"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -119,33 +119,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="5px"
                 android:background="#EAEAEA" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:orientation="horizontal"
-                android:layout_marginLeft="30dp">
-
-                <ImageView
-                    android:id="@+id/img_mypage3"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/rows" />
-
-                <TextView
-                    android:id="@+id/txt_btn_mypage2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="center_vertical"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="나의 맛집리스트"
-                    android:textColor="#363636"
-                    android:textSize="17sp" />
-
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -166,7 +139,7 @@
                     android:src="@drawable/settings_alt" />
 
                 <TextView
-                    android:id="@+id/txt_btn_mypage3"
+                    android:id="@+id/txt_btn_setting"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -198,7 +171,7 @@
                     android:src="@drawable/logout" />
 
                 <TextView
-                    android:id="@+id/txt_btn_mypage4"
+                    android:id="@+id/txt_btn_logout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -210,6 +183,53 @@
                     android:textSize="17sp"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="#EAEAEA" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="#EAEAEA"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp">
+
+                <ImageView
+                    android:id="@+id/img_mypage6"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logout" />
+
+                <TextView
+                    android:id="@+id/txt_btn_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="계정 삭제하기"
+                    android:textColor="#363636"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="#EAEAEA" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="#EAEAEA"/>
 
         </LinearLayout>
 

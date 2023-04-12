@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     TextView name, location;
     Button list, menu, survey, mypage;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,12 @@ public class MainActivity extends AppCompatActivity {
         survey = findViewById(R.id.btn_main_survey);
         mypage = findViewById(R.id.btn_main_mypage);
 
+        Intent getIntent = getIntent();
+        token = getIntent.getStringExtra("token");
+
         list.setOnClickListener(v -> {
             Intent intent = new Intent(this, ListActivity.class);
+            intent.putExtra("token", token);
             startActivity(intent);
         });
 
@@ -35,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
         survey.setOnClickListener(v -> {
             Intent intent = new Intent(this, SurveyActivity.class);
+            intent.putExtra("token", token);
             startActivity(intent);
         });
 
         mypage.setOnClickListener(v -> {
             Intent intent = new Intent(this, MypageActivity.class);
+            intent.putExtra("token", token);
             startActivity(intent);
         });
 
