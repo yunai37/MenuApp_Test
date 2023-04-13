@@ -61,17 +61,18 @@ public class JoinAllergieActivity extends AppCompatActivity {
             sendAllergie(egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab);
             scheck = true;
 
-            Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
         });
 
         end.setOnClickListener(view -> {
             if(scheck){
+                Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
                 InsertAllergie insertAllergie = new InsertAllergie();
-                insertAllergie.execute(ADDRESS_ALLERGIE, e, m, w, b, p, f, me, s, c);
+                insertAllergie.execute(ADDRESS_ALLERGIE, "1", "1", "1", "1", "1", "1", "1", "1", "1");
 
-                Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
+                /*Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
                 intent.putExtra("token", token);
-                startActivity(intent);
+                startActivity(intent);*/
             }
             else Toast.makeText(JoinAllergieActivity.this, "저장하기 버튼을 눌러주세요.", Toast.LENGTH_SHORT).show();
         });
@@ -129,15 +130,15 @@ public class JoinAllergieActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String ... params) {
-            int Egg = Integer.parseInt(params[1]);
-            int Milk = Integer.parseInt(params[2]);
-            int Wheat = Integer.parseInt(params[3]);
-            int Bean = Integer.parseInt(params[4]);
-            int Peanut = Integer.parseInt(params[5]);
-            int Fish = Integer.parseInt(params[6]);
-            int Meat = Integer.parseInt(params[7]);
-            int Shellfish = Integer.parseInt(params[8]);
-            int Crustaceans = Integer.parseInt(params[9]);
+            String Egg = params[1];
+            String Milk = params[2];
+            String Wheat = params[3];
+            String Bean = params[4];
+            String Peanut = params[5];
+            String Fish = params[6];
+            String Meat = params[7];
+            String Shellfish = params[8];
+            String Crustaceans = params[9];
 
             String serverURL = params[0];
 

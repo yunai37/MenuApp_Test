@@ -33,10 +33,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        /*menu.setOnClickListener(v -> {
+        menu.setOnClickListener(v -> {
             Intent intent = new Intent(this, RecommendActivity.class);
+            intent.putExtra("token", token);
             startActivity(intent);
-        });*/
+        });
 
         survey.setOnClickListener(v -> {
             Intent intent = new Intent(this, SurveyActivity.class);

@@ -97,6 +97,7 @@ public class RecommendResActivity extends AppCompatActivity {
         select.setOnClickListener(v -> {                    // 변수에 저장 후 토스트 메시지 출력
             String selectmenu = menuid;
             Toast.makeText(getApplicationContext(), "확정되었습니다!", Toast.LENGTH_SHORT).show();
+            // 리뷰 작성 팝업창 (예 - 리뷰 작성 페이지 / 아니오 - 메인 화면)
         });
         re.setOnClickListener(v -> {                        // 메뉴 추천 화면으로 이동(이용자 번거로움) or 이 화면 재실행 ??
             int i = 0;
