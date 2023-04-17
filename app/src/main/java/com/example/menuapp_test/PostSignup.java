@@ -41,7 +41,7 @@ public class PostSignup extends AsyncTask<String, Void, String> {
         String Age = params[5];
 
         String serverURL = params[0];
-        String postParameters = "email=" + Email + "&password=" + Password + "&nickname=" + Nickname + "&gender=" + Gender + "&age=" + Age ;
+        String postParameters = "email=" + Email + "&password=" + Password + "&nickname=" + Nickname + "&gender=" + Gender + "&age=" + Age + "&introduction=" + "intro" ;
 
         try {
             URL url = new URL(serverURL);
