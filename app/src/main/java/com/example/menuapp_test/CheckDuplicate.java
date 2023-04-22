@@ -12,12 +12,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class PostSignup extends AsyncTask<String, Void, String> {
-    private ProgressDialog progressDialog;
-    private Context context;
-    PostSignup(Context context){
-        this.context = context;
-    }
+public class CheckDuplicate extends AsyncTask<String, Void, String> {
+    ProgressDialog progressDialog;
+    Context context;
+
+    CheckDuplicate(Context context){ this.context = context; }
 
     @Override
     protected void onPreExecute() {
@@ -29,19 +28,20 @@ public class PostSignup extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         progressDialog.dismiss();
-        Log.d("SignupTest : ", "POST response - " + result);
+        Log.d("CheckDuplicate", "POST response - " + result);
     }
 
     @Override
     protected String doInBackground(String... params) {
-        String Email = params[1];
-        String Password = params[2];
-        String Nickname = params[3];
-        String Gender = params[4];
-        String Age = params[5];
+        String data = params[1];
+        String type = params[2];
 
         String serverURL = params[0];
-        String postParameters = "email=" + Email + "&password=" + Password + "&nickname=" + Nickname + "&gender=" + Gender + "&age=" + Age ;
+        String postParameters = "";
+
+        if(type == "e")
+            postParameters = "email=" + data ;
+        else postParameters = "nickname=" + data;
 
         try {
             URL url = new URL(serverURL);
@@ -58,10 +58,10 @@ public class PostSignup extends AsyncTask<String, Void, String> {
             outputStream.close();
 
             int responseStatusCode = conn.getResponseCode();
-            Log.d("SignupTest : ", "POST response code - " + responseStatusCode);
+            Log.d("CheckDuplicate", "POST response code - " + responseStatusCode);
 
             InputStream inputStream;
-            if (responseStatusCode == conn.HTTP_OK || responseStatusCode == 201) {
+            if (responseStatusCode == conn.HTTP_OK) {
                 inputStream = conn.getInputStream();
             }
             else {
@@ -82,7 +82,7 @@ public class PostSignup extends AsyncTask<String, Void, String> {
             return sb.toString();
         }
         catch (Exception e) {
-            Log.d("SignupTest : ", "InsertSignup : Error ", e);
+            Log.d("CheckDuplicate", "CheckDuplicate : Error ", e);
             return new String("Error: " + e.getMessage());
         }
     }

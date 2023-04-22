@@ -63,7 +63,7 @@ public class JoinActivity extends AppCompatActivity {
         idcheck.setOnClickListener(v -> {
             try{
                 String Email = email.getText().toString();
-                CheckDuplicate checkEmail = new CheckDuplicate();
+                CheckDuplicate checkEmail = new CheckDuplicate(JoinActivity.this);
                 checkEmail.execute(ADDRESS_EMAIL, Email, "e");
 
                 duplicate = checkEmail.get();
@@ -84,7 +84,7 @@ public class JoinActivity extends AppCompatActivity {
         namecheck.setOnClickListener(v -> {
             try{
                 String Nickname = nickname.getText().toString();
-                CheckDuplicate checkNickname = new CheckDuplicate();
+                CheckDuplicate checkNickname = new CheckDuplicate(JoinActivity.this);
                 checkNickname.execute(ADDRESS_NICKNAME, Nickname, "n");
 
                 duplicate = checkNickname.get();
@@ -183,78 +183,6 @@ public class JoinActivity extends AppCompatActivity {
         });
     }
 
-    class CheckDuplicate extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(JoinActivity.this, "Please Wait", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            progressDialog.dismiss();
-            txt_result.setText(result);
-            Log.d(TAG, "POST response - " + result);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String data = params[1];
-            String type = params[2];
-
-            String serverURL = params[0];
-            String postParameters = "";
-
-            if(type == "e")
-                postParameters = "email=" + data ;
-            else postParameters = "nickname=" + data;
-
-            try {
-                URL url = new URL(serverURL);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-                conn.setReadTimeout(5000);
-                conn.setConnectTimeout(5000);
-                conn.setRequestMethod("POST");
-                conn.connect();
-
-                OutputStream outputStream = conn.getOutputStream();
-                outputStream.write(postParameters.getBytes("UTF-8"));
-                outputStream.flush();
-                outputStream.close();
-
-                int responseStatusCode = conn.getResponseCode();
-                Log.d(TAG, "POST response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if (responseStatusCode == conn.HTTP_OK) {
-                    inputStream = conn.getInputStream();
-                }
-                else {
-                    inputStream = conn.getErrorStream();
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-
-                while((line = bufferedReader.readLine())!= null)  {
-                    sb.append(line);
-                }
-
-                bufferedReader.close();
-                return sb.toString();
-            }
-            catch (Exception e) {
-                Log.d(TAG, "CheckDuplicate : Error ", e);
-                return new String("Error: " + e.getMessage());
-            }
-        }
-    }
 
 }

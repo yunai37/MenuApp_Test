@@ -18,15 +18,12 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
-public class JoinAllergieActivity extends AppCompatActivity {
-    private static String ADDRESS_LOGIN = "http://52.78.72.175/account/login";
-    private static String ADDRESS_ALLERGIE = "http://52.78.72.175/data/allergy";
-    private static String TAG_ALLERGIE = "allergietest";
+
+public class AllergieUpdateActivity extends AppCompatActivity {
+    private static String ADDRESS_PUT = "http://52.78.72.175/data/allergy";
     private CheckBox egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab;
     private String e, m, w, b, p, f, me, s, c;
     private boolean scheck;
@@ -36,7 +33,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join_allergie);
+        setContentView(R.layout.activity_allergie_update);
 
         egg = (CheckBox) findViewById(R.id.chk_egg);
         milk = (CheckBox) findViewById(R.id.chk_milk);
@@ -48,13 +45,12 @@ public class JoinAllergieActivity extends AppCompatActivity {
         shellfish = (CheckBox) findViewById(R.id.chk_shellfish);
         crab = (CheckBox) findViewById(R.id.chk_crab);
 
-        save = findViewById(R.id.btn_join_save);
-        end = findViewById(R.id.btn_join_end);
+        end = findViewById(R.id.btn_end_update);
         txt_result = findViewById(R.id.txt_result);
 
         scheck = false;
 
-        save.setOnClickListener(v -> {
+        end.setOnClickListener(view -> {
             Intent getintent = getIntent();
             //token = getintent.getStringExtra("token");
             token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
@@ -64,26 +60,18 @@ public class JoinAllergieActivity extends AppCompatActivity {
             sendAllergie(egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab);
             scheck = true;
 
-            //Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
+            InsertAllergie insertAllergie = new InsertAllergie();
+            insertAllergie.execute(ADDRESS_PUT, e, m, w, b, p, f, me, s, c, token);
+
+            Intent intent = new Intent(AllergieUpdateActivity.this, SettingActivity.class);
+            intent.putExtra("token", token);
+            startActivity(intent);
         });
-
-        end.setOnClickListener(view -> {
-            if(scheck){
-                Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
-                InsertAllergie insertAllergie = new InsertAllergie();
-                insertAllergie.execute(ADDRESS_ALLERGIE, e, m, w, b, p, f, me, s, c, token);
-
-                /*Intent intent = new Intent(getApplicationContext(), SurveyActivity.class);
-                intent.putExtra("token", token);
-                startActivity(intent);*/
-            }
-            else Toast.makeText(JoinAllergieActivity.this, "저장하기 버튼을 눌러주세요.", Toast.LENGTH_SHORT).show();
-        });
-
     }
 
     private void sendAllergie(CheckBox egg, CheckBox milk, CheckBox wheat, CheckBox bean, CheckBox peanut,
-                                CheckBox fish, CheckBox meat, CheckBox shellfish, CheckBox crab){
+                              CheckBox fish, CheckBox meat, CheckBox shellfish, CheckBox crab){
 
         if(egg.isChecked()){
             e = "1";
@@ -120,7 +108,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(JoinAllergieActivity.this, "Please Wait", null, true, true);
+            progressDialog = ProgressDialog.show(AllergieUpdateActivity.this, "Please Wait", null, true, true);
         }
 
         @Override
@@ -128,7 +116,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
             super.onPostExecute(result);
             progressDialog.dismiss();
             txt_result.setText(result);
-            Log.d(TAG_ALLERGIE, "POST response - " + result);
+            Log.d("PutAllergie", "POST response - " + result);
         }
 
         @Override
@@ -154,7 +142,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
                 conn.setConnectTimeout(5000);
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setRequestProperty("Authorization", "TOKEN " + Token);
-                conn.setRequestMethod("POST");
+                conn.setRequestMethod("PUT");
 
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("달걀", Egg);
@@ -173,7 +161,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
                 outputStream.close();
 
                 int responseStatusCode = conn.getResponseCode();
-                Log.d(TAG_ALLERGIE, "POST response code - " + responseStatusCode);
+                Log.d("PutAllergie", "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
                 if (responseStatusCode == conn.HTTP_OK) {
@@ -197,7 +185,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
                 return sb.toString();
             }
             catch (Exception e) {
-                Log.d(TAG_ALLERGIE, "InsertData : Error ", e);
+                Log.d("PutAllergie", "InsertData : Error ", e);
                 return new String("Error: " + e.getMessage());
             }
         }

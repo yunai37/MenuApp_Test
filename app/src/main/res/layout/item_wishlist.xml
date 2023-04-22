@@ -2,17 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
-
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/img_list"
+            android:id="@+id/img_wishlist"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
@@ -34,7 +32,7 @@
                 tools:ignore="MissingConstraints">
 
                 <TextView
-                    android:id="@+id/rname_list"
+                    android:id="@+id/rname_wishlist"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -46,7 +44,7 @@
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/imgbtn_list"
+                    android:id="@+id/imgbtn_wishlist"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginRight="10dp"
@@ -63,8 +61,8 @@
                 tools:ignore="MissingConstraints">
 
                 <TextView
-                    android:id="@+id/category_list"
-                    android:layout_width="190dp"
+                    android:id="@+id/category_wishlist"
+                    android:layout_width="180dp"
                     android:layout_height="match_parent"
                     android:gravity="start"
                     android:layout_marginLeft="10dp"
@@ -75,34 +73,26 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/star_filled_ffe60a" />
-
                     <TextView
-                        android:id="@+id/star_list"
-                        android:layout_width="40dp"
+                        android:id="@+id/distance_wishlist"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
+                        android:gravity="right|center"
+                        android:text="70" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="1dp"
                         android:gravity="center_vertical"
-                        android:text="4.5" />
+                        android:text="m" />
 
                 </LinearLayout>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/address_item_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_marginLeft="10dp" />
-
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

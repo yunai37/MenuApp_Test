@@ -1,5 +1,6 @@
 package com.example.menuapp_test;
 
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,9 +34,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity {
+public class WishlistActivity extends AppCompatActivity {
     private static String ADDRESS_LIST = "http://52.78.72.175/data/restaurant";
-    private static String TAG = "List";
+    private static String TAG = "Wishlist";
     private static final String TAG_NAME = "name";
     private static final String TAG_ADDRESS = "address";
     private static String TAG_BUSINESS = "business_hours";
@@ -47,20 +46,20 @@ public class ListActivity extends AppCompatActivity {
     private static String TAG_RATING = "rating";
     private ListView mlistView;
     //private ArrayList<HashMap<String, String>> listItems;
-    private ListAdapter adapter;
+    private WishlistAdapter adapter;
     private String token, mJsonString, rid;
     private boolean Wish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_wishlist);
 
         Intent getIntent = getIntent();
         //token = getIntent.getStringExtra("token");
         token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
 
-        mlistView = (ListView) findViewById(R.id.listv_list);
+        mlistView = (ListView) findViewById(R.id.listv_wishlist);
 
         GetData task = new GetData();
         task.execute(ADDRESS_LIST, token);
@@ -79,7 +78,7 @@ public class ListActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(ListActivity.this, "Please Wait", null, true, true);
+            progressDialog = ProgressDialog.show(WishlistActivity.this, "Please Wait", null, true, true);
         }
 
         @Override
@@ -144,30 +143,33 @@ public class ListActivity extends AppCompatActivity {
     private void showResult() {
         try {
             JSONArray jsonArray = new JSONArray(mJsonString);       // 전체 데이터를 배열에 저장
-            adapter = new ListAdapter();
+            adapter = new WishlistAdapter();
 
-            for (int i = 0; i < jsonArray.length(); i++) {                // 한 그룹{} 씩 읽음
-                JSONObject item = jsonArray.getJSONObject(i);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
-                int id = Integer.parseInt(item.getString("id"));
-                String name = item.getString(TAG_NAME);
-                String address = item.getString(TAG_ADDRESS);
-                String business = item.getString(TAG_BUSINESS);
-                String phone = item.getString(TAG_PHONE);
-                String category_name = item.getString(TAG_CATEGORY_NAME);
-                String image = ""; String rating = "0";
-                if(!item.getString(TAG_IMAGE).equals("null"))
-                    image = item.getString(TAG_IMAGE);
-                else image = "null";
-                if(!item.getString(TAG_RATING).equals("null"))
-                    rating = item.getString(TAG_RATING);
-                else rating = "0";
-                //String distance = item.getString("distance");
-                //boolean wish = Boolean.parseBoolean(item.getString("wish"));
-                String distance = "70";
-                boolean wish = true;
-                adapter.addRItem(id, name, address, business, phone, category_name, "http://52.78.72.175" + image, rating, distance, wish);
+            int j = 0;
+
+            for(int i=0; i<jsonArray.length(); i++){
+                JSONObject item = jsonArray.getJSONObject(i);
+                //if(item.getString("wish").contains("true")){
+                    int id = Integer.parseInt(item.getString("id"));
+                    String name = item.getString(TAG_NAME);
+                    String address = item.getString(TAG_ADDRESS);
+                    String business = item.getString(TAG_BUSINESS);
+                    String phone = item.getString(TAG_PHONE);
+                    String category_name = item.getString(TAG_CATEGORY_NAME);
+                    String image = ""; String rating = "0";
+                    if(!item.getString(TAG_IMAGE).equals("null"))
+                        image = item.getString(TAG_IMAGE);
+                    else image = "null";
+                    if(!item.getString(TAG_RATING).equals("null"))
+                        rating = item.getString(TAG_RATING);
+                    else rating = "0";
+                    //String distance = item.getString("distance");
+                    //boolean wish = Boolean.parseBoolean(item.getString("wish"));
+                    String distance = "70";
+                    boolean wish = true;
+                    adapter.addWItem(id, name, address, business, phone, category_name, "http://52.78.72.175" + image, rating, distance, wish);
+                //}
             }
-
             mlistView.setAdapter(adapter);
 
                 /*HashMap<String, String> hashMap = new HashMap<>();
@@ -190,10 +192,10 @@ public class ListActivity extends AppCompatActivity {
             Log.d(TAG, "showResult : ", e);
         }
     }
-    class ListAdapter extends BaseAdapter {
+    class WishlistAdapter extends BaseAdapter {
         private ArrayList<ListItem> listItems = new ArrayList<ListItem>();
         private Bitmap bitmap;
-        public ListAdapter(){
+        public WishlistAdapter(){
         }
 
         @Override
@@ -213,21 +215,19 @@ public class ListActivity extends AppCompatActivity {
             Context context = parent.getContext();
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_list, parent, false);
+            view = inflater.inflate(R.layout.item_wishlist, parent, false);
 
-            ImageView imageView = (ImageView) view.findViewById(R.id.img_list);
-            TextView name = (TextView) view.findViewById(R.id.rname_list);
-            TextView address = (TextView) view.findViewById(R.id.address_item_list);
-            TextView category_name = (TextView) view.findViewById(R.id.category_list);
-            TextView rating = view.findViewById(R.id.star_list);
-            CheckBox wish = view.findViewById(R.id.imgbtn_list);
+            ImageView imageView = (ImageView) view.findViewById(R.id.img_wishlist);
+            TextView name = (TextView) view.findViewById(R.id.rname_wishlist);
+            TextView category_name = (TextView) view.findViewById(R.id.category_wishlist);
+            TextView distance = view.findViewById(R.id.distance_wishlist);
+            CheckBox wish = view.findViewById(R.id.imgbtn_wishlist);
 
             ListItem listItem = listItems.get(position);
 
             name.setText(listItem.getName());
-            address.setText(listItem.getAddress());
             category_name.setText(listItem.getCategory_name());
-            rating.setText(listItem.getRating());
+            // distance.setText(listItem.getDistance());
 
             if(!listItem.getImage().equals("http://52.78.72.175null")){
                 Thread thread = new Thread() {
@@ -257,22 +257,21 @@ public class ListActivity extends AppCompatActivity {
                 }
             }
             // 이미 찜한 음식점일 경우
-            if(listItem.getWish()) wish.setChecked(true);
+            wish.setChecked(true);
             // 찜하기 기능
             wish.setOnClickListener(v -> {
-                String Wish = "";
-                if(wish.isChecked()) Wish = "true";
-                else Wish = "false";
                 String Rid = String.valueOf(listItem.getId());
-                /*PostWish postWish = new PostWish(ListActivity.this);
-                postWish.execute(ADDRESS_WISH, Rid, Wish, token);*/
-                Toast.makeText(ListActivity.this, Wish, Toast.LENGTH_SHORT).show();
+                /*DeleteWish deleteWish = new DeleteWish(WishlistActivity.this);
+                deleteWish.execute(ADDRESS_WISH, token);*/
+                listItems.remove(position);
+                mlistView.clearChoices();
+                adapter.notifyDataSetChanged();
             });
 
             return view;
         }
 
-        void addRItem(int id, String name, String address, String business_hours, String phone_number, String category_name, String image, String rating, String distance, boolean wish){
+        void addWItem(int id, String name, String address, String business_hours, String phone_number, String category_name, String image, String rating, String distance, boolean wish){
             ListItem item = new ListItem();
             item.setId(id);
             item.setName(name);
@@ -287,6 +286,5 @@ public class ListActivity extends AppCompatActivity {
 
             listItems.add(item);
         }
-
     }
 }

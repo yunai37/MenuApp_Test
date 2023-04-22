@@ -1,5 +1,6 @@
 package com.example.menuapp_test;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class SurveyActivity extends AppCompatActivity {
+public class PreferenceUpdateActivity extends AppCompatActivity {
     private static String ADDRESS_MENU = "http://52.78.72.175/data/preference";
     private static String ADDRESS_SURVEY = "http://52.78.72.175/data/preference/update";
     private Button skip, save;
@@ -46,14 +47,13 @@ public class SurveyActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_survey);
+        setContentView(R.layout.activity_preference_update);
 
         random = new Random();
         random.setSeed(System.currentTimeMillis());
 
-        skip = findViewById(R.id.btn_skip);
-        save = findViewById(R.id.btn_save);
-        mListview = findViewById(R.id.listv_survey);
+        save = findViewById(R.id.btn_prefer);
+        mListview = findViewById(R.id.listv_prefer);
 
         Intent getintent = getIntent();
         //token = getintent.getStringExtra("token");
@@ -65,7 +65,7 @@ public class SurveyActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        GetMenu getMenu = new GetMenu(SurveyActivity.this);
+        GetMenu getMenu = new GetMenu(PreferenceUpdateActivity.this);
         getMenu.execute(ADDRESS_MENU, token);
         adapter = new SurveyAdapter();
 
@@ -95,20 +95,16 @@ public class SurveyActivity extends AppCompatActivity {
         }
         mListview.setAdapter(adapter);
 
-        skip.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-        });
-
         save.setOnClickListener(v -> {
             for(Map.Entry<String, String> entrySet : map.entrySet()){
-                PostSurvey postSurvey = new PostSurvey(SurveyActivity.this);
+                PostSurvey postSurvey = new PostSurvey(PreferenceUpdateActivity.this);
                 postSurvey.execute(ADDRESS_SURVEY, entrySet.getKey(), entrySet.getValue(), token);
             }
 
-            Toast.makeText(SurveyActivity.this, "취향 정보가 저장되었습니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(PreferenceUpdateActivity.this, "취향 정보가 저장되었습니다.", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+            intent.putExtra("token", token);
             startActivity(intent);
         });
     }
@@ -186,7 +182,6 @@ public class SurveyActivity extends AppCompatActivity {
                             radio = "-1";
                             break;
                     }
-                    txt.setText(String.valueOf(surveyItem.getId()) + radio);
                     map.put(String.valueOf(surveyItem.getId()), radio);
                 }
             });

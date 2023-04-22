@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String ADDRESS = "http://52.78.72.175/account/login";
+    private static String ADDRESS_LOGIN = "http://52.78.72.175/account/login";
     private static String TAG = "logintest";
 
     public String token;
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     PostLogin task = new PostLogin(LoginActivity.this);
-                    task.execute(ADDRESS, Email, Password);
+                    task.execute(ADDRESS_LOGIN, Email, Password);
 
                     duplicate = task.get();
 

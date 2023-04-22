@@ -168,12 +168,17 @@
                         android:gravity="center_vertical"
                         android:textSize="20dp" />
 
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="100dp"/>
                     <Button
                         android:id="@+id/btn_image"
                         android:layout_width="wrap_content"
                         android:layout_height="45dp"
                         android:layout_gravity="right|bottom"
-                        android:layout_marginLeft="170dp"
+                        android:layout_marginLeft="10dp"
                         android:text="사진첨부"
                         android:textSize="15sp" />
 
@@ -188,6 +193,8 @@
                     android:layout_marginRight="12dp"
                     android:hint="리뷰 내용을 입력해 주세요."
                     android:textSize="15sp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:background="@drawable/txt_border" />
 
                 <LinearLayout

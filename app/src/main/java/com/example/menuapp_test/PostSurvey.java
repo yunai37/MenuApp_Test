@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,10 +37,9 @@ public class PostSurvey extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String Menu = params[1];
         String Preference = params[2];
-        String Token = params[2];
+        String Token = params[3];
 
         String serverURL = params[0];
-        String postParameters = "menu=" + Menu + "&preference=" + Preference;
 
         try {
             URL url = new URL(serverURL);
@@ -46,12 +47,17 @@ public class PostSurvey extends AsyncTask<String, Void, String> {
 
             conn.setReadTimeout(5000);
             conn.setConnectTimeout(5000);
+            conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Authorization", "TOKEN " + Token);
             conn.setRequestMethod("POST");
             conn.connect();
 
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("menu", Menu);
+            jsonObject.put("preference", Preference);
+
             OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(postParameters.getBytes("UTF-8"));
+            outputStream.write(jsonObject.toString().getBytes());
             outputStream.flush();
             outputStream.close();
 

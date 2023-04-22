@@ -8,14 +8,14 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class PostSignup extends AsyncTask<String, Void, String> {
-    private ProgressDialog progressDialog;
-    private Context context;
-    PostSignup(Context context){
+public class GetPreference extends AsyncTask<String, Void, String> {
+    ProgressDialog progressDialog;
+    Context context;
+
+    GetPreference(Context context) {
         this.context = context;
     }
 
@@ -29,19 +29,13 @@ public class PostSignup extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         progressDialog.dismiss();
-        Log.d("SignupTest : ", "POST response - " + result);
+        Log.d("GetPreference", "GET response - " + result);
     }
 
     @Override
     protected String doInBackground(String... params) {
-        String Email = params[1];
-        String Password = params[2];
-        String Nickname = params[3];
-        String Gender = params[4];
-        String Age = params[5];
-
         String serverURL = params[0];
-        String postParameters = "email=" + Email + "&password=" + Password + "&nickname=" + Nickname + "&gender=" + Gender + "&age=" + Age ;
+        String token = params[1];
 
         try {
             URL url = new URL(serverURL);
@@ -49,40 +43,33 @@ public class PostSignup extends AsyncTask<String, Void, String> {
 
             conn.setReadTimeout(5000);
             conn.setConnectTimeout(5000);
-            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "TOKEN " + token);
             conn.connect();
 
-            OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(postParameters.getBytes("UTF-8"));
-            outputStream.flush();
-            outputStream.close();
-
             int responseStatusCode = conn.getResponseCode();
-            Log.d("SignupTest : ", "POST response code - " + responseStatusCode);
+            Log.d("GetPreference", "GET response code : " + responseStatusCode);
 
             InputStream inputStream;
-            if (responseStatusCode == conn.HTTP_OK || responseStatusCode == 201) {
+            if (responseStatusCode == conn.HTTP_OK) {         // 연결 성공 시
                 inputStream = conn.getInputStream();
-            }
-            else {
+            } else {                                          // 연결 실패 시
                 inputStream = conn.getErrorStream();
             }
-
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
 
-            while((line = bufferedReader.readLine())!= null)  {
+            while ((line = bufferedReader.readLine()) != null) {
                 sb.append(line);
             }
 
             bufferedReader.close();
-            return sb.toString();
-        }
-        catch (Exception e) {
-            Log.d("SignupTest : ", "InsertSignup : Error ", e);
+
+            return sb.toString().trim();
+        } catch (Exception e) {
+            Log.d("GetPreference", "GetData : Error ", e);
             return new String("Error: " + e.getMessage());
         }
     }

@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,48 +22,115 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class SettingActivity extends AppCompatActivity {
-    private static String ADDRESS = "http://52.78.72.175/data/allergy";
-    private String mJsonString, token;
-    ImageButton back;
-    EditText name;
-    TextView id, allergie, like;
-    Button set_allergie, save;
+    private static String ADDRESS_ALL = "http://52.78.72.175/data/allergy";
+    private static String ADDRESS_PRE = "http://52.78.72.175/data/preference";
+    private static String ADDRESS_USER = "http://52.78.72.175/data/preference";
+    private String mJsonString, token, Preference, nickname, email, intro;
+    private EditText name, introduction;
+    private TextView id, allergie, preference;
+    private Button set_allergie, set_preference, save, check;
+    private SurveyItem surveyItem = new SurveyItem();
+    private boolean chk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+        name = findViewById(R.id.name_setting);
+        id = findViewById(R.id.id_setting);
+        allergie = findViewById(R.id.allergie_setting);
+        preference = findViewById(R.id.like_setting);
+        set_allergie = findViewById(R.id.btn_setting);
+        set_preference = findViewById(R.id.btn_setting_like);
+        introduction = findViewById(R.id.introduce_setting);
+
         Intent getIntent = getIntent();
-        token = getIntent.getStringExtra("token");
+        //token = getIntent.getStringExtra("token");
+        /*nickname = getIntent.getStringExtra("nickname");
+        email = getIntent.getStringExtra("email");
+        intro = getIntent.getStringExtra("intro");*/
+        token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
+
+        /*name.setText(nickname);
+        id.setText(email);
+        introduction.setText(intro);*/
 
         GetAllergie getAllergie = new GetAllergie();
-        getAllergie.execute(ADDRESS, token);
+        getAllergie.execute(ADDRESS_ALL, token);
 
-        back = findViewById(R.id.imgbtn_setting);
-        back.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MypageActivity.class);
+        GetPreference getPreference = new GetPreference(SettingActivity.this);
+        getPreference.execute(ADDRESS_PRE, token);
+
+        try {
+            JSONArray jsonArray = new JSONArray(getPreference.get());
+
+            Preference = "";
+
+            for(int i=0; i<jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if(jsonObject.getString("preference").contains("1")){
+                    String Name = jsonObject.getString("name");
+                    Preference += Name + ",";
+                }
+            }
+            String[] P = Preference.split(",");
+            Preference = "";
+            for(int i=0; i<P.length; i++){
+                if(i == P.length - 1) Preference += P[i];
+                else Preference += P[i] + ", ";
+            }
+            if(Preference.equals("")) preference.setText("좋아하는 음식을 추가해 주세요.");
+            else preference.setText(Preference);
+        } catch (JSONException | ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        check = findViewById(R.id.btn_checkname);
+        check.setOnClickListener(v -> {
+            chk = false;
+            try{
+                String Nickname = name.getText().toString();
+                CheckDuplicate checkNickname = new CheckDuplicate(SettingActivity.this);
+                checkNickname.execute(ADDRESS_USER, Nickname, "n");
+
+                if(checkNickname.get().contains("true")) {
+                    chk = true;
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "이미 사용 중인 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                    name.setText("");
+                }
+            } catch (Exception e) {
+                Log.d("nickname", "Error ", e);
+            }
+        });
+
+        set_allergie.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AllergieUpdateActivity.class);
+            intent.putExtra("token", token);
+            startActivity(intent);
+        });
+        set_preference.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PreferenceUpdateActivity.class);
             intent.putExtra("token", token);
             startActivity(intent);
         });
 
-        name = findViewById(R.id.name_setting);
-        id = findViewById(R.id.id_setting);
-        allergie = findViewById(R.id.allergie_setting);
-        like = findViewById(R.id.like_setting);
-        set_allergie = findViewById(R.id.btn_setting);
-        //set_allergie.setOnClickListener(v -> {
-        //    Intent intent = new Intent(this, SettingAllergieActivity.class);
-        //    startActivity(intent);
-        //});
         save = findViewById(R.id.btn_setting2);
         save.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), MypageActivity.class);
-            Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
-            startActivity(intent);
+            if(chk) {
+                /*PutUser putUser = new PutUser(SettingActivity.this);
+                putUser.execute(ADDRESS_USER, name.getText(), introduction.getText(), token);*/
+
+                Intent intent = new Intent(getApplicationContext(), MypageActivity.class);
+                intent.putExtra("token", token);
+                Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
+                startActivity(intent);
+            }
         });
     }
 

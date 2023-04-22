@@ -21,7 +21,6 @@ public class RecommendResActivity extends AppCompatActivity {
     Button info, select, re;        // 상세정보 보기, 메뉴 이용하기, 재추천
     private String token, price, weather, emotion, restaurant, menuid;
     private ArrayList<RecommendItem> recommendItems;
-    private SurveyAdapter adapter;
     private Random random;
     private int r[] = new int[10];
 

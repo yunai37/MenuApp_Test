@@ -62,7 +62,6 @@ public class MenuItem {
     public void setPrice(String price) {
         this.price = price;
     }
-/*
     public String getEmotion() {
         return emotion;
     }
@@ -77,7 +76,7 @@ public class MenuItem {
 
     public void setWeather(String weather) {
         this.weather = weather;
-    }*/
+    }
 
     public boolean getCheckallergy() {
         return checkallergy;
