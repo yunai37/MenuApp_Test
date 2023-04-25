@@ -38,6 +38,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:text="리뷰를 남겨주세요"
             android:textSize="25dp"

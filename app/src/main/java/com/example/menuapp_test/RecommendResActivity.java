@@ -16,95 +16,85 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RecommendResActivity extends AppCompatActivity {
-    private static String ADDRESS_RECOMMEND = "";
-    TextView nickname, menu;            // 닉네임, 추천되는 메뉴
+    private static String ADDRESS_RECOMMEND = "http://52.78.72.175/recommendation/menurecommend";
+    private TextView nickname, menu, restaurant;            // 닉네임, 추천되는 메뉴, 음식점
     Button info, select, re;        // 상세정보 보기, 메뉴 이용하기, 재추천
-    private String token, price, weather, emotion, restaurant, menuid;
-    private ArrayList<RecommendItem> recommendItems;
-    private Random random;
-    private int r[] = new int[10];
+    private String token, price, weather, emotion, Nickname, rid, menuid, mname;
+    private RecommendItem recommendItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend_res);
 
-        random = new Random();
-        random.setSeed(System.currentTimeMillis());
-
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
-        price = getIntent.getStringExtra("price");
+        /*price = getIntent.getStringExtra("price");
         weather = getIntent.getStringExtra("weather");
-        emotion = getIntent.getStringExtra("emotion");
+        emotion = getIntent.getStringExtra("emotion");*/
+        Nickname = getIntent.getStringExtra("nickname");
 
         nickname = findViewById(R.id.name_recommend_res);
+        nickname.setText(Nickname);
         menu = findViewById(R.id.menu_recommend_res);
-        info = findViewById(R.id.btn_recommend_list);
+        info = findViewById(R.id.btn_recommend_nut);
         select = findViewById(R.id.btn_recommend_ok);
         re = findViewById(R.id.btn_recommend_re);
+        restaurant = findViewById(R.id.rname_recommend_res);
 
         GetRecommend getRecommend = new GetRecommend(RecommendResActivity.this);
-        getRecommend.execute(ADDRESS_RECOMMEND, price, weather, emotion, token);
-
-        recommendItems = new ArrayList<RecommendItem>();
+        //getRecommend.execute(ADDRESS_RECOMMEND, price, weather, emotion, token);
+        getRecommend.execute(ADDRESS_RECOMMEND, token);
 
         try {
             JSONArray jsonArray = new JSONArray(getRecommend.get());
-            for(int i=0; i<jsonArray.length(); i++){
-                JSONObject item = jsonArray.getJSONObject(i);
-                int id = Integer.parseInt(item.getString("id"));
-                int restaurant = Integer.parseInt(item.getString("restaurant"));
-                String category = item.getString("category");
-                String name = item.getString("name");
-                String image = item.getString("image");
+            JSONObject item = jsonArray.getJSONObject(0);
+            int id = Integer.parseInt(item.getString("id"));
+            int Rid = Integer.parseInt(item.getString("restaurant"));
+            String category = item.getString("category");
+            String name = item.getString("name");
+            String image = item.getString("image");
+            String Rname = item.getString("rname");
 
-                RecommendItem data = new RecommendItem(id, restaurant, name, category, image);
-                recommendItems.add(data);
-            }
-            boolean chk;
+            recommendItem = new RecommendItem(id, Rid, name, category, image);
 
-            for(int i=0; i<10; i++){
-                r[i] = random.nextInt(30) + 1;
-                chk = false;
-
-                for(int j=0; j<i; j++){
-                    if(r[i] == r[j]) {
-                        i--;
-                        chk = true;
-                        break;
-                    }
-                }
-                if(chk) break;
-            }
-            RecommendItem res = recommendItems.get(r[0]);
-
-            menuid = String.valueOf(res.getId());
-            menu.setText(res.getName());
-            restaurant = String.valueOf(res.getRestaurant());
+            menuid = String.valueOf(recommendItem.getId());
+            mname = recommendItem.getName();
+            menu.setText(mname);
+            rid = String.valueOf(recommendItem.getRestaurant());
+            restaurant.setText(Rname);
 
         } catch (Exception e) {
             Log.d("survey", "Error ", e);
         }
 
-        /*info.setOnClickListener(v -> {                      // 음식점 화면으로 이동
-            Intent intent = new Intent(this, RestaurantActivity.class);
+        info.setOnClickListener(v -> {                      // 음식점 화면으로 이동
+            Intent intent = new Intent(this, NutritionActivity.class);
             intent.putExtra("token", token);
-            intent.puExtra("restaurant", restaurant);
+            intent.putExtra("mid", menuid);
+            intent.putExtra("mname", mname);
             startActivity(intent);
-        });*/
-        select.setOnClickListener(v -> {                    // 변수에 저장 후 토스트 메시지 출력
-            String selectmenu = menuid;
-            Toast.makeText(getApplicationContext(), "확정되었습니다!", Toast.LENGTH_SHORT).show();
-            // 리뷰 작성 팝업창 (예 - 리뷰 작성 페이지 / 아니오 - 메인 화면)
         });
-        re.setOnClickListener(v -> {                        // 메뉴 추천 화면으로 이동(이용자 번거로움) or 이 화면 재실행 ??
-            int i = 0;
-            RecommendItem res = recommendItems.get(r[i+1]);
-            menuid = String.valueOf(res.getId());
-            menu.setText(res.getName());
-            restaurant = String.valueOf(res.getRestaurant());
-        });
+        select.setOnClickListener(view -> showPop());
 
+        re.setOnClickListener(v -> {                        // 액티비티 재실행
+            Intent intent = new Intent(this, RecommendResActivity.class);
+            intent.putExtra("token", token);
+            intent.putExtra("price", price);
+            intent.putExtra("weather", weather);
+            intent.putExtra("emotion", emotion);
+            intent.putExtra("nickname", Nickname);
+            startActivity(intent);
+        });
+    }
+    void showPop() {
+        Toast.makeText(getApplicationContext(), "확정되었습니다!", Toast.LENGTH_SHORT).show();
+        // 리뷰 작성 팝업창 (예 - 리뷰 작성 페이지 / 아니오 - 메인 화면)
+        Intent intent = new Intent(this, PopupPW.class);
+        intent.putExtra("token", token);
+        intent.putExtra("Mid", menuid);
+        intent.putExtra("mname", mname);
+        intent.putExtra("Rid", rid);
+        startActivity(intent);
     }
 }

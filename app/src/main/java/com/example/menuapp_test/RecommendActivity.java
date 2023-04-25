@@ -15,7 +15,7 @@ public class RecommendActivity extends AppCompatActivity implements AdapterView.
     TextView nickname;
     Spinner price, weather, emotion;       // 스피너 변수
     Button next;
-    private String Price, Weather, Emotion, token;                  // 선택된 가격 값 담을 문자형 변수
+    private String Nickname, Price, Weather, Emotion, token;                  // 선택된 가격 값 담을 문자형 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,10 @@ public class RecommendActivity extends AppCompatActivity implements AdapterView.
 
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
+        Nickname = getIntent.getStringExtra("nickname");
 
         nickname = findViewById(R.id.name_recommend);
+        nickname.setText(Nickname);
         price = findViewById(R.id.spinner_price);
         weather = findViewById(R.id.spinner_weather);
         emotion = findViewById(R.id.spinner_emotion);
@@ -34,14 +36,17 @@ public class RecommendActivity extends AppCompatActivity implements AdapterView.
         ArrayAdapter<CharSequence> priceadaper = ArrayAdapter.createFromResource(this, R.array.가격, android.R.layout.simple_spinner_item);
         priceadaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         price.setAdapter(priceadaper);
+        price.setSelection(0);
 
         ArrayAdapter<CharSequence> weatheradaper = ArrayAdapter.createFromResource(this, R.array.날씨, android.R.layout.simple_spinner_item);
         weatheradaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         weather.setAdapter(weatheradaper);
+        weather.setSelection(0);
 
         ArrayAdapter<CharSequence> emotionadaper = ArrayAdapter.createFromResource(this, R.array.기분, android.R.layout.simple_spinner_item);
         emotionadaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         emotion.setAdapter(emotionadaper);
+        emotion.setSelection(0);
 
         price.setOnItemSelectedListener(this);
 
@@ -51,6 +56,7 @@ public class RecommendActivity extends AppCompatActivity implements AdapterView.
             intent.putExtra("price", Price);
             intent.putExtra("weather", Weather);
             intent.putExtra("emotion", Emotion);
+            intent.putExtra("nickname", Nickname);
             startActivity(intent);
        });
     }

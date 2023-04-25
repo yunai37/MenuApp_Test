@@ -45,36 +45,16 @@
             android:layout_height="450dp"
             tools:listitem="@layout/item_survey" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_skip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:backgroundTint="#ffffff"
-                android:text="건너뛰기"
-                android:textColor="#747474"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="저장하기"
-                android:textColor="#747474"
-                android:textStyle="bold"
-                android:backgroundTint="#ffffff" />
-        </LinearLayout>
-        <TextView
+        <Button
+            android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/survey_result" />
+            android:layout_gravity="center"
+            android:text="저장하기"
+            android:textColor="#747474"
+            android:textStyle="bold"
+            android:backgroundTint="#ffffff" />
+
     </LinearLayout>
 
 

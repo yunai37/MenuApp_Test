@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     public String token;
     private String duplicate;
     private TextInputEditText email, password;
-    private Button findpw, next, join;
+    private Button next, join;
     private TextView txt_result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +43,9 @@ public class LoginActivity extends AppCompatActivity {
 
         email = findViewById(R.id.login_email);
         password = findViewById(R.id.login_pwd);
-        findpw = findViewById(R.id.btn_login_find);
         next = findViewById(R.id.btn_login);
         join = findViewById(R.id.btn_login2);
         txt_result = findViewById(R.id.txt_result);
-
-        /*
-        findpw.setOnClickListener(v -> {
-            Intent intent = new Intent(this, FindPwActivity.class);
-            startActivity(intent);
-        });
-         */
 
         next.setOnClickListener(v -> {
 

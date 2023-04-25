@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 public class MenulistActivity extends AppCompatActivity {
     private static String ADDRESS_MENU = "http://52.78.72.175/data/restaurant/";
     private ListView listView;
+    private ImageButton back;
     private MenuItem menuItems;
     private MAdapter adapter;
     private String token, rid, mJsonstring;
@@ -28,16 +30,15 @@ public class MenulistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menulist);
 
         Intent getIntent = getIntent();
-        token = getIntent.getStringExtra("token");
+        //token = getIntent.getStringExtra("token");
+        token = "c3c59d759096918d33e48112477d99e713c57a0d";
         rid = getIntent.getStringExtra("Rid");
 
+        listView = findViewById(R.id.listv_menulist);
+        back = findViewById(R.id.imgbtn_menulist);
+
         GetMenu getMenu = new GetMenu(MenulistActivity.this);
-        try {
-            Thread.sleep(1000);
-            getMenu.execute(ADDRESS_MENU + rid + "/menu", token);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        getMenu.execute(ADDRESS_MENU + rid + "/menu", token);
 
         try {
             mJsonstring = getMenu.get();
@@ -58,7 +59,7 @@ public class MenulistActivity extends AppCompatActivity {
                 String price = item.getString("price");
                 String emotion = item.getString("emotion");
                 String weather = item.getString("weather");
-                boolean checkallergy = Boolean.parseBoolean(item.getString("checkallery"));
+                boolean checkallergy = Boolean.parseBoolean(item.getString("checkallergy"));
                 String image = "";
                 if(!item.getString("image").equals("null"))
                     image = item.getString("image");
@@ -75,11 +76,13 @@ public class MenulistActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ListItem item = (ListItem) adapter.getItem(i);
+                MenuItem item = (MenuItem) adapter.getItem(i);
                 String Mid = String.valueOf(item.getId());
-                Intent intent = new Intent(MenulistActivity.this, NutritionActivity.class);
+                String Name = item.getName();
+                Intent intent = new Intent(adapterView.getContext(), NutritionActivity.class);
                 intent.putExtra("token", token);
                 intent.putExtra("Mid", Mid);
+                intent.putExtra("mname", Name);
                 startActivity(intent);
             }
         });

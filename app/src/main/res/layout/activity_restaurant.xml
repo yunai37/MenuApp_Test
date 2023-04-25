@@ -48,13 +48,14 @@
                     android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/imgbtn_wish_restaurant"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
+                    <CheckBox
+                        android:id="@+id/imgbtn_restaurant"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:backgroundTint="#ffffff"
-                        android:src="@drawable/heart_outline" />
+                        android:button="@android:color/transparent"
+                        android:background="@drawable/imgbtn_wish"/>
 
                 </LinearLayout>
             </LinearLayout>

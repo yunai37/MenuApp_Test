@@ -81,36 +81,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:gravity="center"
+            android:gravity="right"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_login_find"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:backgroundTint="#ffffff"
-                android:text="비밀번호 찾기"
-                android:textColor="#747474"
-                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_login2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginRight="15dp"
                 android:text="회원 가입하기"
                 android:textColor="#747474"
                 android:textStyle="bold"
                 android:backgroundTint="#ffffff" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:id="@+id/txt_result"
-            android:text="POST Result"/>
 
     </LinearLayout>
 

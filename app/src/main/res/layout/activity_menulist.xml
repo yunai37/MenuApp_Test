@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imgbtn_setting"
+            android:id="@+id/imgbtn_menulist"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:adjustViewBounds="true"

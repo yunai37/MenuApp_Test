@@ -130,59 +130,21 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:hint="출생연도">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/join_age"
-                        android:inputType="numberDecimal"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <Spinner
+                    android:id="@+id/spinner_year"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:hint="성별">
+                    android:layout_height="48dp"
+                    android:entries="@array/출생연도"
+                    android:theme="@style/SpinnerDivideStyle" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/join_gender"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <CheckBox
-                    android:id="@+id/chk_join"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="개인 정보 수집 및 이용 동의" />
-
-                <CheckBox
-                    android:id="@+id/chk_join_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="위치 정보 이용 약관 동의"/>
+                <Spinner
+                    android:id="@+id/spinner_gender"
+                    android:layout_width="150dp"
+                    android:layout_height="48dp"
+                    android:entries="@array/성별"
+                    android:theme="@style/SpinnerDivideStyle" />
 
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:id="@+id/txt_result"
-                android:text="POST Result"/>
 
             <Button
                 android:id="@+id/btn_join_1"

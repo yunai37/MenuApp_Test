@@ -36,6 +36,7 @@ import java.util.ArrayList;
 
 public class WishlistActivity extends AppCompatActivity {
     private static String ADDRESS_LIST = "http://52.78.72.175/data/restaurant";
+    private static String ADDRESS_WISH = "http://52.78.72.175/data/favorite";
     private static String TAG = "Wishlist";
     private static final String TAG_NAME = "name";
     private static final String TAG_ADDRESS = "address";
@@ -45,7 +46,6 @@ public class WishlistActivity extends AppCompatActivity {
     private static final String TAG_IMAGE = "image";
     private static String TAG_RATING = "rating";
     private ListView mlistView;
-    //private ArrayList<HashMap<String, String>> listItems;
     private WishlistAdapter adapter;
     private String token, mJsonString, rid;
     private boolean Wish;
@@ -56,8 +56,7 @@ public class WishlistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wishlist);
 
         Intent getIntent = getIntent();
-        //token = getIntent.getStringExtra("token");
-        token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
+        token = getIntent.getStringExtra("token");
 
         mlistView = (ListView) findViewById(R.id.listv_wishlist);
 
@@ -65,9 +64,10 @@ public class WishlistActivity extends AppCompatActivity {
         task.execute(ADDRESS_LIST, token);
         mlistView.setOnItemClickListener((adapterView, view, i, l) -> {
             ListItem item = (ListItem) adapter.getItem(i);
-            Intent intent = new Intent(this, RestaurantActivity.class);
+            String Rid = String.valueOf(item.getId());
+            Intent intent = new Intent(this, RecommendRestaurantActivity.class);
             intent.putExtra("token", token);
-            intent.putExtra("item", item);
+            intent.putExtra("Rid", Rid);
             startActivity(intent);
         });
 
@@ -149,7 +149,7 @@ public class WishlistActivity extends AppCompatActivity {
 
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject item = jsonArray.getJSONObject(i);
-                //if(item.getString("wish").contains("true")){
+                if(item.getString("favor").contains("true")){
                     int id = Integer.parseInt(item.getString("id"));
                     String name = item.getString(TAG_NAME);
                     String address = item.getString(TAG_ADDRESS);
@@ -164,30 +164,12 @@ public class WishlistActivity extends AppCompatActivity {
                         rating = item.getString(TAG_RATING);
                     else rating = "0";
                     //String distance = item.getString("distance");
-                    //boolean wish = Boolean.parseBoolean(item.getString("wish"));
+                    boolean wish = Boolean.parseBoolean(item.getString("favor"));
                     String distance = "70";
-                    boolean wish = true;
                     adapter.addWItem(id, name, address, business, phone, category_name, "http://52.78.72.175" + image, rating, distance, wish);
-                //}
+                }
             }
             mlistView.setAdapter(adapter);
-
-                /*HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put(TAG_NAME, name);
-                hashMap.put(TAG_ADDRESS, address);
-                hashMap.put(TAG_CATEGORY_NAME, category_name);
-                hashMap.put(TAG_IMAGE, "http://52.78.72.175"+image);                      // hashmap에 짝 지어 넣음
-
-                listItems.add(hashMap);                             // 데이터 저장된 최종 변수
-                ListAdapter adapter = new SimpleAdapter(                // 이미지 불러오기 위해 어댑터 클래스 새로 만들어야 함
-                    ListActivity.this, listItems, R.layout.item_list,
-                    new String[]{TAG_NAME, TAG_ADDRESS, TAG_CATEGORY_NAME, TAG_IMAGE},
-                    new int[]{R.id.rname_list, R.id.address_item_list, R.id.category_list, R.id.img_list}
-                );
-                mlistView.setAdapter(adapter);
-                 */
-
-
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
@@ -257,17 +239,13 @@ public class WishlistActivity extends AppCompatActivity {
                 }
             }
             // 이미 찜한 음식점일 경우
-            wish.setChecked(true);
+            if(listItem.getWish()) wish.setChecked(true);
             // 찜하기 기능
             wish.setOnClickListener(v -> {
                 String Rid = String.valueOf(listItem.getId());
-                /*DeleteWish deleteWish = new DeleteWish(WishlistActivity.this);
-                deleteWish.execute(ADDRESS_WISH, token);*/
-                listItems.remove(position);
-                mlistView.clearChoices();
-                adapter.notifyDataSetChanged();
+                PostWish postWish = new PostWish(WishlistActivity.this);
+                postWish.execute(ADDRESS_WISH, Rid, token);
             });
-
             return view;
         }
 

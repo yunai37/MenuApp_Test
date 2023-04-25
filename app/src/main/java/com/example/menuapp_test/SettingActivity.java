@@ -26,12 +26,15 @@ import java.util.concurrent.ExecutionException;
 
 public class SettingActivity extends AppCompatActivity {
     private static String ADDRESS_ALL = "http://52.78.72.175/data/allergy";
-    private static String ADDRESS_PRE = "http://52.78.72.175/data/preference";
-    private static String ADDRESS_USER = "http://52.78.72.175/data/preference";
-    private String mJsonString, token, Preference, nickname, email, intro;
+    private static String ADDRESS_PRE = "http://52.78.72.175/data/preference/300";
+    private static String ADDRESS_USER = "http://52.78.72.175/data/mypage";
+
+    private static String ADDRESS_NICKNAME = "http://52.78.72.175/account/checknickname";
+    private String mJsonString, token, Preference, nickname, email, intro, newname, newintro;
     private EditText name, introduction;
     private TextView id, allergie, preference;
     private Button set_allergie, set_preference, save, check;
+    private ImageButton back;
     private SurveyItem surveyItem = new SurveyItem();
     private boolean chk;
 
@@ -47,17 +50,19 @@ public class SettingActivity extends AppCompatActivity {
         set_allergie = findViewById(R.id.btn_setting);
         set_preference = findViewById(R.id.btn_setting_like);
         introduction = findViewById(R.id.introduce_setting);
+        back = findViewById(R.id.imgbtn_setting);
 
         Intent getIntent = getIntent();
-        //token = getIntent.getStringExtra("token");
-        /*nickname = getIntent.getStringExtra("nickname");
+        token = getIntent.getStringExtra("token");
+        nickname = getIntent.getStringExtra("nickname");
         email = getIntent.getStringExtra("email");
-        intro = getIntent.getStringExtra("intro");*/
-        token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
+        intro = getIntent.getStringExtra("intro");
 
-        /*name.setText(nickname);
+        name.setText(nickname);
         id.setText(email);
-        introduction.setText(intro);*/
+        introduction.setText(intro);
+        newname = nickname;
+        newintro = intro;
 
         GetAllergie getAllergie = new GetAllergie();
         getAllergie.execute(ADDRESS_ALL, token);
@@ -88,17 +93,22 @@ public class SettingActivity extends AppCompatActivity {
         } catch (JSONException | ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MypageActivity.class);
+            intent.putExtra("token", token);
+            startActivity(intent);
+        });
 
         check = findViewById(R.id.btn_checkname);
         check.setOnClickListener(v -> {
-            chk = false;
             try{
                 String Nickname = name.getText().toString();
                 CheckDuplicate checkNickname = new CheckDuplicate(SettingActivity.this);
-                checkNickname.execute(ADDRESS_USER, Nickname, "n");
+                checkNickname.execute(ADDRESS_NICKNAME, Nickname, "n");
 
                 if(checkNickname.get().contains("true")) {
-                    chk = true;
+                    Toast.makeText(getApplicationContext(), "사용할 수 있는 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                    nickname = Nickname;
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "이미 사용 중인 닉네임입니다.", Toast.LENGTH_SHORT).show();
@@ -122,19 +132,23 @@ public class SettingActivity extends AppCompatActivity {
 
         save = findViewById(R.id.btn_setting2);
         save.setOnClickListener(view -> {
-            if(chk) {
-                /*PutUser putUser = new PutUser(SettingActivity.this);
-                putUser.execute(ADDRESS_USER, name.getText(), introduction.getText(), token);*/
+            newname = name.getText().toString();
+            newintro = introduction.getText().toString();
+            if(!nickname.equals(newname)){
+                Toast.makeText(getApplicationContext(), "닉네임 중복을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                PutUser putUser = new PutUser(SettingActivity.this);
+                putUser.execute(ADDRESS_USER, newname, newintro, token);
 
                 Intent intent = new Intent(getApplicationContext(), MypageActivity.class);
                 intent.putExtra("token", token);
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
+
         });
     }
-
-
     private class GetAllergie extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         @Override

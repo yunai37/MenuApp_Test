@@ -52,8 +52,7 @@ public class AllergieUpdateActivity extends AppCompatActivity {
 
         end.setOnClickListener(view -> {
             Intent getintent = getIntent();
-            //token = getintent.getStringExtra("token");
-            token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
+            token = getintent.getStringExtra("token");
 
             e = "0"; m = "0"; w = "0"; b = "0"; p = "0"; f = "0"; me = "0"; s = "0"; c = "0";
 

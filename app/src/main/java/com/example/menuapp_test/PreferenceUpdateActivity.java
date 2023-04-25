@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class PreferenceUpdateActivity extends AppCompatActivity {
-    private static String ADDRESS_MENU = "http://52.78.72.175/data/preference";
+    private static String ADDRESS_MENU = "http://52.78.72.175/data/preference/300";
     private static String ADDRESS_SURVEY = "http://52.78.72.175/data/preference/update";
     private Button skip, save;
     private String token;
@@ -56,9 +56,7 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
         mListview = findViewById(R.id.listv_prefer);
 
         Intent getintent = getIntent();
-        //token = getintent.getStringExtra("token");
-        token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
-
+        token = getintent.getStringExtra("token");
 
         try {
             Thread.sleep(1000);
@@ -81,7 +79,7 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
                     item = jsonArray.getJSONObject(j);
                     preference = item.getString("preference");
                     j++;
-                } while (preference.contains("1")); // 이미 평가된 메뉴일 경우 어댑터에 저장하지 않음
+                } while (preference.contains("1")); // 이미 좋아하는 메뉴일 경우 어댑터에 저장하지 않음
 
                 int id = Integer.parseInt(item.getString("id"));
                 String category = item.getString("category");

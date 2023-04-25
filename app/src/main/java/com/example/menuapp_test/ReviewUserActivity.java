@@ -44,8 +44,7 @@ public class ReviewUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_user);
 
         Intent getIntent = getIntent();
-        //token = getIntent.getStringExtra("token");
-        token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
+        token = getIntent.getStringExtra("token");
 
         listView = findViewById(R.id.listv_review_user);
 
@@ -98,22 +97,27 @@ public class ReviewUserActivity extends AppCompatActivity {
     class ReviewUserAdapter extends BaseAdapter {
         private ArrayList<ReviewItem> reviewItems = new ArrayList<ReviewItem>();
         private Bitmap bitmap;
-        public ReviewUserAdapter(){    }
+
+        public ReviewUserAdapter() {
+        }
 
         @Override
-        public int getCount(){
+        public int getCount() {
             return reviewItems.size();
         }
+
         @Override
         public long getItemId(int position) {
             return position;
         }
+
         @Override
         public Object getItem(int position) {
             return reviewItems.get(position);
         }
+
         @Override
-        public View getView(int position, View view, ViewGroup parent){
+        public View getView(int position, View view, ViewGroup parent) {
             Context context = parent.getContext();
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -143,7 +147,7 @@ public class ReviewUserActivity extends AppCompatActivity {
                 deleteReview.execute(ADDRESS_DELETE + rid, "DELETE", token);
 
                 try {
-                    if(deleteReview.get().contains("success")){
+                    if (deleteReview.get().contains("success")) {
                         reviewItems.remove(position);
                         listView.clearChoices();
                         adapter.notifyDataSetChanged();
@@ -156,10 +160,10 @@ public class ReviewUserActivity extends AppCompatActivity {
 
             });
 
-            if(!reviewItem.getImage().equals("http://52.78.72.175null")){
+            if (!reviewItem.getImage().equals("http://52.78.72.175null")) {
                 Thread thread = new Thread() {
                     @Override
-                    public void run(){
+                    public void run() {
                         try {
                             URL url = new URL(reviewItem.getImage());
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -182,13 +186,12 @@ public class ReviewUserActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-
-            else imageView.setVisibility(View.GONE);
+            } else imageView.setVisibility(View.GONE);
 
             return view;
         }
-        public void addReviewItem(int id, float rating, String content, String datetime, String nickname, String menuname, String rname, String image){
+
+        public void addReviewItem(int id, float rating, String content, String datetime, String nickname, String menuname, String rname, String image) {
             ReviewItem item = new ReviewItem();
             item.setId(id);
             item.setRating(rating);
@@ -200,11 +203,6 @@ public class ReviewUserActivity extends AppCompatActivity {
             item.setImage(image);
             reviewItems.add(item);
         }
-
-        public void removeItem(int position) {
-            reviewItems.remove(position);
-        }
-
     }
 }
 

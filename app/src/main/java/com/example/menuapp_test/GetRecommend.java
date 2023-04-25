@@ -29,18 +29,19 @@ public class GetRecommend extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         progressDialog.dismiss();
-        Log.d("PostLogin", "POST response - " + result);
+        Log.d("Recommend", "POST response - " + result);
     }
 
     @Override
     protected String doInBackground(String... params) {
-        String Price = params[1];
+        /*String Price = params[1];
         String Weather = params[2];
         String Emotion = params[3];
-        String Token = params[4];
+        String Token = params[4];*/
+        String Token = params[1];
 
         String serverURL = params[0];
-        String postParameters = "price=" + Price + "&weather=" + Weather + "&emotion=" + Emotion;
+       // String postParameters = "price=" + Price + "&weather=" + Weather + "&emotion=" + Emotion;
 
         try {
             URL url = new URL(serverURL);
@@ -49,16 +50,10 @@ public class GetRecommend extends AsyncTask<String, Void, String> {
             conn.setReadTimeout(5000);
             conn.setConnectTimeout(5000);
             conn.setRequestProperty("Authorization", "TOKEN " + Token);
-            conn.setRequestMethod("POST");
             conn.connect();
 
-            OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(postParameters.getBytes("UTF-8"));
-            outputStream.flush();
-            outputStream.close();
-
             int responseStatusCode = conn.getResponseCode();
-            Log.d("PostLogin", "POST response code - " + responseStatusCode);
+            Log.d("Recommend", "POST response code - " + responseStatusCode);
 
             InputStream inputStream;
             if (responseStatusCode == conn.HTTP_OK) {
@@ -83,7 +78,7 @@ public class GetRecommend extends AsyncTask<String, Void, String> {
             return sb.toString();
         }
         catch (Exception e) {
-            Log.d("PostLogin", "InsertData : Error ", e);
+            Log.d("Recommend", "InsertData : Error ", e);
             return new String("Error: " + e.getMessage());
         }
     }

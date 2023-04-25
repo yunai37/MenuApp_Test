@@ -25,8 +25,8 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
-    private static String ADDRESS_USER = "http://52.78.72.175/data/preference";
-    private static String ADDRESS_GPS = "http://52.78.72.175/data/preference";
+    private static String ADDRESS_USER = "http://52.78.72.175/data/mypage";
+    private static String ADDRESS_GPS = "http://52.78.72.175/data/address";
     private GpsTracker gpsTracker;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_LOCATION = 2;
     private TextView name, location;
     private Button list, menu, review, mypage;
-    private String nickname, email, intro, token, latitude, longitude;
+    private String nickname, address, token, latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,8 @@ public class MainActivity extends AppCompatActivity {
         getUser.execute(ADDRESS_USER, token);
 
         try {
-            JSONArray jsonArray = new JSONArray(getUser.get());
-            JSONObject jsonObject = jsonArray.getJSONObject(0);
-            email = jsonObject.getString("email");
-            nickname = jsonObject.getString("name");
-            intro = jsonObject.getString("introduction");
+            JSONObject jsonObject = new JSONObject(getUser.get());
+            nickname = jsonObject.getString("nickname");
             name.setText(nickname);
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -84,17 +81,29 @@ public class MainActivity extends AppCompatActivity {
         PostGPS postGPS = new PostGPS(MainActivity.this);
         postGPS.execute(ADDRESS_GPS, latitude, longitude, token);
 
-        location.setText("위도 " + latitude + ", 경도 " + longitude);
+        try {
+            JSONObject jsonObject = new JSONObject(postGPS.get());
+            address = jsonObject.getString("result");
+            location.setText(address);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         list.setOnClickListener(v -> {
             Intent intent = new Intent(this, ListActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("address", address);
             startActivity(intent);
         });
 
         menu.setOnClickListener(v -> {
             Intent intent = new Intent(this, RecommendActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("nickname", nickname);
             startActivity(intent);
         });
 
@@ -107,9 +116,6 @@ public class MainActivity extends AppCompatActivity {
         mypage.setOnClickListener(v -> {
             Intent intent = new Intent(this, MypageActivity.class);
             intent.putExtra("token", token);
-            intent.putExtra("nickname", nickname);
-            intent.putExtra("email", email);
-            intent.putExtra("intro", intro);
             startActivity(intent);
         });
 

@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -56,9 +57,9 @@ public class ReviewWriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_write);
 
         Intent getIntent = getIntent();
-        //token = getIntent.getStringExtra("token");
-        //menuid = getIntent.getStringExtra("Mid");
-        //rid = getIntent.getStringExtra("Rid");
+        token = getIntent.getStringExtra("token");
+        menuid = getIntent.getStringExtra("Mid");
+        rid = getIntent.getStringExtra("Rid");
 
         imageButton = findViewById(R.id.imgbtn_review);
         rimg = findViewById(R.id.rimg_review);
@@ -75,10 +76,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         god = findViewById(R.id.btn_god);
         save = findViewById(R.id.btn_save);
         cancel = findViewById(R.id.btn_cancel);
-        token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
         rating = 0;
-        menuid = "1";
-        rid = "1";
         comment = "";
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -128,13 +126,19 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     String Rating = String.valueOf(rating);
                     String Menuid = String.valueOf(menuid);
                     String Rid = String.valueOf(rid);
-                    String image = String.valueOf(uri);
+                    String Image = "";
+                    if(uri.equals("")) Image = "null";
+                    else Image = String.valueOf(uri);
                     PostReview postReview = new PostReview();
-                    postReview.execute(ADDRESS_POST, Rating, Content, Menuid, Rid, image, token);
+                    postReview.execute(ADDRESS_POST, Rating, Content, Menuid, Rid, Image, token);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("token", token);
+                    startActivity(intent);
                 }
+                else Toast.makeText(getApplicationContext(), "별점을 매겨주세요.", Toast.LENGTH_SHORT).show();
             }
+            else Toast.makeText(getApplicationContext(), "리뷰 내용을 작성해주세요.", Toast.LENGTH_SHORT).show();
         });
-
     }
     ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
