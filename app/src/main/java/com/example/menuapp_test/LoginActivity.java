@@ -1,11 +1,14 @@
 package com.example.menuapp_test;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -35,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private String duplicate;
     private TextInputEditText email, password;
     private Button next, join;
-    private TextView txt_result;
+    private CheckBox auto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +49,16 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.login_pwd);
         next = findViewById(R.id.btn_login);
         join = findViewById(R.id.btn_login2);
-        txt_result = findViewById(R.id.txt_result);
+        auto = findViewById(R.id.chk_login);
+
+        Map<String, String> loginInfo = SharedPreferencesManager.getLoginInfo(this);
+        if (!loginInfo.isEmpty()){
+            String Email = loginInfo.get("email");
+            String Password = loginInfo.get("password");
+            email.setText(Email);
+            password.setText(Password);
+            auto.setChecked(true);
+        }
 
         next.setOnClickListener(v -> {
 
@@ -70,6 +83,9 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     if(duplicate.contains("success")){
+                        if(auto.isChecked()) {
+                            SharedPreferencesManager.setLoginInfo(this, email.getText().toString() ,password.getText().toString());
+                        }
                         Intent intent = new Intent(this, MainActivity.class);
                         intent.putExtra("token", token);
                         startActivity(intent);
