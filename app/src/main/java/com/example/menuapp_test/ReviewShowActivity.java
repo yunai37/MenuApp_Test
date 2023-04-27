@@ -33,10 +33,8 @@ public class ReviewShowActivity extends AppCompatActivity {
         listView = findViewById(R.id.listv_review_show);
 
         Intent getIntent = getIntent();
-        //token = getIntent.getStringExtra("token");
-        token = "49e9d8db7d6d31d3623b4af2d3fb97178d6d773e";
-        //rid = getIntent.getStringExtra("Rid");
-        rid = "1";
+        token = getIntent.getStringExtra("token");
+        rid = getIntent.getStringExtra("Rid");
         rname = getIntent.getStringExtra("Rname");
 
         GetData getData = new GetData();
@@ -136,7 +134,7 @@ public class ReviewShowActivity extends AppCompatActivity {
                     rating = Float.parseFloat(item.getString("rating"));
                 else rating = 0;
 
-                adapter.addReviewItem(id, rating, content, datetime, nickname, menuname, "http://52.78.72.175" + image);
+                adapter.addReviewItem(id, rating, content, datetime, nickname, menuname, image);
             }
 
             listView.setAdapter(adapter);

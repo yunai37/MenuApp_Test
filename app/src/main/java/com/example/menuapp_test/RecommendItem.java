@@ -5,13 +5,15 @@ public class RecommendItem {
     private int restaurant;
     private String name;
     private String category;
+    private int price;
     private String image;
 
-    public RecommendItem(int id, int restaurant, String name, String category, String image){
+    public RecommendItem(int id, int restaurant, String name, String category, int price, String image){
         this.id = id;
         this.restaurant = restaurant;
         this.name = name;
         this.category = category;
+        this.price = price;
         this.image = image;
     }
 
@@ -53,5 +55,13 @@ public class RecommendItem {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

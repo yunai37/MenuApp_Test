@@ -90,7 +90,7 @@ public class RecommendRestaurantActivity extends AppCompatActivity {
             //String distance = "70";
 
             listItem.setId(id); listItem.setName(name); listItem.setBusiness_hours(business);
-            listItem.setPhone_number(phone); listItem.setCategory_name(category_name); listItem.setImage("http://52.78.72.175"+image);
+            listItem.setPhone_number(phone); listItem.setCategory_name(category_name); listItem.setImage(image);
             listItem.setWish(Wish); listItem.setRating(rating); listItem.setAddress(address);
         } catch (JSONException e) {
             Log.d("Restaurant", "showResult : ", e);
@@ -107,7 +107,7 @@ public class RecommendRestaurantActivity extends AppCompatActivity {
             PostWish postWish = new PostWish(RecommendRestaurantActivity.this);
             postWish.execute(ADDRESS_WISH, Rid, token);
         });
-        if(!listItem.getImage().equals("http://52.78.72.175null")){
+        if(!listItem.getImage().equals("null")){
             Thread thread = new Thread() {
                 @Override
                 public void run(){

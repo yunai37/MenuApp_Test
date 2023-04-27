@@ -80,7 +80,7 @@ public class ReviewUserActivity extends AppCompatActivity {
                     rating = Float.parseFloat(item.getString("rating"));
                 else rating = 0;
 
-                adapter.addReviewItem(id, rating, content, datetime, nickname, menuname, rname, "http://52.78.72.175" + image);
+                adapter.addReviewItem(id, rating, content, datetime, nickname, menuname, rname, "http://52.78.72.175"+image);
             }
 
             listView.setAdapter(adapter);
@@ -160,7 +160,7 @@ public class ReviewUserActivity extends AppCompatActivity {
 
             });
 
-            if (!reviewItem.getImage().equals("http://52.78.72.175null")) {
+            if (!reviewItem.getImage().equals("http://52.78.72.175/null")) {
                 Thread thread = new Thread() {
                     @Override
                     public void run() {

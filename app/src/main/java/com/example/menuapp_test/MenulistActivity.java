@@ -30,8 +30,7 @@ public class MenulistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menulist);
 
         Intent getIntent = getIntent();
-        //token = getIntent.getStringExtra("token");
-        token = "c3c59d759096918d33e48112477d99e713c57a0d";
+        token = getIntent.getStringExtra("token");
         rid = getIntent.getStringExtra("Rid");
 
         listView = findViewById(R.id.listv_menulist);
@@ -64,7 +63,7 @@ public class MenulistActivity extends AppCompatActivity {
                 if(!item.getString("image").equals("null"))
                     image = item.getString("image");
                 else image = "null";
-                adapter.addRItem(id, restaurant, category, name, price, emotion, weather, "http://52.78.72.175" + image, checkallergy);
+                adapter.addRItem(id, restaurant, category, name, price, emotion, weather, image, checkallergy);
             }
 
             listView.setAdapter(adapter);

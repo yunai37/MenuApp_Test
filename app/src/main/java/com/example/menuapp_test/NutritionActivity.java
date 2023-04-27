@@ -28,7 +28,7 @@ public class NutritionActivity extends AppCompatActivity {
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
         mid = getIntent.getStringExtra("Mid");
-        mname = getIntent.getStringExtra("mname");
+        mname = getIntent.getStringExtra("Mname");
 
         name = findViewById(R.id.name_nutrition);
         name.setText(mname);
@@ -80,31 +80,31 @@ public class NutritionActivity extends AppCompatActivity {
                 gram.setText(Gram);
             else gram.setText("-");
             if(!Calorie.equals("null"))
-                kcal.setText(Gram);
+                kcal.setText(Calorie);
             else kcal.setText("-");
             if(!Carbohydrate.equals("null"))
-                carbo.setText(Gram);
+                carbo.setText(Carbohydrate);
             else carbo.setText("-");
             if(!Protein.equals("null"))
-                protein.setText(Gram);
+                protein.setText(Protein);
             else protein.setText("-");
             if(!Fat.equals("null"))
-               fat.setText(Gram);
+               fat.setText(Fat);
             else fat.setText("-");
             if(!Saturatedfat.equals("null"))
-                satur.setText(Gram);
+                satur.setText(Saturatedfat);
             else satur.setText("-");
             if(!Unsaturatedfat.equals("null"))
-                unsat.setText(Gram);
+                unsat.setText(Unsaturatedfat);
             else unsat.setText("-");
             if(!Cholesterol.equals("null"))
-                chole.setText(Gram);
+                chole.setText(Cholesterol);
             else chole.setText("-");
             if(!Sodium.equals("null"))
-                sodium.setText(Gram);
+                sodium.setText(Sodium);
             else sodium.setText("-");
             if(!Potash.equals("null"))
-                potash.setText(Gram);
+                potash.setText(Potash);
             else potash.setText("-");
             if(!Ingredient.equals("null"))
                 ingredient.setText(Ingredient);

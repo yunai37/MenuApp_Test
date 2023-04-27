@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
-
         GetUser getUser = new GetUser(MainActivity.this);
         getUser.execute(ADDRESS_USER, token);
 
@@ -97,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ListActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("address", address);
+            intent.putExtra("latitude", latitude);
+            intent.putExtra("longitude", longitude);
             startActivity(intent);
         });
 

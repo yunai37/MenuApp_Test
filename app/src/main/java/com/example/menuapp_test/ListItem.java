@@ -12,7 +12,7 @@ public class ListItem implements Serializable {
     private String image;
     private String rating;
     private boolean wish;
-    private String distance;
+    private int distance;
 
     public String getName(){
         return name;
@@ -85,11 +85,11 @@ public class ListItem implements Serializable {
         this.wish = wish;
     }
 
-    public String getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 }

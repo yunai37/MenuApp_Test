@@ -19,7 +19,7 @@ public class RecommendResActivity extends AppCompatActivity {
     private static String ADDRESS_RECOMMEND = "http://52.78.72.175/recommendation/menurecommend";
     private TextView nickname, menu, restaurant;            // 닉네임, 추천되는 메뉴, 음식점
     Button info, select, re;        // 상세정보 보기, 메뉴 이용하기, 재추천
-    private String token, price, weather, emotion, Nickname, rid, menuid, mname;
+    private String token, price, weather, emotion, Nickname, rid, menuid, mname, rname;
     private RecommendItem recommendItem;
 
     @Override
@@ -48,31 +48,33 @@ public class RecommendResActivity extends AppCompatActivity {
 
         try {
             JSONArray jsonArray = new JSONArray(getRecommend.get());
-            JSONObject item = jsonArray.getJSONObject(0);
-            int id = Integer.parseInt(item.getString("id"));
-            int Rid = Integer.parseInt(item.getString("restaurant"));
-            String category = item.getString("category");
-            String name = item.getString("name");
-            String image = item.getString("image");
-            String Rname = item.getString("rname");
+            int id = jsonArray.getInt(0);
+            int Rid = jsonArray.getInt(1);
+            String category = jsonArray.getString(2);
+            String name = jsonArray.getString(3);
+            int price = jsonArray.getInt(4);
+            //String Rname = jsonArray.getString(5);
+            String Rname = "Rname";
+            String image = jsonArray.getString(7);
 
-            recommendItem = new RecommendItem(id, Rid, name, category, image);
+            recommendItem = new RecommendItem(id, Rid, name, category, price, image);
 
             menuid = String.valueOf(recommendItem.getId());
             mname = recommendItem.getName();
             menu.setText(mname);
             rid = String.valueOf(recommendItem.getRestaurant());
-            restaurant.setText(Rname);
+            rname = Rname;
+            //restaurant.setText(Rname);
 
         } catch (Exception e) {
             Log.d("survey", "Error ", e);
         }
 
-        info.setOnClickListener(v -> {                      // 음식점 화면으로 이동
+        info.setOnClickListener(v -> {                      // 영양 정보 화면으로 이동
             Intent intent = new Intent(this, NutritionActivity.class);
             intent.putExtra("token", token);
-            intent.putExtra("mid", menuid);
-            intent.putExtra("mname", mname);
+            intent.putExtra("Mid", menuid);
+            intent.putExtra("Mname", mname);
             startActivity(intent);
         });
         select.setOnClickListener(view -> showPop());
@@ -90,10 +92,11 @@ public class RecommendResActivity extends AppCompatActivity {
     void showPop() {
         Toast.makeText(getApplicationContext(), "확정되었습니다!", Toast.LENGTH_SHORT).show();
         // 리뷰 작성 팝업창 (예 - 리뷰 작성 페이지 / 아니오 - 메인 화면)
-        Intent intent = new Intent(this, PopupPW.class);
+        Intent intent = new Intent(this, PopupReview.class);
         intent.putExtra("token", token);
         intent.putExtra("Mid", menuid);
-        intent.putExtra("mname", mname);
+        intent.putExtra("Rname", rname);
+        intent.putExtra("Mname", mname);
         intent.putExtra("Rid", rid);
         startActivity(intent);
     }

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class PopupReview extends Activity {
     private Button ok, skip;
-    private String token, mid, rid;
+    private String token, mid, rid, rname, mname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +27,16 @@ public class PopupReview extends Activity {
         token = getIntent.getStringExtra("token");
         mid = getIntent.getStringExtra("Mid");
         rid = getIntent.getStringExtra("Rid");
+        rname = getIntent.getStringExtra("Rname");
+        mname = getIntent.getStringExtra("Mname");
 
         ok.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReviewWriteActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("Mid", mid);
             intent.putExtra("Rid", rid);
+            intent.putExtra("Mname", mname);
+            intent.putExtra("Rname", rname);
             startActivity(intent);
         });
 

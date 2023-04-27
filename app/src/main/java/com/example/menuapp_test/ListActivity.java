@@ -30,13 +30,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
-    private static String ADDRESS_LIST = "http://52.78.72.175/data/restaurant";
+    private static String ADDRESS_LIST = "http://52.78.72.175/data/aroundrestaurant";
     private static String ADDRESS_WISH = "http://52.78.72.175/data/favorite";
     private static String TAG = "List";
     private static final String TAG_NAME = "name";
@@ -50,7 +51,7 @@ public class ListActivity extends AppCompatActivity {
     private TextView location;
     //private ArrayList<HashMap<String, String>> listItems;
     private ListAdapter adapter;
-    private String token, address, mJsonString, rid;
+    private String token, address, latitude, longitude, mJsonString, rid;
     private boolean Wish;
 
     @Override
@@ -61,13 +62,15 @@ public class ListActivity extends AppCompatActivity {
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
         address = getIntent.getStringExtra("address");
+        latitude = getIntent.getStringExtra("latitude");
+        longitude = getIntent.getStringExtra("longitude");
 
         mlistView = (ListView) findViewById(R.id.listv_list);
         location = findViewById(R.id.list_location);
         location.setText(address);
 
         GetData task = new GetData();
-        task.execute(ADDRESS_LIST, token);
+        task.execute(ADDRESS_LIST, latitude, longitude, token);
         mlistView.setOnItemClickListener((adapterView, view, i, l) -> {
             ListItem item = (ListItem) adapter.getItem(i);
             rid = String.valueOf(item.getId());
@@ -101,7 +104,9 @@ public class ListActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params){
             String serverURL = params[0];
-            String Token = params[1];
+            String Latitude = params[1];
+            String Longitude = params[2];
+            String Token = params[3];
 
             try {
                 URL url = new URL(serverURL);
@@ -109,38 +114,48 @@ public class ListActivity extends AppCompatActivity {
 
                 conn.setReadTimeout(5000);
                 conn.setConnectTimeout(5000);
+                conn.setRequestProperty("Content-Type", "application/json");
                 conn.setRequestProperty("Authorization", "TOKEN " + Token);
+                conn.setRequestMethod("POST");
                 conn.connect();
 
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("latitude", Latitude);
+                jsonObject.put("longitude", Longitude);
+
+                OutputStream outputStream = conn.getOutputStream();
+                outputStream.write(jsonObject.toString().getBytes());
+                outputStream.flush();
+                outputStream.close();
+
                 int responseStatusCode = conn.getResponseCode();
-                Log.d(TAG, "response code : " + responseStatusCode);
+                Log.d("PostList", "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == conn.HTTP_OK){         // 연결 성공 시
+                if (responseStatusCode == conn.HTTP_OK) {
                     inputStream = conn.getInputStream();
                 }
-                else {                                          // 연결 실패 시
+                else {
                     inputStream = conn.getErrorStream();
                 }
+
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 StringBuilder sb = new StringBuilder();
-                String line;
+                String line = null;
 
-                while((line = bufferedReader.readLine()) != null){
+                while((line = bufferedReader.readLine())!= null)  {
                     sb.append(line);
                 }
 
                 bufferedReader.close();
-                conn.disconnect();
 
-                return sb.toString().trim();
-
+                return sb.toString();
             }
-            catch (Exception e){
-                e.printStackTrace();
-                return null;
+            catch (Exception e) {
+                Log.d("PostList", "InsertData : Error ", e);
+                return new String("Error: " + e.getMessage());
             }
 
         }
@@ -156,9 +171,7 @@ public class ListActivity extends AppCompatActivity {
                 int id = Integer.parseInt(item.getString("id"));
                 String name = item.getString(TAG_NAME);
                 String address = item.getString(TAG_ADDRESS);
-                String business = item.getString(TAG_BUSINESS);
-                String phone = item.getString(TAG_PHONE);
-                String category_name = item.getString(TAG_CATEGORY_NAME);
+                int distance = item.getInt("distance");
                 String image = ""; String rating = "0";
                 if(!item.getString(TAG_IMAGE).equals("null"))
                     image = item.getString(TAG_IMAGE);
@@ -166,10 +179,8 @@ public class ListActivity extends AppCompatActivity {
                 if(!item.getString(TAG_RATING).equals("null"))
                     rating = item.getString(TAG_RATING);
                 else rating = "0";
-                //String distance = item.getString("distance");
                 boolean wish = Boolean.parseBoolean(item.getString("favor"));
-                String distance = "70";
-                adapter.addRItem(id, name, address, business, phone, category_name, "http://52.78.72.175" + image, rating, distance, wish);
+                adapter.addRItem(id, name, address, image, rating, distance, wish);
             }
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {
@@ -207,6 +218,7 @@ public class ListActivity extends AppCompatActivity {
             TextView category_name = (TextView) view.findViewById(R.id.category_list);
             TextView rating = view.findViewById(R.id.star_list);
             CheckBox wish = view.findViewById(R.id.imgbtn_list);
+            TextView distance = view.findViewById(R.id.distance_list);
 
             ListItem listItem = listItems.get(position);
 
@@ -214,8 +226,9 @@ public class ListActivity extends AppCompatActivity {
             address.setText(listItem.getAddress());
             category_name.setText(listItem.getCategory_name());
             rating.setText(listItem.getRating());
+            distance.setText(listItem.getDistance());
 
-            if(!listItem.getImage().equals("http://52.78.72.175null")){
+            if(!listItem.getImage().equals("null")){
                 Thread thread = new Thread() {
                     @Override
                     public void run(){
@@ -253,14 +266,11 @@ public class ListActivity extends AppCompatActivity {
             return view;
         }
 
-        void addRItem(int id, String name, String address, String business_hours, String phone_number, String category_name, String image, String rating, String distance, boolean wish){
+        void addRItem(int id, String name, String address, String image, String rating, int distance, boolean wish){
             ListItem item = new ListItem();
             item.setId(id);
             item.setName(name);
             item.setAddress(address);
-            item.setBusiness_hours(business_hours);
-            item.setPhone_number(phone_number);
-            item.setCategory_name(category_name);
             item.setImage(image);
             item.setRating(rating);
             item.setDistance(distance);

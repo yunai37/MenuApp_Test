@@ -145,17 +145,12 @@ public class WishlistActivity extends AppCompatActivity {
             JSONArray jsonArray = new JSONArray(mJsonString);       // 전체 데이터를 배열에 저장
             adapter = new WishlistAdapter();
 
-            int j = 0;
-
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject item = jsonArray.getJSONObject(i);
-                if(item.getString("favor").contains("true")){
+                if(item.getBoolean("favor")){
                     int id = Integer.parseInt(item.getString("id"));
                     String name = item.getString(TAG_NAME);
                     String address = item.getString(TAG_ADDRESS);
-                    String business = item.getString(TAG_BUSINESS);
-                    String phone = item.getString(TAG_PHONE);
-                    String category_name = item.getString(TAG_CATEGORY_NAME);
                     String image = ""; String rating = "0";
                     if(!item.getString(TAG_IMAGE).equals("null"))
                         image = item.getString(TAG_IMAGE);
@@ -163,10 +158,10 @@ public class WishlistActivity extends AppCompatActivity {
                     if(!item.getString(TAG_RATING).equals("null"))
                         rating = item.getString(TAG_RATING);
                     else rating = "0";
-                    //String distance = item.getString("distance");
+                    //int distance = item.getInt("distance");
+                    int distance = 70;
                     boolean wish = Boolean.parseBoolean(item.getString("favor"));
-                    String distance = "70";
-                    adapter.addWItem(id, name, address, business, phone, category_name, "http://52.78.72.175" + image, rating, distance, wish);
+                    adapter.addWItem(id, name, address, image, rating, distance, wish);
                 }
             }
             mlistView.setAdapter(adapter);
@@ -209,9 +204,9 @@ public class WishlistActivity extends AppCompatActivity {
 
             name.setText(listItem.getName());
             category_name.setText(listItem.getCategory_name());
-            // distance.setText(listItem.getDistance());
+            distance.setText(String.valueOf(listItem.getDistance()));
 
-            if(!listItem.getImage().equals("http://52.78.72.175null")){
+            if(!listItem.getImage().equals("null")){
                 Thread thread = new Thread() {
                     @Override
                     public void run(){
@@ -249,14 +244,11 @@ public class WishlistActivity extends AppCompatActivity {
             return view;
         }
 
-        void addWItem(int id, String name, String address, String business_hours, String phone_number, String category_name, String image, String rating, String distance, boolean wish){
+        void addWItem(int id, String name, String address, String image, String rating, int distance, boolean wish){
             ListItem item = new ListItem();
             item.setId(id);
             item.setName(name);
             item.setAddress(address);
-            item.setBusiness_hours(business_hours);
-            item.setPhone_number(phone_number);
-            item.setCategory_name(category_name);
             item.setImage(image);
             item.setRating(rating);
             item.setDistance(distance);
