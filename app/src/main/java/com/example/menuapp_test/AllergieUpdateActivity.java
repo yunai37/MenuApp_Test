@@ -27,7 +27,6 @@ public class AllergieUpdateActivity extends AppCompatActivity {
     private CheckBox egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab;
     private String e, m, w, b, p, f, me, s, c;
     private Button end;
-    private TextView txt_result;
     private String token, allergie;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,6 @@ public class AllergieUpdateActivity extends AppCompatActivity {
         if(allergie.contains("갑각류")) crab.setChecked(true);
 
         end = findViewById(R.id.btn_end_update);
-        txt_result = findViewById(R.id.txt_result);
 
         end.setOnClickListener(view -> {
 
@@ -122,7 +120,6 @@ public class AllergieUpdateActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             progressDialog.dismiss();
-            txt_result.setText(result);
             Log.d("PutAllergie", "POST response - " + result);
         }
 

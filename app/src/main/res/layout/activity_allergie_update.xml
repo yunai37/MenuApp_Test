@@ -129,15 +129,6 @@
 
         </LinearLayout>
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/txt_result"
-            android:text="POST Result"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

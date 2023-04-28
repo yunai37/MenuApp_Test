@@ -43,9 +43,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -74,6 +77,11 @@ public class ReviewWriteActivity extends AppCompatActivity {
         rid = getIntent.getStringExtra("Rid");
         Mname = getIntent.getStringExtra("Mname");
         Rname = getIntent.getStringExtra("Rname");
+        //token = "95ec02dfcc60b0b3b0fd70d15862fed98637debd";
+        //menuid = "1";
+        //rid = "1";
+        //Mname = "해장국";
+        //Rname = "양평해장국";
 
         imageButton = findViewById(R.id.imgbtn_review);
         rimg = findViewById(R.id.rimg_review);
@@ -155,11 +163,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     String Rating = String.valueOf(rating);
                     String Menuid = String.valueOf(menuid);
                     String Rid = String.valueOf(rid);
-                    String Image = "";
-                    if(uri.equals("")) Image = "null";
-                    else {
-                        Image = imagePath;
-                    }
+                    String Image = imagePath;
                     PostReview postReview = new PostReview();
                     postReview.execute(ADDRESS_POST, Rating, Content, Menuid, Rid, Image, token);
                     /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -177,9 +181,10 @@ public class ReviewWriteActivity extends AppCompatActivity {
         if(requestCode == 1 && resultCode == RESULT_OK) {
             // Image 상대경로를 가져온다
             uri = data.getData();
+            imagePath = getFilePathFromUri(uri);
             imageView.setImageURI(uri);
             // Image의 절대경로를 가져온다
-            imagePath = getFilePathFromUri(uri);
+
         }
         // 사진 선택 취소
         else if (requestCode == 1 && resultCode == RESULT_CANCELED) {
@@ -224,34 +229,134 @@ public class ReviewWriteActivity extends AppCompatActivity {
             String Restaurant = params[4];
             String Image = params[5];
             String Token = params[6];
+            String serverURL = params[0];
 
-            final String serverURL = params[0];
+            String[] dataName = {"rating", "content", "menu", "restaurant"};
 
+            final String boundary = "*****";
+            final String lineEnd = "\r\n";
             final String twoHyphens = "--";
-            String[] dataName = {"rating", "content", "menu", "restaurant", "image"};
-            String resp = null;
 
-            String lineEnd = "\r\n";
-            String boundary = "androidupload";
-            File targetFile = new File(params[5]);
-
-            byte[] buffer;
-            int maxBufferSize = 5 * 1024 * 1024;
+            //int maxBufferSize = 5 * 1024 * 1024;
 
             try {
                 URL url = new URL(serverURL);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(5000);
                 conn.setConnectTimeout(5000);
-                conn.setDoOutput(true);
-                conn.setDoInput(true);
-                conn.setUseCaches(false);
+                conn.setReadTimeout(10000);
                 conn.setRequestProperty("Authorization", "TOKEN " + Token);
-                conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                //conn.setRequestProperty("Content-Type", "application/json");
                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-                String delimiter = twoHyphens + boundary + lineEnd; // --androidupload\r\n
+                conn.setRequestMethod("POST");
+                conn.connect();
 
-                StringBuilder postDataBuilder = new StringBuilder();
+                /*JSONObject jsonObject = new JSONObject();
+                jsonObject.put("rating", Rating);
+                jsonObject.put("content", Content);
+                jsonObject.put("menu", Menu);
+                jsonObject.put("restaurant", Restaurant);
+                jsonObject.put("image", Image);
+
+                OutputStream outputStream = conn.getOutputStream();
+                outputStream.write(jsonObject.toString().getBytes());
+                outputStream.flush();
+                outputStream.close();*/
+
+                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(dos, "UTF-8"), true);
+
+                for (int i = 0; i < 4; i++) {
+                    writer.append("--" + boundary).append(lineEnd);
+                    writer.append("Content-Disposition: form-data; name=\"" + dataName[i] + "\"").append(lineEnd);
+                    writer.append("Content-Type: application/json").append(lineEnd);
+                    writer.append(lineEnd);
+                    writer.append(params[i + 1]).append(lineEnd);
+                    writer.flush();
+                }
+
+                File file = new File(Image);
+                String fileName = file.getName();
+                writer.append("--" + boundary).append(lineEnd);
+                writer.append("Content-Disposition: form-data; name=\"" + "image" + "\"; filename=\"" + fileName + "\"").append(lineEnd);
+                writer.append("Content-Type: " + URLConnection.guessContentTypeFromName(fileName)).append(lineEnd);
+                writer.append("Content-Transfer-Encoding: binary").append(lineEnd);
+                writer.append(lineEnd);
+                writer.flush();
+
+                FileInputStream fis = new FileInputStream(file);
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    dos.write(buffer, 0, bytesRead);
+                }
+                dos.flush();
+                fis.close();
+                writer.append(lineEnd);
+                writer.flush();
+
+                // Send text parameter
+                /*for (int i = 0; i < 4; i++) {
+                    dos.writeBytes(twoHyphens + boundary + lineEnd);
+                    dos.writeBytes("Content-Disposition: form-data; name=\"" + dataName[i] + "\"" + lineEnd
+                            + "Content-Type: application/json" + lineEnd);
+                    dos.writeBytes(lineEnd);
+                    dos.writeBytes(params[i + 1]);
+                    dos.writeBytes(lineEnd);
+                }
+
+                if(!(params[5] == null)) {
+                    // Send image file
+                    dos.writeBytes(twoHyphens + boundary + lineEnd);
+                    dos.writeBytes("Content-Disposition: form-data; name=\"image\";filename=\"" + "image" + "\"" + lineEnd);
+                    dos.writeBytes(lineEnd);
+
+                    FileInputStream fileInputStream = new FileInputStream(params[5]);
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                        dos.write(buffer, 0, bytesRead);
+                    }
+                    fileInputStream.close();
+                }*/
+
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+                dos.flush();
+                dos.close();
+
+                int responseStatusCode = conn.getResponseCode();
+                Log.d("PostReview", "POST response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if (responseStatusCode == conn.HTTP_OK) {
+                    inputStream = conn.getInputStream();
+                }
+                else {
+                    inputStream = conn.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                while((line = bufferedReader.readLine())!= null)  {
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString();
+            }
+            catch (Exception e) {
+                Log.d("PostReview", "InsertData : Error ", e);
+                return new String("Error: " + e.getMessage());
+            }
+        }
+    }
+/*      StringBuilder postDataBuilder = new StringBuilder();
                 for (int i = 0; i < 5; i++) {
                     postDataBuilder.append(delimiter);
                     postDataBuilder.
@@ -306,8 +411,8 @@ public class ReviewWriteActivity extends AppCompatActivity {
                 Log.d("PostReview", " : Error ", e);
                 return new String("Error: " + e.getMessage());
             }
-        }
-    }
+        }*/
+
 }
 
 

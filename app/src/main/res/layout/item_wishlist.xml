@@ -49,6 +49,7 @@
                     android:layout_height="24dp"
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
+                    android:focusable="false"
                     android:button="@android:color/transparent"
                     android:background="@drawable/imgbtn_wish"/>
 

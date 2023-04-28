@@ -30,7 +30,6 @@ public class JoinAllergieActivity extends AppCompatActivity {
     private CheckBox egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab;
     private String e, m, w, b, p, f, me, s, c;
     private Button end;
-    private TextView txt_result;
     private String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,6 @@ public class JoinAllergieActivity extends AppCompatActivity {
         crab = (CheckBox) findViewById(R.id.chk_crab);
 
         end = findViewById(R.id.btn_join_save);
-        txt_result = findViewById(R.id.txt_result);
 
         end.setOnClickListener(view -> {
             Intent getintent = getIntent();
