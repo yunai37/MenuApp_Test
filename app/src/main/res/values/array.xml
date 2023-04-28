@@ -130,7 +130,6 @@
     </string-array>
     
     <string-array name="날씨">
-        <item>상관없음</item>
         <item>맑음</item>
         <item>구름</item>
         <item>비</item>
@@ -139,7 +138,6 @@
     </string-array>
 
     <string-array name="기분">
-        <item>상관없음</item>
         <item>배고픔</item>
         <item>적당</item>
         <item>기쁨</item>

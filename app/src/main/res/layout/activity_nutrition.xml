@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,25 +9,35 @@
     <View
         android:id="@+id/view"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:background="#faf4c0" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal" >
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imgbtn_menulist"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:adjustViewBounds="true"
+            android:backgroundTint="#faf4c0"
+            android:scaleType="fitCenter"
+            android:src="@drawable/arrow_back_ios_fill0_wght400_grad0_opsz48"/>
 
         <TextView
             android:id="@+id/name_nutrition"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="35dp"
-            android:text="닭강정"
+            android:text="메뉴 이름"
+            android:fontFamily="@font/nanumgothic_regular"
             android:textSize="25dp"
-            android:textColor="#584B00"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -37,17 +46,18 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="80dp">
-
+        android:paddingBottom="50dp"
+        android:paddingTop="90dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginLeft="20dp">
@@ -55,60 +65,61 @@
                 <TextView
                     android:id="@+id/txt_nutrition2"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="3dp"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="알레르기"
-                    android:textSize="20dp"
+                    android:textSize="18sp"
                     android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/allergie_nutrition"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="6dp"
                     android:text="-"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textColor="#4c4c4c" />
+                    android:textSize="17sp"
+                    android:fontFamily="@font/nanumgothic_regular"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="3dp"
                     android:text="재료"
-                    android:textSize="20dp"
+                    android:fontFamily="@font/nanumgothic_regular"
+                    android:textSize="18sp"
                     android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/ingredient_nutrition"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="6dp"
-                    android:textSize="20dp"
                     android:text="-"
-                    android:textStyle="bold"
-                    android:textColor="#4c4c4c" />
+                    android:textSize="17sp"
+                    android:fontFamily="@font/nanumgothic_regular"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="5px"
+                android:layout_marginTop="5dp"
                 android:background="#EAEAEA" />
 
             <View
@@ -118,47 +129,58 @@
 
 
             <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="400dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginTop="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="3dp">
+                    android:layout_marginLeft="20dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition3"
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
+                        android:fontFamily="@font/nanumgothic_regular"
                         android:text="영양 정보 (g)"
-                        android:textSize="20dp"
+                        android:textSize="18sp"
                         android:textStyle="bold"/>
 
-                    <TextView
-                        android:id="@+id/txt_nutrition12"
-                        android:layout_width="120dp"
-                        android:layout_height="match_parent"
-                        android:gravity="right|center"
-                        android:text="1회 제공량(g)"
-                        android:textSize="15sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/gram_nutrition"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
-                        android:gravity="center_vertical"
-                        android:text="-"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c"/>
+                        android:gravity="right"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_nutrition12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:fontFamily="@font/nanumgothic_regular"
+                            android:text="1회 제공량(g)"
+                            android:textSize="13sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/gram_nutrition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="8dp"
+                            android:gravity="center_vertical"
+                            android:layout_marginRight="20dp"
+                            android:text="-"
+                            android:fontFamily="@font/nanumgothic_regular"
+                            android:textSize="13sp"
+                            android:textColor="@color/black"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -167,7 +189,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition4"
@@ -175,7 +197,9 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="칼로리"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -185,9 +209,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/kcal_nutrition2"
@@ -196,8 +220,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="kcal"
-                        android:textSize="18dp"
-                        android:textStyle="bold"/>
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"/>
 
                 </LinearLayout>
 
@@ -206,7 +231,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition5"
@@ -214,7 +239,9 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="탄수화물"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -224,9 +251,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -235,7 +262,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition6"
@@ -243,7 +270,9 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="단백질"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -253,9 +282,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
 
 
                 </LinearLayout>
@@ -265,7 +294,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition7"
@@ -273,7 +302,9 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="지방"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -283,9 +314,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"/>
 
 
                 </LinearLayout>
@@ -296,7 +327,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition8"
@@ -304,7 +335,9 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="나트륨"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -314,9 +347,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -325,14 +358,16 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="칼륨"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -342,9 +377,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -355,7 +390,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition9"
@@ -363,7 +398,9 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="콜레스테롤"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -373,9 +410,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -384,7 +421,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition10"
@@ -392,7 +429,9 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="포화지방"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -402,9 +441,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -413,7 +452,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition11"
@@ -421,7 +460,9 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="불포화지방"
-                        android:textSize="18dp"
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -431,9 +472,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:textColor="#4c4c4c" />
+                        android:fontFamily="@font/nanumgothic_regular"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"/>
 
                 </LinearLayout>
             </LinearLayout>

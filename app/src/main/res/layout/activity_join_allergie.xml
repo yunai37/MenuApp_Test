@@ -16,13 +16,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" >
 
-
         <TextView
             android:id="@+id/txt_join_allergie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:text="알레르기 정보 입력"
+            android:fontFamily="@font/nanumgothic_regular"
             android:textSize="25dp"
             android:textStyle="bold"
             android:textColor="@color/black" />
@@ -34,8 +34,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="10dp"
-            android:text="알레르기 여부"
-            android:textColor="@color/black"
+            android:fontFamily="@font/nanumgothic_regular"
+            android:text="해당되는 재료를 선택해 주시면"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/nanumgothic_regular"
+            android:text="정확한 메뉴 추천이 가능해요!"
             android:textSize="18dp"
             android:textStyle="bold" />
 
@@ -47,16 +57,18 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <!-- 오류로 높이 48dp. 오류 수정되면 30dp으로 조정 -->
             <CheckBox
                 android:id="@+id/chk_egg"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
+                android:fontFamily="@font/nanumgothic_regular"
+                android:textColor="@color/black"
                 android:text="달걀" />
 
             <CheckBox
                 android:id="@+id/chk_milk"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/nanumgothic_regular"
                 android:layout_height="48dp"
                 android:text="우유" />
 
@@ -71,18 +83,21 @@
                     android:id="@+id/chk_wheat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="밀" />
 
                 <CheckBox
                     android:id="@+id/chk_bean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="콩" />
 
                 <CheckBox
                     android:id="@+id/chk_peanut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="땅콩/대두" />
 
             </LinearLayout>
@@ -97,12 +112,14 @@
                     android:id="@+id/chk_fish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="생선" />
 
                 <CheckBox
                     android:id="@+id/chk_meat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="고기" />
 
             </LinearLayout>
@@ -117,12 +134,14 @@
                     android:id="@+id/chk_shellfish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="조개" />
 
                 <CheckBox
                     android:id="@+id/chk_crab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="갑각류" />
 
             </LinearLayout>
@@ -134,9 +153,11 @@
             android:id="@+id/btn_join_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="right|center"
             android:text="다음"
             android:backgroundTint="#faf4c0"
+            android:fontFamily="@font/nanumgothic_regular"
             android:textColor="@color/black"
             android:textStyle="bold">
 

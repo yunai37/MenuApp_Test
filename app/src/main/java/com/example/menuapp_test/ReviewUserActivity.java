@@ -160,7 +160,7 @@ public class ReviewUserActivity extends AppCompatActivity {
 
             });
 
-            if (!reviewItem.getImage().equals("http://52.78.72.175/null")) {
+            if (!reviewItem.getImage().equals("http://52.78.72.175null")) {
                 Thread thread = new Thread() {
                     @Override
                     public void run() {

@@ -189,9 +189,6 @@ public class JoinActivity extends AppCompatActivity {
                         catch (Exception e) {
                             Log.d("token", "Error ", e);
                         }
-
-                        Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
-
                         Intent intent = new Intent(getApplicationContext(), JoinAllergieActivity.class);
                         intent.putExtra("token", token);
                         startActivity(intent);

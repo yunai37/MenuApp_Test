@@ -49,22 +49,21 @@ public class RecommendResActivity extends AppCompatActivity {
         try {
             JSONArray jsonArray = new JSONArray(getRecommend.get());
             int id = jsonArray.getInt(0);
-            int Rid = jsonArray.getInt(1);
-            String category = jsonArray.getString(2);
-            String name = jsonArray.getString(3);
-            int price = jsonArray.getInt(4);
-            //String Rname = jsonArray.getString(5);
-            String Rname = "Rname";
-            String image = jsonArray.getString(7);
+            String name = jsonArray.getString(1);
+            int price = jsonArray.getInt(2);
+            int Rid = jsonArray.getInt(3);
+            String Rname = jsonArray.getString(4);
+            //String image = jsonArray.getString(5);
+            String image = "null";
 
-            recommendItem = new RecommendItem(id, Rid, name, category, price, image);
+            recommendItem = new RecommendItem(id, Rid, name, price, Rname, image);
 
             menuid = String.valueOf(recommendItem.getId());
             mname = recommendItem.getName();
             menu.setText(mname);
+            rname = recommendItem.getRname();
+            restaurant.setText(rname);
             rid = String.valueOf(recommendItem.getRestaurant());
-            rname = Rname;
-            //restaurant.setText(Rname);
 
         } catch (Exception e) {
             Log.d("survey", "Error ", e);
@@ -95,9 +94,9 @@ public class RecommendResActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PopupReview.class);
         intent.putExtra("token", token);
         intent.putExtra("Mid", menuid);
+        intent.putExtra("Rid", rid);
         intent.putExtra("Rname", rname);
         intent.putExtra("Mname", mname);
-        intent.putExtra("Rid", rid);
         startActivity(intent);
     }
 }

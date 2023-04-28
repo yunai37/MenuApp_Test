@@ -24,8 +24,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal" >
 
         <ImageButton
@@ -34,7 +34,7 @@
             android:layout_height="45dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/arrow_left_large"
+            android:src="@drawable/arrow_back_ios_fill0_wght400_grad0_opsz48"
             android:backgroundTint="#faf4c0" />
 
         <TextView
@@ -44,8 +44,9 @@
             android:layout_gravity="center"
             android:text="마이페이지"
             android:textSize="25dp"
+            android:fontFamily="@font/nanumgothic_regular"
             android:textStyle="bold"
-            android:textColor="#584B00" />
+            android:textColor="@color/black" />
     </LinearLayout>
 
         <LinearLayout
@@ -78,6 +79,7 @@
                     android:text="닉네임"
                     android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:textStyle="bold" />
 
                 <TextView
@@ -85,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="한 줄의 자기소개"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -113,7 +116,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/heart" />
+                    android:src="@drawable/favorite_fill0_wght400_grad0_opsz48" />
 
                 <TextView
                     android:id="@+id/txt_btn_wish"
@@ -124,6 +127,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="가고 싶은 음식점"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:textColor="#363636"
                     android:textSize="17sp" />
 
@@ -150,7 +154,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/settings_alt" />
+                    android:src="@drawable/settings_fill0_wght400_grad0_opsz48" />
 
                 <TextView
                     android:id="@+id/txt_btn_setting"
@@ -159,6 +163,7 @@
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
                     android:clickable="true"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:focusable="true"
                     android:text="내 정보 수정"
                     android:textColor="#363636"
@@ -182,7 +187,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/logout" />
+                    android:src="@drawable/logout_fill0_wght400_grad0_opsz48" />
 
                 <TextView
                     android:id="@+id/txt_btn_logout"
@@ -192,6 +197,7 @@
                     android:gravity="center_vertical"
                     android:clickable="true"
                     android:focusable="true"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="로그아웃"
                     android:textColor="#363636"
                     android:textSize="17sp"/>
@@ -219,7 +225,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/logout" />
+                    android:src="@drawable/delete_fill0_wght400_grad0_opsz48" />
 
                 <TextView
                     android:id="@+id/txt_btn_delete"
@@ -229,6 +235,7 @@
                     android:gravity="center_vertical"
                     android:clickable="true"
                     android:focusable="true"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="계정 삭제하기"
                     android:textColor="#363636"
                     android:textSize="17sp"/>

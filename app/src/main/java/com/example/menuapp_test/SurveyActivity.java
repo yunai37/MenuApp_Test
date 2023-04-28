@@ -84,7 +84,7 @@ public class SurveyActivity extends AppCompatActivity {
                 String name = item.getString("name");
                 String image = item.getString("image");
 
-                adapter.addSItem(id, category, name, "http://52.78.72.175" + image, Integer.parseInt(preference));
+                adapter.addSItem(id, category, name, image, Integer.parseInt(preference));
             }
         } catch (Exception e) {
             Log.d("survey", "Error ", e);
@@ -136,7 +136,7 @@ public class SurveyActivity extends AppCompatActivity {
             SurveyItem surveyItem = data.get(position);
             name.setText(surveyItem.getName());
 
-            if(!surveyItem.getImage().equals("http://52.78.72.175null")){
+            if(!surveyItem.getImage().equals("null")){
                 Thread thread = new Thread() {
                     @Override
                     public void run(){

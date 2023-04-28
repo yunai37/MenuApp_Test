@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SurveyActivity">
+    tools:context=".PreferenceUpdateActivity">
 
     <View
         android:id="@+id/view"
@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:fontFamily="@font/nanumgothic_regular"
                 android:text="음식 취향을 알려주세요 !"
                 android:textSize="22dp"
                 android:textColor="@color/black"
@@ -42,7 +43,8 @@
         <ListView
             android:id="@+id/listv_prefer"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="50dp"
             tools:listitem="@layout/item_survey" />
 
         <LinearLayout
@@ -56,14 +58,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="저장하기"
+                android:fontFamily="@font/nanumgothic_regular"
                 android:textColor="#747474"
                 android:textStyle="bold"
                 android:backgroundTint="#ffffff" />
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/survey_result" />
     </LinearLayout>
 
 

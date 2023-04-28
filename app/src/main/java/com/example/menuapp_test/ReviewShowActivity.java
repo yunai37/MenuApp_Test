@@ -134,7 +134,7 @@ public class ReviewShowActivity extends AppCompatActivity {
                     rating = Float.parseFloat(item.getString("rating"));
                 else rating = 0;
 
-                adapter.addReviewItem(id, rating, content, datetime, nickname, menuname, image);
+                adapter.addReviewItem(id, rating, content, datetime, nickname, menuname, "http://52.78.72.175" + image);
             }
 
             listView.setAdapter(adapter);
