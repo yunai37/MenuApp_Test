@@ -26,10 +26,9 @@ public class AllergieUpdateActivity extends AppCompatActivity {
     private static String ADDRESS_PUT = "http://52.78.72.175/data/allergy";
     private CheckBox egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab;
     private String e, m, w, b, p, f, me, s, c;
-    private boolean scheck;
-    private Button save, end;
+    private Button end;
     private TextView txt_result;
-    private String token;
+    private String token, allergie;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,19 +44,28 @@ public class AllergieUpdateActivity extends AppCompatActivity {
         shellfish = (CheckBox) findViewById(R.id.chk_shellfish);
         crab = (CheckBox) findViewById(R.id.chk_crab);
 
+        Intent getintent = getIntent();
+        token = getintent.getStringExtra("token");
+        allergie = getintent.getStringExtra("allergie");
+
+        if(allergie.contains("달걀")) egg.setChecked(true);
+        if(allergie.contains("우유")) milk.setChecked(true);
+        if(allergie.contains("밀")) wheat.setChecked(true);
+        if(allergie.contains("콩")) bean.setChecked(true);
+        if(allergie.contains("땅콩")) peanut.setChecked(true);
+        if(allergie.contains("생선")) fish.setChecked(true);
+        if(allergie.contains("고기")) meat.setChecked(true);
+        if(allergie.contains("조개")) shellfish.setChecked(true);
+        if(allergie.contains("갑각류")) crab.setChecked(true);
+
         end = findViewById(R.id.btn_end_update);
         txt_result = findViewById(R.id.txt_result);
 
-        scheck = false;
-
         end.setOnClickListener(view -> {
-            Intent getintent = getIntent();
-            token = getintent.getStringExtra("token");
 
             e = "0"; m = "0"; w = "0"; b = "0"; p = "0"; f = "0"; me = "0"; s = "0"; c = "0";
 
             sendAllergie(egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab);
-            scheck = true;
 
             Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
             InsertAllergie insertAllergie = new InsertAllergie();

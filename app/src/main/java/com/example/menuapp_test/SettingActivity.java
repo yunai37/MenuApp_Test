@@ -122,6 +122,7 @@ public class SettingActivity extends AppCompatActivity {
         set_allergie.setOnClickListener(v -> {
             Intent intent = new Intent(this, AllergieUpdateActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("allergie", allergie.getText().toString());
             startActivity(intent);
         });
         set_preference.setOnClickListener(v -> {

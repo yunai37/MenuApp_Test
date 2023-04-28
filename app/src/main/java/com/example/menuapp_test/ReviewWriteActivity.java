@@ -59,11 +59,9 @@ public class ReviewWriteActivity extends AppCompatActivity {
     private EditText review;
     private Button image, good, soso, bad, fast, god, save, cancel;
     private float rating;
-    private String menuid, rid, Mname, Rname;
+    private String menuid, rid, Mname, Rname, imagePath;
     private String token, comment;
     private Uri uri;
-    private File destFile;
-    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,11 +132,20 @@ public class ReviewWriteActivity extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent,101);
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ReviewWriteActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                }
+                else {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, 1);
+                }
             }
+        });
+
+        cancel.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("token", token);
+                    startActivity(intent);
         });
 
         save.setOnClickListener(v -> {
@@ -151,92 +158,48 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     String Image = "";
                     if(uri.equals("")) Image = "null";
                     else {
-                        Image = String.valueOf(destFile);
+                        Image = imagePath;
                     }
                     PostReview postReview = new PostReview();
                     postReview.execute(ADDRESS_POST, Rating, Content, Menuid, Rid, Image, token);
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("token", token);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
                 else Toast.makeText(getApplicationContext(), "리뷰 내용을 작성해주세요.", Toast.LENGTH_SHORT).show();
             }
             else Toast.makeText(getApplicationContext(), "별점을 매겨주세요.", Toast.LENGTH_SHORT).show();
         });
     }
-    //권한에 대한 응답이 있을때 작동하는 함수
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        //권한을 허용 했을 경우
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            int length = permissions.length;
-            for (int i = 0; i < length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    // 동의
-                    Log.d("MainActivity", "권한 허용 : " + permissions[i]);
-                }
-            }
-        }
-    }
-    public void checkSelfPermission() {
-
-        String temp = "";
-
-        //파일 읽기 권한 확인
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            temp += android.Manifest.permission.READ_EXTERNAL_STORAGE + " ";
-        }
-
-        //파일 쓰기 권한 확인
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            temp += android.Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
-        }
-
-
-        if (TextUtils.isEmpty(temp) == false) {
-            // 권한 요청
-            ActivityCompat.requestPermissions(this, temp.trim().split(" "),1);
-        }else {
-            // 모두 허용 상태
-            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
-        }
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == 101 && resultCode == RESULT_OK) {
+        if(requestCode == 1 && resultCode == RESULT_OK) {
             // Image 상대경로를 가져온다
             uri = data.getData();
             imageView.setImageURI(uri);
             // Image의 절대경로를 가져온다
-            String imagePath = getRealPathFromURI(uri);
-            // File변수에 File을 집어넣는다
-            destFile = new File(imagePath);
+            imagePath = getFilePathFromUri(uri);
         }
-            // 사진 선택 취소
-        else if (requestCode == 101 && resultCode == RESULT_CANCELED) {
-                Toast.makeText(getApplicationContext(), "사진 선택 취소", Toast.LENGTH_SHORT).show();
+        // 사진 선택 취소
+        else if (requestCode == 1 && resultCode == RESULT_CANCELED) {
+            Toast.makeText(getApplicationContext(), "사진 선택 취소", Toast.LENGTH_SHORT).show();
         }
     }
-    private String getRealPathFromURI(Uri contentURI) {
-        String filePath;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) {
-            filePath = contentURI.getPath();
-        }
-        else {
+    private String getFilePathFromUri(Uri imageUri) { // 이미지 uri를 절대경로로 변환하는 함수
+        String imagePath = null;
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(imageUri, projection, null, null, null);
+
+        if (cursor != null) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            filePath = cursor.getString(idx);
+            imagePath = cursor.getString(columnIndex);
             cursor.close();
         }
-        return filePath;
+        return imagePath;
     }
+
     public class PostReview extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
 
