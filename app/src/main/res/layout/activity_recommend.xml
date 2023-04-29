@@ -30,7 +30,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="닉네임"
                     android:textSize="22dp"
                     android:textStyle="bold" />
@@ -42,7 +41,6 @@
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
                     android:text="님이 좋아하는"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -58,7 +56,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="메뉴를 추천해드릴게요"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -86,7 +83,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textColor="@color/black"
                     android:text="우리의 예산은"
                     android:textSize="17sp"
@@ -103,7 +99,6 @@
                     android:id="@+id/spinner_price"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:entries="@array/가격"
                     android:theme="@style/SpinnerDivideStyle" />
 
@@ -113,7 +108,6 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textColor="@color/black"
                     android:text="원 까지"
                     android:textSize="16sp"
@@ -133,7 +127,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textColor="@color/black"
                     android:text="오늘의 날씨는 ?"
                     android:textSize="17sp"
@@ -151,7 +144,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:entries="@array/날씨"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:theme="@style/SpinnerDivideStyle" />
 
             </LinearLayout>
@@ -171,7 +163,6 @@
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:text="지금 내 기분은 !"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="17sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -186,7 +177,6 @@
                     android:id="@+id/spinner_emotion"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:entries="@array/기분"
                     android:theme="@style/SpinnerDivideStyle" />
 
@@ -200,9 +190,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="메뉴 추천받기"
+            android:fontFamily="@font/font"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:fontFamily="@font/nanumgothic_regular"
             android:backgroundTint="#faf4c0">
 
         </Button>

@@ -5,14 +5,16 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/listview_item_border"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/img_wishlist"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginLeft="3dp"
             android:padding="5dp"
             android:background="@drawable/img_list_border"
@@ -39,7 +41,8 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
-                    android:text="맘스터치 인천대점"
+                    android:textColor="@color/black"
+                    android:text="음식점 이름"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -59,40 +62,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
                 tools:ignore="MissingConstraints">
 
                 <TextView
-                    android:id="@+id/category_wishlist"
-                    android:layout_width="180dp"
+                    android:id="@+id/distance_wishlist"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="start"
                     android:layout_marginLeft="10dp"
-                    android:text="버거"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
                     android:layout_marginRight="10dp"
-                    android:orientation="horizontal">
+                    android:text="주소"
+                    android:textSize="13sp" />
 
-                    <TextView
-                        android:id="@+id/distance_wishlist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="right|center"
-                        android:text="70" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="1dp"
-                        android:gravity="center_vertical"
-                        android:text="m" />
-
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

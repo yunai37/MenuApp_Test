@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,10 +15,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GetRecommend extends AsyncTask<String, Void, String> {
+public class PostRecommend extends AsyncTask<String, Void, String> {
     ProgressDialog progressDialog;
     Context context;
-    GetRecommend(Context context){
+    PostRecommend(Context context){
         this.context = context;
     }
     @Override
@@ -29,19 +31,17 @@ public class GetRecommend extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         progressDialog.dismiss();
-        Log.d("Recommend", "POST response - " + result);
+        Log.d("PostRecommend", "POST response - " + result);
     }
 
     @Override
     protected String doInBackground(String... params) {
-        /*String Price = params[1];
+        String Price = params[1];
         String Weather = params[2];
         String Emotion = params[3];
-        String Token = params[4];*/
-        String Token = params[1];
+        String Token = params[4];
 
         String serverURL = params[0];
-       // String postParameters = "price=" + Price + "&weather=" + Weather + "&emotion=" + Emotion;
 
         try {
             URL url = new URL(serverURL);
@@ -49,11 +49,23 @@ public class GetRecommend extends AsyncTask<String, Void, String> {
 
             conn.setReadTimeout(5000);
             conn.setConnectTimeout(5000);
+            conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Authorization", "TOKEN " + Token);
+            conn.setRequestMethod("POST");
             conn.connect();
 
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("price", Price);
+            jsonObject.put("weather", Weather);
+            jsonObject.put("emotion", Emotion);
+
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.write(jsonObject.toString().getBytes());
+            outputStream.flush();
+            outputStream.close();
+
             int responseStatusCode = conn.getResponseCode();
-            Log.d("Recommend", "POST response code - " + responseStatusCode);
+            Log.d("PostRecommend", "POST response code - " + responseStatusCode);
 
             InputStream inputStream;
             if (responseStatusCode == conn.HTTP_OK) {
@@ -78,7 +90,7 @@ public class GetRecommend extends AsyncTask<String, Void, String> {
             return sb.toString();
         }
         catch (Exception e) {
-            Log.d("Recommend", "InsertData : Error ", e);
+            Log.d("PostRecommend", "InsertData : Error ", e);
             return new String("Error: " + e.getMessage());
         }
     }

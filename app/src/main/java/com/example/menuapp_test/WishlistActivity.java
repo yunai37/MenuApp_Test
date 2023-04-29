@@ -17,7 +17,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -65,7 +64,7 @@ public class WishlistActivity extends AppCompatActivity {
         mlistView.setOnItemClickListener((adapterView, view, i, l) -> {
             ListItem item = (ListItem) adapter.getItem(i);
             String Rid = String.valueOf(item.getId());
-            Intent intent = new Intent(this, RecommendRestaurantActivity.class);
+            Intent intent = new Intent(this, RestaurantActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("Rid", Rid);
             startActivity(intent);
@@ -196,15 +195,13 @@ public class WishlistActivity extends AppCompatActivity {
 
             ImageView imageView = (ImageView) view.findViewById(R.id.img_wishlist);
             TextView name = (TextView) view.findViewById(R.id.rname_wishlist);
-            TextView category_name = (TextView) view.findViewById(R.id.category_wishlist);
             TextView distance = view.findViewById(R.id.distance_wishlist);
             CheckBox wish = view.findViewById(R.id.imgbtn_wishlist);
 
             ListItem listItem = listItems.get(position);
 
             name.setText(listItem.getName());
-            category_name.setText(listItem.getCategory_name());
-            distance.setText(String.valueOf(listItem.getDistance()));
+            distance.setText(String.valueOf(listItem.getAddress()));
 
             if(!listItem.getImage().equals("null")){
                 Thread thread = new Thread() {

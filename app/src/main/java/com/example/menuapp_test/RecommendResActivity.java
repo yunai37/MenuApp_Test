@@ -12,12 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class RecommendResActivity extends AppCompatActivity {
     private static String ADDRESS_RECOMMEND = "http://52.78.72.175/recommendation/menurecommend";
-    private TextView nickname, menu, restaurant, mprice;            // 닉네임, 추천되는 메뉴, 음식점
+    private TextView nickname, menu, restaurant, mprice, count;            // 닉네임, 추천되는 메뉴, 음식점
     Button info, select, re, back;        // 상세정보 보기, 메뉴 이용하기, 재추천, 돌아가기
     private String token, price, weather, emotion, Nickname, rid, menuid, mname, rname;
     private RecommendItem recommendItem;
@@ -29,9 +26,9 @@ public class RecommendResActivity extends AppCompatActivity {
 
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
-        /*price = getIntent.getStringExtra("price");
+        price = getIntent.getStringExtra("price");
         weather = getIntent.getStringExtra("weather");
-        emotion = getIntent.getStringExtra("emotion");*/
+        emotion = getIntent.getStringExtra("emotion");
         Nickname = getIntent.getStringExtra("nickname");
 
         nickname = findViewById(R.id.name_recommend_res);
@@ -44,21 +41,20 @@ public class RecommendResActivity extends AppCompatActivity {
         restaurant = findViewById(R.id.rname_recommend_res);
         mprice = findViewById(R.id.price_recommend_res);
 
-        GetRecommend getRecommend = new GetRecommend(RecommendResActivity.this);
-        //getRecommend.execute(ADDRESS_RECOMMEND, price, weather, emotion, token);
-        getRecommend.execute(ADDRESS_RECOMMEND, token);
+        PostRecommend postRecommend = new PostRecommend(RecommendResActivity.this);
+        postRecommend.execute(ADDRESS_RECOMMEND, price, weather, emotion, token);
 
         try {
-            JSONArray jsonArray = new JSONArray(getRecommend.get());
-            int id = jsonArray.getInt(0);
-            String name = jsonArray.getString(1);
-            int price = jsonArray.getInt(2);
-            int Rid = jsonArray.getInt(3);
-            String Rname = jsonArray.getString(4);
-            //String image = jsonArray.getString(5);
-            String image = "null";
+            JSONArray jsonArray = new JSONArray(postRecommend.get());
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            int id = jsonObject.getInt("menu_id");
+            String name = jsonObject.getString("menu_name");
+            int price = jsonObject.getInt("menu_price");
+            int Rid = jsonObject.getInt("restaurant_id");
+            String Rname = jsonObject.getString("restaurant_name");
+            String image = jsonObject.getString("image");
 
-            recommendItem = new RecommendItem(id, Rid, name, price, Rname, image);
+            recommendItem = new RecommendItem(id, Rid, name, price, Rname, "http://52.78.72.175" + image);
 
             menuid = String.valueOf(recommendItem.getId());
             mname = recommendItem.getName();

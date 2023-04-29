@@ -61,7 +61,8 @@ public class ReviewUserActivity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);
                 int id = Integer.parseInt(item.getString("id"));
                 String content = item.getString("content");
-                String datetime = item.getString("datetime");
+                String Datetime = item.getString("datetime");
+                String datetime = Datetime.substring(0, 10);
 
                 JSONObject user = (JSONObject) item.get("user");
                 String nickname = user.getString("nickname");

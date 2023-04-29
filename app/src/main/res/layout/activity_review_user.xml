@@ -41,8 +41,9 @@
         android:id="@+id/listv_review_user"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="90dp"
+        android:layout_marginTop="90dp"
         android:paddingBottom="50dp"
+        android:background="#EEE"
         tools:listitem="@layout/item_review_user" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

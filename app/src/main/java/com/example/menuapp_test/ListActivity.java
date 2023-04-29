@@ -12,13 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -74,7 +71,7 @@ public class ListActivity extends AppCompatActivity {
         mlistView.setOnItemClickListener((adapterView, view, i, l) -> {
             ListItem item = (ListItem) adapter.getItem(i);
             rid = String.valueOf(item.getId());
-            Intent intent = new Intent(this, RecommendRestaurantActivity.class);
+            Intent intent = new Intent(this, RestaurantActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("Rid", rid);
             startActivity(intent);

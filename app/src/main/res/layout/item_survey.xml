@@ -37,8 +37,7 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/nanumgothic_regular"
-                    android:text="햄버거"
+                    android:text="메뉴 이름"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -58,27 +57,27 @@
                         android:id="@+id/radio_good"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/font"
                         android:text="좋아요!"
                         android:textSize="13sp"
-                        android:fontFamily="@font/nanumgothic_regular"
                         android:layout_marginEnd="5dp"/>
 
                     <RadioButton
                         android:id="@+id/radio_soso"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/font"
                         android:text="그냥 그래요"
                         android:textSize="13sp"
-                        android:fontFamily="@font/nanumgothic_regular"
                         android:layout_marginEnd="5dp"/>
 
                     <RadioButton
                         android:id="@+id/radio_bad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/font"
                         android:text="싫어요"
                         android:textSize="13sp"
-                        android:fontFamily="@font/nanumgothic_regular"
                         android:layout_marginEnd="5dp"/>
 
                 </RadioGroup>

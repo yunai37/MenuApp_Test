@@ -27,7 +27,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="회원 가입"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:textSize="25dp"
                 android:textStyle="bold"
                 android:textColor="@color/black" />
@@ -36,7 +35,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:layout_marginTop="20dp"
                 android:hint="이메일">
 
@@ -55,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이메일 중복 확인"
-                android:fontFamily="@font/nanumgothic_regular"
+                android:fontFamily="@font/font"
                 android:backgroundTint="#faf4c0"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -65,7 +63,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:hint="비밀번호">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -82,7 +79,6 @@
                 android:layout_height="wrap_content"
                 android:text="숫자,영문 대소문자,특수문자를 포함해주세요."
                 android:layout_marginTop="2dp"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:textColor="#747474"
                 android:textSize="14sp" />
 
@@ -90,7 +86,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:layout_marginTop="10dp"
                 android:hint="비밀번호 확인">
 
@@ -105,8 +100,8 @@
                 android:id="@+id/btn_join_pw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:text="비밀번호 확인"
+                android:fontFamily="@font/font"
                 android:backgroundTint="#faf4c0"
                 android:textColor="@color/black"
                 android:textSize="15sp"/>
@@ -115,7 +110,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:hint="닉네임">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -128,8 +122,8 @@
                 android:id="@+id/btn_join_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:text="닉네임 중복 확인"
+                android:fontFamily="@font/font"
                 android:backgroundTint="#faf4c0"
                 android:textColor="@color/black"
                 android:textSize="15sp"/>
@@ -145,7 +139,6 @@
                     android:layout_width="150dp"
                     android:layout_height="48dp"
                     android:entries="@array/출생연도"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:theme="@style/SpinnerDivideStyle" />
 
                 <Spinner
@@ -153,7 +146,6 @@
                     android:layout_width="150dp"
                     android:layout_height="48dp"
                     android:entries="@array/성별"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:theme="@style/SpinnerDivideStyle" />
 
             </LinearLayout>
@@ -165,8 +157,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_gravity="right|center"
                 android:text="다음"
+                android:fontFamily="@font/font"
                 android:backgroundTint="#ffffff"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:textColor="@color/black"
                 android:textStyle="bold">
 

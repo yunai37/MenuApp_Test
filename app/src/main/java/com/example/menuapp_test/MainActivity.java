@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,6 +124,39 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home : {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("token", token);
+                        startActivity(intent);
+                    }
+                    case R.id.list : {
+                        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                        intent.putExtra("token", token);
+                        intent.putExtra("address", address);
+                        intent.putExtra("latitude", latitude);
+                        intent.putExtra("longitude", longitude);
+                        startActivity(intent);
+                    }
+                    case R.id.recommend : {
+                        Intent intent = new Intent(getApplicationContext(), RecommendActivity.class);
+                        intent.putExtra("token", token);
+                        intent.putExtra("nickname", nickname);
+                        startActivity(intent);
+                    }
+                    case R.id.mypage : {
+                        Intent intent = new Intent(getApplicationContext(), MypageActivity.class);
+                        intent.putExtra("token", token);
+                        startActivity(intent);
+                    }
+                }
+                return false;
+            }
+        });
     }
     @Override
     public void onRequestPermissionsResult(int permsRequestCode,

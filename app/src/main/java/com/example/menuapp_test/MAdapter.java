@@ -84,7 +84,7 @@ public class MAdapter extends BaseAdapter {
         return view;
     }
 
-    public void addRItem(int id, int restaurant, String category, String name, String price, String emotion, String weather, String image, Boolean chechallergy){
+    public void addRItem(int id, int restaurant, String category, String name, String price, String emotion, String weather, String image, boolean chechallergy){
         MenuItem item = new MenuItem();
         item.setId(id);
         item.setRestaurant(restaurant);

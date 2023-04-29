@@ -33,7 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:text="음식 취향을 알려주세요 !"
                 android:textSize="22dp"
                 android:textColor="@color/black"
@@ -58,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="저장하기"
-                android:fontFamily="@font/nanumgothic_regular"
+                android:fontFamily="@font/font"
                 android:textColor="#747474"
                 android:textStyle="bold"
                 android:backgroundTint="#ffffff" />

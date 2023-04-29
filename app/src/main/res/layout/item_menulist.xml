@@ -36,9 +36,8 @@
                     android:gravity="bottom"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="싸이버거"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
 
@@ -49,9 +48,7 @@
                     android:layout_marginRight="1dp"
                     android:layout_marginBottom="4dp"
                     android:gravity="right|bottom"
-                    android:fontFamily="@font/nanumgothic_regular"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
                     android:text="5000" />
 
@@ -61,11 +58,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="7dp"
                     android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:gravity="bottom"
                     android:layout_marginLeft="2dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     android:text="원" />
             </LinearLayout>
@@ -79,7 +74,6 @@
                     android:id="@+id/allergie_menulist"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:layout_marginLeft="11dp"
                     android:gravity="start"
                     android:textSize="12sp"

@@ -73,4 +73,5 @@ public class RecommendItem {
     public void setRname(String rname) {
         Rname = rname;
     }
+
 }

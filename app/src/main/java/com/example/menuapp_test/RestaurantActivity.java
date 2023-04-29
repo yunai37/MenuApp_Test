@@ -8,15 +8,14 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,18 +28,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class RecommendRestaurantActivity extends AppCompatActivity {
+public class RestaurantActivity extends AppCompatActivity {
     private static String ADDRESS_RESTAURANT = "http://52.78.72.175/data/restaurant";
     private static String ADDRESS_WISH = "http://52.78.72.175/data/favorite";
     private ImageView restaurant;
+    private ListView listView;
+    private MenuItem menuItems;
+    private MAdapter adapter;
     private CheckBox wish;
-    private TextView name, category, phone, address, time, rating;
-    private RecyclerView recyclerView;
-    private Button menu, review;
-    private String token, rid, mJsonString;
+    private TextView name, category, phone, address, time, rating, review, count;
+    private String token, rid, rJsonString, mJsonstring;
     private ListItem listItem = new ListItem();
     private Bitmap bitmap;
 
@@ -61,16 +60,16 @@ public class RecommendRestaurantActivity extends AppCompatActivity {
         address = findViewById(R.id.address_restaurant);
         time = findViewById(R.id.time_restaurant);
         rating = findViewById(R.id.rating_restaurant);
-        recyclerView = findViewById(R.id.recyclerv_restaurant);
-        menu = findViewById(R.id.menu_restaurant);
         review = findViewById(R.id.review_restaurant);
+        listView = findViewById(R.id.listv_menulist);
+        count = findViewById(R.id.count_restaurant);
 
         GetRestaurant getRestaurant = new GetRestaurant();
         getRestaurant.execute(ADDRESS_RESTAURANT, token);
         try {
-            mJsonString = getRestaurant.get();
+            rJsonString = getRestaurant.get();
             int Resid = Integer.parseInt(rid) - 1;
-            JSONArray jsonArray = new JSONArray(mJsonString);
+            JSONArray jsonArray = new JSONArray(rJsonString);
             JSONObject item = jsonArray.getJSONObject(Resid);
             int id = Integer.parseInt(item.getString("id"));
             String name = item.getString("name");
@@ -89,10 +88,11 @@ public class RecommendRestaurantActivity extends AppCompatActivity {
             //String distance = item.getString("distance");
             boolean Wish = Boolean.parseBoolean(item.getString("favor"));
             //String distance = "70";
+            String Count = item.getString("count");
 
             listItem.setId(id); listItem.setName(name); listItem.setBusiness_hours(business);
             listItem.setPhone_number(phone); listItem.setCategory_name(category_name); listItem.setImage(image);
-            listItem.setWish(Wish); listItem.setRating(Rating); listItem.setAddress(address);
+            listItem.setWish(Wish); listItem.setRating(Rating); listItem.setAddress(address); listItem.setCount(Count);
         } catch (JSONException e) {
             Log.d("Restaurant", "showResult : ", e);
         } catch (ExecutionException e) {
@@ -105,9 +105,10 @@ public class RecommendRestaurantActivity extends AppCompatActivity {
 
         wish.setOnClickListener(v -> {
             String Rid = String.valueOf(listItem.getId());
-            PostWish postWish = new PostWish(RecommendRestaurantActivity.this);
+            PostWish postWish = new PostWish(RestaurantActivity.this);
             postWish.execute(ADDRESS_WISH, Rid, token);
         });
+
         if(!listItem.getImage().equals("null")){
             Thread thread = new Thread() {
                 @Override
@@ -142,31 +143,73 @@ public class RecommendRestaurantActivity extends AppCompatActivity {
         address.setText(listItem.getAddress());
         time.setText(listItem.getBusiness_hours());
         rating.setText(listItem.getRating());
+        count.setText(listItem.getCount());
 
-        /*LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new ImageAdapter(images);
-        recyclerView.setAdapter(adapter);*/
-
-        menu.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MenulistActivity.class);
-            intent.putExtra("token", token);
-            intent.putExtra("Rid", rid);
-            startActivity(intent);
-        });
         review.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReviewShowActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("Rid", rid);
             startActivity(intent);
         });
+
+        GetMenu getMenu = new GetMenu(RestaurantActivity.this);
+        getMenu.execute(ADDRESS_RESTAURANT + "/" + rid + "/menu", token);
+
+        try {
+            mJsonstring = getMenu.get();
+        }catch (ExecutionException | InterruptedException e) {
+            Log.d("Menulist", "getMenu : ", e);
+        }
+
+        try {
+            JSONArray jsonArray = new JSONArray(mJsonstring);       // 전체 데이터를 배열에 저장
+            adapter = new MAdapter();
+
+            for (int i = 0; i < jsonArray.length(); i++) {                // 한 그룹{} 씩 읽음
+                JSONObject item = jsonArray.getJSONObject(i);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
+                int id = Integer.parseInt(item.getString("id"));
+                int restaurant = Integer.parseInt(item.getString("restaurant"));
+                String category = item.getString("category");
+                String name = item.getString("name");
+                String price = item.getString("price");
+                String emotion = item.getString("emotion");
+                String weather = item.getString("weather");
+                boolean checkallergy = item.getBoolean("checkallergy");
+                String image = "";
+                if(!item.getString("image").equals("null"))
+                    image = item.getString("image");
+                else image = "null";
+                adapter.addRItem(id, restaurant, category, name, price, emotion, weather, image, checkallergy);
+            }
+
+            listView.setAdapter(adapter);
+
+        } catch (JSONException e) {
+            Log.d("Menulist", "showResult : ", e);
+        }
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MenuItem item = (MenuItem) adapter.getItem(i);
+                String Mid = String.valueOf(item.getId());
+                String Name = item.getName();
+                Intent intent = new Intent(adapterView.getContext(), NutritionActivity.class);
+                intent.putExtra("token", token);
+                intent.putExtra("Mid", Mid);
+                intent.putExtra("mname", Name);
+                startActivity(intent);
+            }
+        });
+
     }
+
     private class GetRestaurant extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(RecommendRestaurantActivity.this, "Please Wait", null, true, true);
+            progressDialog = ProgressDialog.show(RestaurantActivity.this, "Please Wait", null, true, true);
         }
 
         @Override

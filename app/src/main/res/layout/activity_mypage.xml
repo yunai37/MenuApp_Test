@@ -44,7 +44,6 @@
             android:layout_gravity="center"
             android:text="마이페이지"
             android:textSize="25dp"
-            android:fontFamily="@font/nanumgothic_regular"
             android:textStyle="bold"
             android:textColor="@color/black" />
     </LinearLayout>
@@ -79,7 +78,6 @@
                     android:text="닉네임"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textStyle="bold" />
 
                 <TextView
@@ -87,7 +85,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="한 줄의 자기소개"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -127,8 +124,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="가고 싶은 음식점"
-                    android:fontFamily="@font/nanumgothic_regular"
-                    android:textColor="#363636"
+                    android:textColor="@color/black"
                     android:textSize="17sp" />
 
             </LinearLayout>
@@ -163,10 +159,9 @@
                     android:layout_marginLeft="20dp"
                     android:gravity="center_vertical"
                     android:clickable="true"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:focusable="true"
                     android:text="내 정보 수정"
-                    android:textColor="#363636"
+                    android:textColor="@color/black"
                     android:textSize="17sp"/>
 
             </LinearLayout>
@@ -197,9 +192,8 @@
                     android:gravity="center_vertical"
                     android:clickable="true"
                     android:focusable="true"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="로그아웃"
-                    android:textColor="#363636"
+                    android:textColor="@color/black"
                     android:textSize="17sp"/>
 
             </LinearLayout>
@@ -236,9 +230,8 @@
                     android:gravity="center_vertical"
                     android:clickable="true"
                     android:focusable="true"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="계정 삭제하기"
-                    android:textColor="#363636"
+                    android:textColor="@color/black"
                     android:textSize="17sp"/>
 
             </LinearLayout>

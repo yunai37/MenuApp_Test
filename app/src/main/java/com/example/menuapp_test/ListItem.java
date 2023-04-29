@@ -13,6 +13,7 @@ public class ListItem implements Serializable {
     private String rating;
     private boolean wish;
     private int distance;
+    private String count;
 
     public String getName(){
         return name;
@@ -91,5 +92,13 @@ public class ListItem implements Serializable {
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 }

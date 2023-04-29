@@ -6,18 +6,7 @@
         android:font="@font/nanumgothic_regular"/>
 
     <font android:fontStyle="normal"
-        android:fontWeight="400"
+        android:fontWeight="700"
         android:font="@font/nanumgothic_bold"/>
 
-    <font android:fontStyle="normal"
-        android:fontWeight="400"
-        android:font="@font/spoqahansansneo_thin"/>
-
-    <font android:fontStyle="normal"
-        android:fontWeight="400"
-        android:font="@font/spoqahansansneo_regular"/>
-
-    <font android:fontStyle="normal"
-        android:fontWeight="400"
-        android:font="@font/spoqahansansneo_bold"/>
 </font-family>

@@ -118,7 +118,8 @@ public class ReviewShowActivity extends AppCompatActivity {
                 JSONObject item = jsonArray.getJSONObject(i);       // 해당 그룹의 데이터 하나씩 읽어서 각각의 변수에 저장
                 int id = Integer.parseInt(item.getString("id"));
                 String content = item.getString("content");
-                String datetime = item.getString("datetime");
+                String Datetime = item.getString("datetime");
+                String datetime = Datetime.substring(0, 10);
 
                 JSONObject user = (JSONObject) item.get("user");
                 String nickname = user.getString("nickname");

@@ -175,9 +175,9 @@ public class ReviewWriteActivity extends AppCompatActivity {
                         Image = imagePath;
                     PostReview postReview = new PostReview();
                     postReview.execute(ADDRESS_POST, Rating, Content, Menuid, Rid, Image, token);
-                    /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("token", token);
-                    startActivity(intent);*/
+                    startActivity(intent);
                 }
                 else Toast.makeText(getApplicationContext(), "리뷰 내용을 작성해주세요.", Toast.LENGTH_SHORT).show();
             }

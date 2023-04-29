@@ -38,7 +38,6 @@
         <activity android:name=".MypageActivity" />
         <activity android:name=".ReviewWriteActivity" />
         <activity android:name=".RecommendActivity" />
-        <activity android:name=".MenulistActivity" />
         <activity android:name=".JoinAllergieActivity" />
         <activity android:name=".ReviewShowActivity" />
         <activity android:name=".AllergieUpdateActivity" />
@@ -47,7 +46,7 @@
         <activity android:name=".SurveyActivity" />
         <activity android:name=".RecommendResActivity" />
         <activity android:name=".PreferenceUpdateActivity" />
-        <activity android:name=".RecommendRestaurantActivity" />
+        <activity android:name=".RestaurantActivity" />
         <activity android:name=".PopupPW" android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".PopupReview" android:theme="@android:style/Theme.Dialog" />
     </application>

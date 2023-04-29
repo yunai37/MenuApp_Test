@@ -32,7 +32,6 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="닉네임"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="22dp"
                     android:textStyle="bold" />
 
@@ -43,7 +42,6 @@
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
                     android:text="님에게 추천하는 메뉴는"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -59,7 +57,6 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="메뉴 이름"
                     android:textSize="22dp"
                     android:textStyle="bold" />
@@ -87,7 +84,6 @@
                 android:layout_marginTop="10dp"
                 android:text="음식점 : 이름"
                 android:textSize="17sp"
-                android:fontFamily="@font/nanumgothic_regular"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -98,7 +94,6 @@
                 android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:text="가격 : "
-                android:fontFamily="@font/nanumgothic_regular"
                 android:textColor="@color/black"
                 android:textSize="17sp" />
 
@@ -114,9 +109,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="영양 정보"
+                    android:fontFamily="@font/font"
                     android:textSize="13sp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textStyle="bold"
                     android:backgroundTint="@color/white">
 
@@ -128,8 +123,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="메뉴 확정"
+                    android:fontFamily="@font/font"
                     android:textSize="13sp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:backgroundTint="@color/white">
@@ -149,6 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="다른 메뉴 추천받기 (4)"
+            android:fontFamily="@font/font"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:backgroundTint="#faf4c0"/>
@@ -158,6 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:fontFamily="@font/font"
             android:text="돌아가기"
             android:textColor="@color/black"
             android:textStyle="bold"

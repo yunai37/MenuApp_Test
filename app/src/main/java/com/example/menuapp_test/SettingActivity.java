@@ -51,6 +51,7 @@ public class SettingActivity extends AppCompatActivity {
         set_preference = findViewById(R.id.btn_setting_like);
         introduction = findViewById(R.id.introduce_setting);
         back = findViewById(R.id.imgbtn_setting);
+        save = findViewById(R.id.btn_setting2);
 
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
@@ -131,7 +132,6 @@ public class SettingActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        save = findViewById(R.id.btn_setting2);
         save.setOnClickListener(view -> {
             newname = name.getText().toString();
             newintro = introduction.getText().toString();
