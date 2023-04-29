@@ -225,7 +225,8 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/delete_fill0_wght400_grad0_opsz48" />
+                    android:background="@color/white"
+                    android:src="@drawable/person_off_fill0_wght400_grad0_opsz40" />
 
                 <TextView
                     android:id="@+id/txt_btn_delete"

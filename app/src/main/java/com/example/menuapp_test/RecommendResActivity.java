@@ -17,8 +17,8 @@ import java.util.Random;
 
 public class RecommendResActivity extends AppCompatActivity {
     private static String ADDRESS_RECOMMEND = "http://52.78.72.175/recommendation/menurecommend";
-    private TextView nickname, menu, restaurant;            // 닉네임, 추천되는 메뉴, 음식점
-    Button info, select, re;        // 상세정보 보기, 메뉴 이용하기, 재추천
+    private TextView nickname, menu, restaurant, mprice;            // 닉네임, 추천되는 메뉴, 음식점
+    Button info, select, re, back;        // 상세정보 보기, 메뉴 이용하기, 재추천, 돌아가기
     private String token, price, weather, emotion, Nickname, rid, menuid, mname, rname;
     private RecommendItem recommendItem;
 
@@ -40,7 +40,9 @@ public class RecommendResActivity extends AppCompatActivity {
         info = findViewById(R.id.btn_recommend_nut);
         select = findViewById(R.id.btn_recommend_ok);
         re = findViewById(R.id.btn_recommend_re);
+        back = findViewById(R.id.btn_recommend_back);
         restaurant = findViewById(R.id.rname_recommend_res);
+        mprice = findViewById(R.id.price_recommend_res);
 
         GetRecommend getRecommend = new GetRecommend(RecommendResActivity.this);
         //getRecommend.execute(ADDRESS_RECOMMEND, price, weather, emotion, token);
@@ -62,8 +64,10 @@ public class RecommendResActivity extends AppCompatActivity {
             mname = recommendItem.getName();
             menu.setText(mname);
             rname = recommendItem.getRname();
-            restaurant.setText(rname);
+            restaurant.setText("음식점 : " + rname);
             rid = String.valueOf(recommendItem.getRestaurant());
+            String Price = String.valueOf(recommendItem.getPrice());
+            mprice.setText("가격 : " + Price + "원");
 
         } catch (Exception e) {
             Log.d("survey", "Error ", e);
@@ -85,6 +89,12 @@ public class RecommendResActivity extends AppCompatActivity {
             intent.putExtra("weather", weather);
             intent.putExtra("emotion", emotion);
             intent.putExtra("nickname", Nickname);
+            startActivity(intent);
+        });
+
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
             startActivity(intent);
         });
     }

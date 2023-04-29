@@ -169,22 +169,38 @@
                         android:gravity="center_vertical"
                         android:textSize="20dp" />
 
-                    <ImageView
-                        android:id="@+id/img_review_write"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="100dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/btn_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_gravity="right|bottom"
-                        android:layout_marginLeft="10dp"
-                        android:text="사진첨부"
-                        android:textSize="15sp" />
+                        <ImageView
+                            android:id="@+id/img_review_write"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right|center"/>
 
+                        <ImageButton
+                            android:id="@+id/btn_image"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="right|bottom"
+                            android:layout_marginLeft="10dp"
+                            android:background="#ffffff"
+                            android:src="@drawable/add_photo_alternate_24px"/>
+
+                        <ImageButton
+                            android:id="@+id/btn_delete"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="right|bottom"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="13dp"
+                            android:background="#ffffff"
+                            android:src="@drawable/image_not_supported_24px" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -311,10 +327,8 @@
                     android:layout_marginLeft="20dp"
                     android:text="취소"
                     android:textStyle="bold">
-
                 </Button>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 

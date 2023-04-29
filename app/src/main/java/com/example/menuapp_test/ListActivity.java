@@ -172,15 +172,16 @@ public class ListActivity extends AppCompatActivity {
                 String name = item.getString(TAG_NAME);
                 String address = item.getString(TAG_ADDRESS);
                 int distance = item.getInt("distance");
-                String image = ""; String rating = "0";
+                String image = ""; double rating = 0;
                 if(!item.getString(TAG_IMAGE).equals("null"))
                     image = item.getString(TAG_IMAGE);
                 else image = "null";
                 if(!item.getString(TAG_RATING).equals("null"))
-                    rating = item.getString(TAG_RATING);
-                else rating = "0";
+                    rating = item.getDouble(TAG_RATING);
+                else rating = 0;
+                String Rating = String.format("%.1f", rating);
                 boolean wish = Boolean.parseBoolean(item.getString("favor"));
-                adapter.addRItem(id, name, address, image, rating, distance, wish);
+                adapter.addRItem(id, name, address, image, Rating, distance, wish);
             }
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {

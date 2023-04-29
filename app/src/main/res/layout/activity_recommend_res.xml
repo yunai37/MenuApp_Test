@@ -31,8 +31,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="닉네임"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="22dp"
                     android:textStyle="bold" />
 
@@ -42,8 +42,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="님에게 추천하는 메뉴는"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -58,21 +58,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="메뉴 이름"
                     android:textSize="22dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_recommend_res2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:fontFamily="@font/nanumgothic_regular"
-                    android:gravity="center"
-                    android:text="입니다"
-                    android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -95,26 +84,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="음식점 : 이름"
+                android:textSize="17sp"
                 android:fontFamily="@font/nanumgothic_regular"
-                android:text="음식점 이름"
-                android:textSize="20dp"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/price_recommend_res"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
+                android:text="가격 : "
                 android:fontFamily="@font/nanumgothic_regular"
-                android:text="에서 먹을 수 있어요!"
+                android:textColor="@color/black"
                 android:textSize="17sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center" >
 
                 <Button
@@ -122,11 +114,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="영양 정보"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:textSize="13sp"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:textStyle="bold"
-                    android:backgroundTint="#faf4c0">
+                    android:backgroundTint="@color/white">
 
                 </Button>
 
@@ -135,29 +127,44 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:fontFamily="@font/nanumgothic_regular"
                     android:text="메뉴 확정"
                     android:textSize="13sp"
+                    android:fontFamily="@font/nanumgothic_regular"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:backgroundTint="#faf4c0">
+                    android:backgroundTint="@color/white">
 
                 </Button>
             </LinearLayout>
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center" >
 
         <Button
             android:id="@+id/btn_recommend_re"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/nanumgothic_regular"
             android:text="다른 메뉴 추천받기 (4)"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:backgroundTint="#faf4c0">
+            android:backgroundTint="#faf4c0"/>
 
-        </Button>
+        <Button
+            android:id="@+id/btn_recommend_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="돌아가기"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:backgroundTint="#faf4c0"/>
+    </LinearLayout>
+
+
 
     </LinearLayout>
 

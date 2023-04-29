@@ -54,13 +54,13 @@ import java.util.Date;
 
 public class ReviewWriteActivity extends AppCompatActivity {
     private static String ADDRESS_POST = "http://52.78.72.175/data/review";
-    private ImageButton imageButton;
+    private ImageButton imageButton, add, delete;
     private ImageView rimg;
     private TextView rname, menu, date;
     private RatingBar ratingbar;
     private ImageView imageView;
     private EditText review;
-    private Button image, good, soso, bad, fast, god, save, cancel;
+    private Button good, soso, bad, fast, god, save, cancel;
     private float rating;
     private String menuid, rid, Mname, Rname, imagePath;
     private String token, comment;
@@ -85,7 +85,8 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
         imageButton = findViewById(R.id.imgbtn_review);
         rimg = findViewById(R.id.rimg_review);
-        image = findViewById(R.id.btn_image);
+        add = findViewById(R.id.btn_image);
+        delete = findViewById(R.id.btn_delete);
         rname = findViewById(R.id.rname_review);
         rname.setText(Rname);
         menu = findViewById(R.id.menu_review);
@@ -137,7 +138,8 @@ public class ReviewWriteActivity extends AppCompatActivity {
             review.setText(comment);
         });
 
-        image.setOnClickListener(new View.OnClickListener() {
+        imagePath = "";
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -148,6 +150,11 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     startActivityForResult(intent, 1);
                 }
             }
+        });
+
+        delete.setOnClickListener(v -> {
+            imagePath = "";
+            imageView.setVisibility(View.INVISIBLE);
         });
 
         cancel.setOnClickListener(v -> {
@@ -163,7 +170,9 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     String Rating = String.valueOf(rating);
                     String Menuid = String.valueOf(menuid);
                     String Rid = String.valueOf(rid);
-                    String Image = imagePath;
+                    String Image = "";
+                    if(!imagePath.equals(""))
+                        Image = imagePath;
                     PostReview postReview = new PostReview();
                     postReview.execute(ADDRESS_POST, Rating, Content, Menuid, Rid, Image, token);
                     /*Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -274,25 +283,27 @@ public class ReviewWriteActivity extends AppCompatActivity {
                     writer.flush();
                 }
 
-                File file = new File(Image);
-                String fileName = file.getName();
-                writer.append("--" + boundary).append(lineEnd);
-                writer.append("Content-Disposition: form-data; name=\"" + "image" + "\"; filename=\"" + fileName + "\"").append(lineEnd);
-                writer.append("Content-Type: " + URLConnection.guessContentTypeFromName(fileName)).append(lineEnd);
-                writer.append("Content-Transfer-Encoding: binary").append(lineEnd);
-                writer.append(lineEnd);
-                writer.flush();
+                if(!Image.equals("")) {
+                    File file = new File(Image);
+                    String fileName = file.getName();
+                    writer.append("--" + boundary).append(lineEnd);
+                    writer.append("Content-Disposition: form-data; name=\"" + "image" + "\"; filename=\"" + fileName + "\"").append(lineEnd);
+                    writer.append("Content-Type: " + URLConnection.guessContentTypeFromName(fileName)).append(lineEnd);
+                    writer.append("Content-Transfer-Encoding: binary").append(lineEnd);
+                    writer.append(lineEnd);
+                    writer.flush();
 
-                FileInputStream fis = new FileInputStream(file);
-                byte[] buffer = new byte[4096];
-                int bytesRead = -1;
-                while ((bytesRead = fis.read(buffer)) != -1) {
-                    dos.write(buffer, 0, bytesRead);
+                    FileInputStream fis = new FileInputStream(file);
+                    byte[] buffer = new byte[4096];
+                    int bytesRead = -1;
+                    while ((bytesRead = fis.read(buffer)) != -1) {
+                        dos.write(buffer, 0, bytesRead);
+                    }
+                    dos.flush();
+                    fis.close();
+                    writer.append(lineEnd);
+                    writer.flush();
                 }
-                dos.flush();
-                fis.close();
-                writer.append(lineEnd);
-                writer.flush();
 
                 // Send text parameter
                 /*for (int i = 0; i < 4; i++) {

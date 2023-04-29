@@ -78,20 +78,21 @@ public class RecommendRestaurantActivity extends AppCompatActivity {
             String business = item.getString("business_hours");
             String phone = item.getString("phone_number");
             String category_name = item.getString("category_name");
-            String image = ""; String rating = "0";
+            String image = ""; double rating = 0;
             if(!item.getString("image").equals("null"))
                 image = item.getString("image");
             else image = "null";
             if(!item.getString("rating").equals("null"))
-                rating = item.getString("rating");
-            else rating = "0";
+                rating = item.getDouble("rating");
+            else rating = 0;
+            String Rating = String.format("%.1f", rating);
             //String distance = item.getString("distance");
             boolean Wish = Boolean.parseBoolean(item.getString("favor"));
             //String distance = "70";
 
             listItem.setId(id); listItem.setName(name); listItem.setBusiness_hours(business);
             listItem.setPhone_number(phone); listItem.setCategory_name(category_name); listItem.setImage(image);
-            listItem.setWish(Wish); listItem.setRating(rating); listItem.setAddress(address);
+            listItem.setWish(Wish); listItem.setRating(Rating); listItem.setAddress(address);
         } catch (JSONException e) {
             Log.d("Restaurant", "showResult : ", e);
         } catch (ExecutionException e) {
