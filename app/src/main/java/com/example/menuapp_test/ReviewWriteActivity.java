@@ -32,6 +32,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -54,17 +56,18 @@ import java.util.Date;
 
 public class ReviewWriteActivity extends AppCompatActivity {
     private static String ADDRESS_POST = "http://52.78.72.175/data/review";
-    private ImageButton imageButton, add, delete;
-    private ImageView rimg;
+    private ImageButton add, delete;
+    private ImageView rimg, imageView;
     private TextView rname, menu, date;
     private RatingBar ratingbar;
-    private ImageView imageView;
     private EditText review;
     private Button good, soso, bad, fast, god, save, cancel;
     private float rating;
     private String menuid, rid, Mname, Rname, imagePath;
     private String token, comment;
     private Uri uri;
+    private Bitmap bitmap;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +80,12 @@ public class ReviewWriteActivity extends AppCompatActivity {
         rid = getIntent.getStringExtra("Rid");
         Mname = getIntent.getStringExtra("Mname");
         Rname = getIntent.getStringExtra("Rname");
-        //token = "95ec02dfcc60b0b3b0fd70d15862fed98637debd";
+        bitmap = (Bitmap) getIntent.getParcelableExtra("bitmap");
         //menuid = "1";
         //rid = "1";
         //Mname = "해장국";
         //Rname = "양평해장국";
 
-        imageButton = findViewById(R.id.imgbtn_review);
         rimg = findViewById(R.id.rimg_review);
         add = findViewById(R.id.btn_image);
         delete = findViewById(R.id.btn_delete);
@@ -104,6 +106,14 @@ public class ReviewWriteActivity extends AppCompatActivity {
         imageView = findViewById(R.id.img_review_write);
         rating = 0;
         comment = "";
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         long mNow = System.currentTimeMillis();
@@ -116,6 +126,8 @@ public class ReviewWriteActivity extends AppCompatActivity {
                 rating = r;
             }
         });
+
+        imageView.setImageBitmap(bitmap);
 
         good.setOnClickListener(v -> {
             comment += good.getText().toString() + " ";

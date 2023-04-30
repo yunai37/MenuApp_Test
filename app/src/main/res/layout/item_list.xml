@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:background="#EEE"
     android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="360dp"
+        android:layout_height="120dp"
         android:orientation="horizontal"
         android:background="@drawable/listview_item_border"
         tools:ignore="MissingConstraints">
@@ -27,11 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center_vertical"
             tools:ignore="MissingConstraints">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
                 tools:ignore="MissingConstraints">
@@ -45,18 +47,19 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
                     android:text="맘스터치 인천대점"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <CheckBox
                     android:id="@+id/imgbtn_list"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="10dp"
-                    android:fontFamily="@font/font"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/imgbtn_wish"
                     android:button="@android:color/transparent"
-                    android:background="@drawable/imgbtn_wish"/>
+                    android:fontFamily="@font/font" />
 
             </LinearLayout>
 
@@ -73,6 +76,7 @@
                     android:gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:text="버거"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
@@ -87,7 +91,7 @@
                         android:layout_height="20dp"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/star_filled_ffe60a" />
+                        android:src="@drawable/star_toned" />
 
                     <TextView
                         android:id="@+id/star_list"
@@ -114,6 +118,7 @@
                     android:layout_height="match_parent"
                     android:text="연수구 송도대로 어쩌구"
                     android:textSize="12sp"
+                    android:textColor="@color/black"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="10dp" />
 

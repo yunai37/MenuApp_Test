@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="250dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical">
@@ -32,6 +32,7 @@
                     android:gravity="center"
                     android:text="닉네임"
                     android:textSize="22dp"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
@@ -40,7 +41,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="님이 좋아하는"
+                    android:text="님을 위한"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -56,7 +58,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="메뉴를 추천해드릴게요"
+                    android:text="메뉴를 추천해 드릴게요"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -64,10 +67,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="250dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
+            android:background="@drawable/recommend_border"
             android:layout_marginTop="40dp">
 
             <LinearLayout
@@ -85,8 +89,7 @@
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:text="우리의 예산은"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textSize="17sp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,11 +110,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
                     android:textColor="@color/black"
                     android:text="원 까지"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -129,8 +132,7 @@
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:text="오늘의 날씨는 ?"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textSize="17sp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,8 +165,7 @@
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:text="지금 내 기분은 !"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:textSize="17sp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -186,7 +187,7 @@
 
         <Button
             android:id="@+id/btn_recommend"
-            android:layout_width="250dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="메뉴 추천받기"
@@ -198,5 +199,16 @@
         </Button>
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        app:srcCompat="@drawable/home_48px" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

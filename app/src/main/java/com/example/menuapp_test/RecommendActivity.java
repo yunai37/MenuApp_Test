@@ -11,11 +11,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class RecommendActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView nickname;
     Spinner price, weather, emotion;       // 스피너 변수
     Button next;
-    private String Nickname, Price, Weather, Emotion, token;                  // 선택된 가격 값 담을 문자형 변수
+    private String Nickname, Price, Weather, Emotion, token, id;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class RecommendActivity extends AppCompatActivity implements AdapterView.
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
         Nickname = getIntent.getStringExtra("nickname");
+        id = getIntent.getStringExtra("id");
 
         nickname = findViewById(R.id.name_recommend);
         nickname.setText(Nickname);
@@ -32,6 +36,14 @@ public class RecommendActivity extends AppCompatActivity implements AdapterView.
         weather = findViewById(R.id.spinner_weather);
         emotion = findViewById(R.id.spinner_emotion);
         next = findViewById(R.id.btn_recommend);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         ArrayAdapter<CharSequence> priceadaper = ArrayAdapter.createFromResource(this, R.array.가격, android.R.layout.simple_spinner_item);
         priceadaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -51,8 +63,13 @@ public class RecommendActivity extends AppCompatActivity implements AdapterView.
         price.setOnItemSelectedListener(this);
 
         next.setOnClickListener(v -> {
+            Price = price.getSelectedItem().toString();
+            Weather = weather.getSelectedItem().toString();
+            Emotion = emotion.getSelectedItem().toString();
+
             Intent intent = new Intent(this, RecommendResActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("id", id);
             intent.putExtra("price", Price);
             intent.putExtra("weather", Weather);
             intent.putExtra("emotion", Emotion);

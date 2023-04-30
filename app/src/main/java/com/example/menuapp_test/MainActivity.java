@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_LOCATION = 2;
     private TextView name, location;
     private Button list, menu, review, mypage;
-    private String nickname, address, token, latitude, longitude;
+    private String id, nickname, address, token, latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             JSONObject jsonObject = new JSONObject(getUser.get());
+            id = jsonObject.getString("id");
             nickname = jsonObject.getString("nickname");
             name.setText(nickname);
         } catch (JSONException e) {
@@ -78,8 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
         gpsTracker = new GpsTracker(MainActivity.this);
 
-        latitude = String.valueOf(gpsTracker.getLatitude());
-        longitude = String.valueOf(gpsTracker.getLongitude());
+        //latitude = String.valueOf(gpsTracker.getLatitude());
+        //longitude = String.valueOf(gpsTracker.getLongitude());
+        latitude = "37.3748"; longitude = "126.6321";
 
         PostGPS postGPS = new PostGPS(MainActivity.this);
         postGPS.execute(ADDRESS_GPS, latitude, longitude, token);
@@ -108,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         menu.setOnClickListener(v -> {
             Intent intent = new Intent(this, RecommendActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("id", id);
             intent.putExtra("nickname", nickname);
             startActivity(intent);
         });
@@ -122,40 +126,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MypageActivity.class);
             intent.putExtra("token", token);
             startActivity(intent);
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home : {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("token", token);
-                        startActivity(intent);
-                    }
-                    case R.id.list : {
-                        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                        intent.putExtra("token", token);
-                        intent.putExtra("address", address);
-                        intent.putExtra("latitude", latitude);
-                        intent.putExtra("longitude", longitude);
-                        startActivity(intent);
-                    }
-                    case R.id.recommend : {
-                        Intent intent = new Intent(getApplicationContext(), RecommendActivity.class);
-                        intent.putExtra("token", token);
-                        intent.putExtra("nickname", nickname);
-                        startActivity(intent);
-                    }
-                    case R.id.mypage : {
-                        Intent intent = new Intent(getApplicationContext(), MypageActivity.class);
-                        intent.putExtra("token", token);
-                        startActivity(intent);
-                    }
-                }
-                return false;
-            }
         });
     }
     @Override
@@ -179,29 +149,19 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
-
-
             if (check_result) {
-
                 //위치 값을 가져올 수 있음
-                ;
             } else {
                 // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
-
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
                         || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
-
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
                     finish();
-
-
                 } else {
-
                     Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
 
                 }
             }
-
         }
     }
 
@@ -213,41 +173,27 @@ public class MainActivity extends AppCompatActivity {
                 android.Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION);
-
-
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
-
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
-
-
             // 3.  위치 값을 가져올 수 있음
-
-
         } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
-
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[0])) {
-
                 // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Toast.makeText(MainActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
                 // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
-
-
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
             }
-
         }
-
     }
-
 
     //여기부터는 GPS 활성화를 위한 메소드들
     private void showDialogForLocationServiceSetting() {
@@ -273,8 +219,6 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.create().show();
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -292,11 +236,9 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                 }
-
                 break;
         }
     }
-
     public boolean checkLocationServicesStatus() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 

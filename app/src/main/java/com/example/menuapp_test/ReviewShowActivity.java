@@ -6,8 +6,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,8 +25,10 @@ import java.net.URL;
 public class ReviewShowActivity extends AppCompatActivity {
     private static String ADDRESS_REVIEW = "http://52.78.72.175/data/restaurant/";
     private ListView listView;
+    private TextView name;
     private String token, rid, rname, JsonString;
     private ReviewAdapter adapter;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +36,21 @@ public class ReviewShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_show);
 
         listView = findViewById(R.id.listv_review_show);
+        name = findViewById(R.id.rname_review_show);
 
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
         rid = getIntent.getStringExtra("Rid");
         rname = getIntent.getStringExtra("Rname");
+        name.setText(rname);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         GetData getData = new GetData();
         getData.execute(ADDRESS_REVIEW + rid + "/review", token);

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,9 +42,10 @@ public class RestaurantActivity extends AppCompatActivity {
     private MAdapter adapter;
     private CheckBox wish;
     private TextView name, category, phone, address, time, rating, review, count;
-    private String token, rid, rJsonString, mJsonstring;
+    private String token, rid, rname, rJsonString, mJsonstring;
     private ListItem listItem = new ListItem();
     private Bitmap bitmap;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,14 @@ public class RestaurantActivity extends AppCompatActivity {
         review = findViewById(R.id.review_restaurant);
         listView = findViewById(R.id.listv_menulist);
         count = findViewById(R.id.count_restaurant);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         GetRestaurant getRestaurant = new GetRestaurant();
         getRestaurant.execute(ADDRESS_RESTAURANT, token);
@@ -137,7 +149,8 @@ public class RestaurantActivity extends AppCompatActivity {
             }
         }
 
-        name.setText(listItem.getName());
+        rname = listItem.getName();
+        name.setText(rname);
         category.setText(listItem.getCategory_name());
         phone.setText(listItem.getPhone_number());
         address.setText(listItem.getAddress());
@@ -148,6 +161,7 @@ public class RestaurantActivity extends AppCompatActivity {
         review.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReviewShowActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("Rname", rname);
             intent.putExtra("Rid", rid);
             startActivity(intent);
         });

@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -44,6 +46,7 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
     private TextView txt;
     private Random random;
     private HashMap<String, String> map = new HashMap<>();
+    private FloatingActionButton home;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,15 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
 
         Intent getintent = getIntent();
         token = getintent.getStringExtra("token");
+
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         try {
             Thread.sleep(1000);

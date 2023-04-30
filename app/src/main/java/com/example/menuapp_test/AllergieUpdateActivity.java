@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -28,6 +30,7 @@ public class AllergieUpdateActivity extends AppCompatActivity {
     private String e, m, w, b, p, f, me, s, c;
     private Button end;
     private String token, allergie;
+    private FloatingActionButton home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,14 @@ public class AllergieUpdateActivity extends AppCompatActivity {
         meat = (CheckBox) findViewById(R.id.chk_meat);
         shellfish = (CheckBox) findViewById(R.id.chk_shellfish);
         crab = (CheckBox) findViewById(R.id.chk_crab);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         Intent getintent = getIntent();
         token = getintent.getStringExtra("token");

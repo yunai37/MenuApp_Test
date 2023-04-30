@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +21,7 @@ public class NutritionActivity extends AppCompatActivity {
     private TextView name, allergie, gram, kcal, carbo, protein, fat, sodium, potash, chole,
                     satur, unsat, ingredient;
     private String token, mid, mname, mJsonstring;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,14 @@ public class NutritionActivity extends AppCompatActivity {
         unsat = findViewById(R.id.unsat_nutrition);
         potash = findViewById(R.id.potash_nutrition);
         ingredient = findViewById(R.id.ingredient_nutrition);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         GetNutrition getNutrition = new GetNutrition(NutritionActivity.this);
         getNutrition.execute(ADDRESS_NUTRITION + mid + "/nutrition", token);
@@ -116,5 +127,6 @@ public class NutritionActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.d("Menulist", "showResult : ", e);
         }
+
     }
 }

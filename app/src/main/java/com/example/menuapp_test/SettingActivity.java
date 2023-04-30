@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,9 +36,8 @@ public class SettingActivity extends AppCompatActivity {
     private EditText name, introduction;
     private TextView id, allergie, preference;
     private Button set_allergie, set_preference, save, check;
-    private ImageButton back;
     private SurveyItem surveyItem = new SurveyItem();
-    private boolean chk;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,15 @@ public class SettingActivity extends AppCompatActivity {
         set_allergie = findViewById(R.id.btn_setting);
         set_preference = findViewById(R.id.btn_setting_like);
         introduction = findViewById(R.id.introduce_setting);
-        back = findViewById(R.id.imgbtn_setting);
         save = findViewById(R.id.btn_setting2);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
@@ -94,11 +102,6 @@ public class SettingActivity extends AppCompatActivity {
         } catch (JSONException | ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        back.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MypageActivity.class);
-            intent.putExtra("token", token);
-            startActivity(intent);
-        });
 
         check = findViewById(R.id.btn_checkname);
         check.setOnClickListener(v -> {

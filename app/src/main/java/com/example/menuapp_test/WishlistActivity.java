@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +50,7 @@ public class WishlistActivity extends AppCompatActivity {
     private WishlistAdapter adapter;
     private String token, mJsonString, rid;
     private boolean Wish;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,14 @@ public class WishlistActivity extends AppCompatActivity {
         token = getIntent.getStringExtra("token");
 
         mlistView = (ListView) findViewById(R.id.listv_wishlist);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         GetData task = new GetData();
         task.execute(ADDRESS_LIST, token);

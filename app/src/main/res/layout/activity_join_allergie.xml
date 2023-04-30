@@ -7,32 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".JoinAllergieActivity">
 
-    <LinearLayout
-        android:layout_width="300dp"
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="#faf4c0" />
+
+    <TextView
+        android:id="@+id/txt_join_allergie"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:text="알레르기 정보 입력"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" >
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.05"/>
 
-        <TextView
-            android:id="@+id/txt_join_allergie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="알레르기 정보 입력"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-        <!-- 알레르기 -->
         <TextView
             android:id="@+id/txt_join_allergie2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="130dp"
             android:text="해당되는 재료를 선택해 주시면"
             android:textSize="18dp"
             android:textStyle="bold" />
@@ -40,18 +47,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:text="정확한 메뉴 추천이 가능해요!"
             android:textSize="18dp"
             android:textStyle="bold" />
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
+            android:background="@drawable/allergie_border"
             android:orientation="vertical">
 
             <CheckBox
@@ -150,6 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
             android:layout_gravity="right|center"
             android:text="다음"
             android:fontFamily="@font/font"

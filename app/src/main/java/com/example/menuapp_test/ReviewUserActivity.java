@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +39,7 @@ public class ReviewUserActivity extends AppCompatActivity {
     private ListView listView;
     private ReviewUserAdapter adapter;
     private String token, rid, JsonString;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,14 @@ public class ReviewUserActivity extends AppCompatActivity {
         token = getIntent.getStringExtra("token");
 
         listView = findViewById(R.id.listv_review_user);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         // 사용자 리뷰 받아와서 리스트뷰에 추가
         APIReviewUser getReview = new APIReviewUser(ReviewUserActivity.this);

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,8 +21,8 @@ public class MypageActivity extends AppCompatActivity {
     private static String ADDRESS_USER = "http://52.78.72.175/data/mypage";
     private static String ADDRESS_LOGOUT = "http://52.78.72.175/account/logout";
     private String token, nickname, intro, email;
-    private ImageButton back;
-    TextView name, comment, wishlist, setting, logout, delete;
+    private TextView name, comment, wishlist, setting, logout, delete;
+    private FloatingActionButton home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,14 @@ public class MypageActivity extends AppCompatActivity {
         setting = findViewById(R.id.txt_btn_setting);
         logout = findViewById(R.id.txt_btn_logout);
         delete = findViewById(R.id.txt_btn_delete);
-        back = findViewById(R.id.imgbtn_mypage);
+        home = findViewById(R.id.fab);
+
+        home.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         GetUser getUser = new GetUser(MypageActivity.this);
         getUser.execute(ADDRESS_USER, token);
@@ -57,12 +66,6 @@ public class MypageActivity extends AppCompatActivity {
 
         name.setText(nickname);
         comment.setText(intro);
-
-        back.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("token", token);
-            startActivity(intent);
-        });
 
         wishlist.setOnClickListener(v -> {
             Intent intent = new Intent(this, WishlistActivity.class);

@@ -9,4 +9,8 @@
         android:fontWeight="700"
         android:font="@font/nanumgothic_bold"/>
 
+    <font android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/gamjaflower_regular" />
+
 </font-family>
