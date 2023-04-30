@@ -94,8 +94,8 @@
                     android:text="메뉴 추천"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:fontFamily="@font/gamjaflower_regular"
-                    android:backgroundTint="#CC3D3D"
+                    android:fontFamily="@font/font"
+                    android:backgroundTint="#F15F5F"
                     android:textColor="@color/white">
 
                 </Button>
