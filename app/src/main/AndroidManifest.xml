@@ -53,6 +53,9 @@
         <activity
             android:name=".PopupReview"
             android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".PopupMain"
+            android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>

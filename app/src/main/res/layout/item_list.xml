@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="360dp"
-        android:layout_height="120dp"
+        android:layout_height="150dp"
         android:orientation="horizontal"
         android:background="@drawable/listview_item_border"
         tools:ignore="MissingConstraints">
@@ -33,46 +33,51 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:orientation="horizontal"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 tools:ignore="MissingConstraints">
 
                 <TextView
                     android:id="@+id/rname_list"
                     android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="60dp"
                     android:gravity="center_vertical"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
-                    android:text="맘스터치 인천대점"
+                    android:text="음식점 이름"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <CheckBox
-                    android:id="@+id/imgbtn_list"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/imgbtn_wish"
-                    android:button="@android:color/transparent"
-                    android:fontFamily="@font/font" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/imgbtn_list"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/imgbtn_wish"
+                        android:button="@android:color/transparent"
+                        android:fontFamily="@font/font" />
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
+                android:layout_height="40dp"
                 android:orientation="horizontal"
                 tools:ignore="MissingConstraints">
 
                 <TextView
                     android:id="@+id/category_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:text="버거"

@@ -127,7 +127,7 @@
         </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:gravity="center" >
@@ -136,6 +136,7 @@
             android:id="@+id/btn_recommend_re"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elevation="10dp"
             android:src="@drawable/refresh_fill1_wght400_grad0_opsz48"
             android:fontFamily="@font/font"
             android:textColor="@color/black"

@@ -67,19 +67,15 @@ public class RecommendResActivity extends AppCompatActivity {
 
         PostRecommend postRecommend = new PostRecommend(RecommendResActivity.this);
         postRecommend.execute(ADDRESS_RECOMMEND, price, weather, emotion, token);
-        //if(!menuid.equals(""))
-        //    postRecommend.execute(ADDRESS_RECOMMEND, price, weather, emotion, id, menuid, token);
 
         try {
             int mid = 0; String name = " "; int price = 0; int Rid = 0; String Rname = " "; String image = "null";
-            /*JSONArray jsonArray = new JSONArray(postRecommend.get());
-            JSONObject jsonObject = jsonArray.getJSONObject(0);*/
-            JSONObject jsonObject = new JSONObject(postRecommend.get());
-            if(postRecommend.get().contains("fail")){
+            String JsonString = postRecommend.get();
+            if(JsonString.contains("없습니다")){
                 showPop("m");
             }
             else {
-                mid = jsonObject.getInt("menu_id");
+                JSONObject jsonObject = new JSONObject(JsonString);
                 name = jsonObject.getString("menu_name");
                 price = jsonObject.getInt("menu_price");
                 Rid = jsonObject.getInt("restaurant_id");

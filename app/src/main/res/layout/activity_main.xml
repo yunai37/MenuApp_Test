@@ -5,26 +5,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff7c2"
     tools:context=".MainActivity">
 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/gate"
+        android:scaleType="centerCrop"/>
+
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_bias="0.92"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" >
-
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:src="@drawable/gate" />
 
         <LinearLayout
             android:layout_width="320dp"
@@ -66,6 +67,7 @@
                 android:gravity="center"
                 android:text="인천대학교"
                 android:textSize="22dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -81,35 +83,35 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                tools:ignore="MissingConstraints">
+                android:layout_height="70dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/btn_main_menu"
                     android:layout_width="200dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="6.5dp"
+                    android:layout_height="50dp"
                     android:text="메뉴 추천"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:fontFamily="@font/font"
-                    android:backgroundTint="#F15F5F"
-                    android:textColor="@color/white">
+                    android:elevation="10dp"
+                    android:background="@drawable/button_border"
+                    android:textColor="@color/white" >
 
-                </Button>
+                </android.widget.Button>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="70dp"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 tools:ignore="MissingConstraints">
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/btn_main_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,12 +119,13 @@
                     android:text="주변 음식점"
                     android:textStyle="bold"
                     android:fontFamily="@font/font"
-                    android:backgroundTint="#ffffff"
+                    android:elevation="10dp"
+                    android:background="@drawable/button_border_2"
                     android:textColor="@color/black">
 
-                </Button>
+                </android.widget.Button>
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/btn_main_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,21 +133,22 @@
                     android:text="리뷰 관리"
                     android:textStyle="bold"
                     android:fontFamily="@font/font"
-                    android:backgroundTint="#ffffff"
+                    android:elevation="10dp"
+                    android:background="@drawable/button_border_2"
                     android:textColor="@color/black">
-                </Button>
+                </android.widget.Button>
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/btn_main_mypage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6.5dp"
                     android:text="마이페이지"
                     android:textStyle="bold"
                     android:fontFamily="@font/font"
-                    android:backgroundTint="#ffffff"
+                    android:elevation="10dp"
+                    android:background="@drawable/button_border_2"
                     android:textColor="@color/black">
-                </Button>
+                </android.widget.Button>
 
             </LinearLayout>
 
