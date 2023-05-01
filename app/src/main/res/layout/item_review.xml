@@ -23,7 +23,7 @@
                 android:text="울트라캡숑"
                 android:gravity="bottom"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:textSize="23dp" />
 
             <TextView
                 android:id="@+id/txt_review_show2"
@@ -33,7 +33,7 @@
                 android:text="님의 리뷰"
                 android:textColor="@color/black"
                 android:gravity="bottom"
-                android:textSize="16sp" />
+                android:textSize="21dp" />
 
 
         </LinearLayout>
@@ -53,7 +53,7 @@
                 android:text="내장탕"
                 android:textColor="@color/black"
                 android:gravity="bottom"
-                android:textSize="16sp" />
+                android:textSize="21dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                     android:gravity="bottom"
                     android:layout_marginRight="24dp"
                     android:text="2023.03.15"
-                    android:textSize="13sp" />
+                    android:textSize="18dp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -87,7 +87,7 @@
                 android:text="평점"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:textSize="23dp" />
 
             <RatingBar
                 android:id="@+id/rating_show"
@@ -119,6 +119,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="25dp"
+            android:textSize="20dp"
             android:text="최고예요!"
             android:background="@drawable/txt_border" />
 

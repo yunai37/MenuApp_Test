@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -80,7 +81,8 @@ public class ReviewWriteActivity extends AppCompatActivity {
         rid = getIntent.getStringExtra("Rid");
         Mname = getIntent.getStringExtra("Mname");
         Rname = getIntent.getStringExtra("Rname");
-        bitmap = (Bitmap) getIntent.getParcelableExtra("bitmap");
+        byte[] bytes = getIntent.getByteArrayExtra("BMP");
+        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         //menuid = "1";
         //rid = "1";
         //Mname = "해장국";
@@ -127,7 +129,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
             }
         });
 
-        imageView.setImageBitmap(bitmap);
+        rimg.setImageBitmap(bitmap);
 
         good.setOnClickListener(v -> {
             comment += good.getText().toString() + " ";
@@ -352,7 +354,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
                 Log.d("PostReview", "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if (responseStatusCode == conn.HTTP_OK) {
+                if (responseStatusCode == conn.HTTP_OK || responseStatusCode == 201) {
                     inputStream = conn.getInputStream();
                 }
                 else {

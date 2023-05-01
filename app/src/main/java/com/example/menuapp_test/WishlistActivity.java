@@ -34,6 +34,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class WishlistActivity extends AppCompatActivity {
     private static String ADDRESS_LIST = "http://52.78.72.175/data/restaurant";
@@ -120,7 +121,7 @@ public class WishlistActivity extends AppCompatActivity {
                 Log.d(TAG, "response code : " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == conn.HTTP_OK){         // 연결 성공 시
+                if(responseStatusCode == conn.HTTP_OK || responseStatusCode == 201){         // 연결 성공 시
                     inputStream = conn.getInputStream();
                 }
                 else {                                          // 연결 실패 시
@@ -248,6 +249,10 @@ public class WishlistActivity extends AppCompatActivity {
                 String Rid = String.valueOf(listItem.getId());
                 PostWish postWish = new PostWish(WishlistActivity.this);
                 postWish.execute(ADDRESS_WISH, Rid, token);
+
+                listItems.remove(position);
+                mlistView.clearChoices();
+                adapter.notifyDataSetChanged();
             });
             return view;
         }

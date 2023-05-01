@@ -48,7 +48,6 @@ public class ListActivity extends AppCompatActivity {
     private static final String TAG_IMAGE = "image";
     private static String TAG_RATING = "rating";
     private ListView mlistView;
-    private TextView location;
     //private ArrayList<HashMap<String, String>> listItems;
     private ArrayList<ListItem> listItems = new ArrayList<ListItem>();
     private ListAdapter adapter;
@@ -68,8 +67,6 @@ public class ListActivity extends AppCompatActivity {
         longitude = getIntent.getStringExtra("longitude");
 
         mlistView = (ListView) findViewById(R.id.listv_list);
-        location = findViewById(R.id.list_location);
-        location.setText(address);
         home = findViewById(R.id.fab);
 
         home.setOnClickListener(v -> {
@@ -143,7 +140,7 @@ public class ListActivity extends AppCompatActivity {
                 Log.d("PostList", "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if (responseStatusCode == conn.HTTP_OK) {
+                if (responseStatusCode == conn.HTTP_OK || responseStatusCode == 201) {
                     inputStream = conn.getInputStream();
                 }
                 else {

@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -76,6 +77,7 @@ public class RecommendResActivity extends AppCompatActivity {
             }
             else {
                 JSONObject jsonObject = new JSONObject(JsonString);
+                mid = jsonObject.getInt("menu_id");
                 name = jsonObject.getString("menu_name");
                 price = jsonObject.getInt("menu_price");
                 Rid = jsonObject.getInt("restaurant_id");
@@ -131,7 +133,11 @@ public class RecommendResActivity extends AppCompatActivity {
             intent.putExtra("Mname", mname);
             startActivity(intent);
         });
-        select.setOnClickListener(view -> showPop("r"));
+
+        select.setOnClickListener(view -> {
+
+            showPop("r");
+        });
 
         re.setOnClickListener(v -> {                        // 액티비티 재실행
             Intent intent = new Intent(this, RecommendResActivity.class);
@@ -155,7 +161,11 @@ public class RecommendResActivity extends AppCompatActivity {
             intent.putExtra("Rid", rid);
             intent.putExtra("Rname", rname);
             intent.putExtra("Mname", mname);
-            intent.putExtra("bitmap", bitmap);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] bytes = stream.toByteArray();
+            intent.putExtra("BMP",bytes);
+
             startActivity(intent);
         }
         else {

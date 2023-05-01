@@ -3,6 +3,8 @@ package com.example.menuapp_test;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -29,6 +31,7 @@ public class PopupReview extends Activity {
         rid = getIntent.getStringExtra("Rid");
         rname = getIntent.getStringExtra("Rname");
         mname = getIntent.getStringExtra("Mname");
+        byte[] bytes = getIntent.getByteArrayExtra("BMP");
 
         ok.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReviewWriteActivity.class);
@@ -37,6 +40,7 @@ public class PopupReview extends Activity {
             intent.putExtra("Rid", rid);
             intent.putExtra("Mname", mname);
             intent.putExtra("Rname", rname);
+            intent.putExtra("BMP",bytes);
             startActivity(intent);
         });
 

@@ -40,10 +40,9 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
     private static String ADDRESS_MENU = "http://52.78.72.175/data/preference/300";
     private static String ADDRESS_SURVEY = "http://52.78.72.175/data/preference/update";
     private Button skip, save;
-    private String token;
+    private String token, nickname, email, intro;
     private ListView mListview;
     private SurveyAdapter adapter;
-    private TextView txt;
     private Random random;
     private HashMap<String, String> map = new HashMap<>();
     private FloatingActionButton home;
@@ -58,8 +57,11 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
         save = findViewById(R.id.btn_prefer);
         mListview = findViewById(R.id.listv_prefer);
 
-        Intent getintent = getIntent();
-        token = getintent.getStringExtra("token");
+        Intent getIntent = getIntent();
+        token = getIntent.getStringExtra("token");
+        nickname = getIntent.getStringExtra("nickname");
+        email = getIntent.getStringExtra("email");
+        intro = getIntent.getStringExtra("intro");
 
         home = findViewById(R.id.fab);
 
@@ -84,7 +86,7 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
             JSONArray jsonArray = new JSONArray(getMenu.get());
             int j = 0;
 
-            for(int i=0; i<5; i++){
+            for(int i=0; i<50; i++){
                 String preference = "";
                 JSONObject item = new JSONObject();
                 do {
@@ -113,8 +115,11 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
 
             Toast.makeText(PreferenceUpdateActivity.this, "취향 정보가 저장되었습니다.", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+            Intent intent = new Intent(PreferenceUpdateActivity.this, SettingActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("nickname", nickname);
+            intent.putExtra("email", email);
+            intent.putExtra("intro", intro);
             startActivity(intent);
         });
     }

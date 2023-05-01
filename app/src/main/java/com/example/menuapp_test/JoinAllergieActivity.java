@@ -158,7 +158,7 @@ public class JoinAllergieActivity extends AppCompatActivity {
                 Log.d(TAG_ALLERGIE, "POST response code - " + responseStatusCode);
 
                 InputStream inputStream;
-                if (responseStatusCode == conn.HTTP_OK) {
+                if (responseStatusCode == conn.HTTP_OK || responseStatusCode == 201) {
                     inputStream = conn.getInputStream();
                 }
                 else {

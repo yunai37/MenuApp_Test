@@ -29,7 +29,7 @@ public class AllergieUpdateActivity extends AppCompatActivity {
     private CheckBox egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab;
     private String e, m, w, b, p, f, me, s, c;
     private Button end;
-    private String token, allergie;
+    private String token, allergie, nickname, email, intro;
     private FloatingActionButton home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,9 @@ public class AllergieUpdateActivity extends AppCompatActivity {
         Intent getintent = getIntent();
         token = getintent.getStringExtra("token");
         allergie = getintent.getStringExtra("allergie");
+        nickname = getintent.getStringExtra("nickname");
+        email = getintent.getStringExtra("email");
+        intro = getintent.getStringExtra("intro");
 
         if(allergie.contains("달걀")) egg.setChecked(true);
         if(allergie.contains("우유")) milk.setChecked(true);
@@ -82,6 +85,9 @@ public class AllergieUpdateActivity extends AppCompatActivity {
 
             Intent intent = new Intent(AllergieUpdateActivity.this, SettingActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("nickname", nickname);
+            intent.putExtra("email", email);
+            intent.putExtra("intro", intro);
             startActivity(intent);
         });
     }

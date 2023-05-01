@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="메뉴 이름"
-        android:textSize="25dp"
+        android:textSize="30dp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
@@ -64,7 +64,7 @@
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="5dp"
                         android:text="알레르기"
-                        android:textSize="18sp"
+                        android:textSize="22dp"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -92,7 +92,7 @@
                         android:gravity="center_vertical"
                         android:layout_marginLeft="3dp"
                         android:text="재료"
-                        android:textSize="18sp"
+                        android:textSize="22dp"
                         android:textStyle="bold"/>
 
                     <TextView
@@ -129,7 +129,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="영양 정보 (g)"
-                        android:textSize="18sp"
+                        android:textSize="22dp"
                         android:textStyle="bold"/>
 
                     <LinearLayout
@@ -145,7 +145,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:text="1회 제공량(g)"
-                            android:textSize="13sp"
+                            android:textSize="17sp"
                             android:textStyle="bold"/>
 
                         <TextView
@@ -156,7 +156,7 @@
                             android:gravity="center_vertical"
                             android:layout_marginRight="20dp"
                             android:text="-"
-                            android:textSize="13sp"
+                            android:textSize="17sp"
                             android:textColor="@color/black"/>
 
                     </LinearLayout>
@@ -176,7 +176,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="칼로리"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -187,7 +187,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -197,7 +197,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="kcal"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"/>
 
                 </LinearLayout>
@@ -215,7 +215,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="탄수화물"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -226,7 +226,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black" />
 
                 </LinearLayout>
@@ -244,7 +244,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="단백질"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -255,7 +255,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black" />
 
 
@@ -274,7 +274,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="지방"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -285,7 +285,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"/>
 
 
@@ -305,7 +305,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="나트륨"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -316,7 +316,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black" />
 
                 </LinearLayout>
@@ -333,7 +333,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="칼륨"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -344,7 +344,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black" />
 
                 </LinearLayout>
@@ -364,7 +364,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="콜레스테롤"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -375,7 +375,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black" />
 
                 </LinearLayout>
@@ -393,7 +393,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="포화지방"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -404,7 +404,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black" />
 
                 </LinearLayout>
@@ -422,7 +422,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="불포화지방"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
 
@@ -433,7 +433,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="-"
-                        android:textSize="16sp"
+                        android:textSize="20dp"
                         android:textColor="@color/black"/>
 
                 </LinearLayout>

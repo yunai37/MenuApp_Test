@@ -5,39 +5,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".GateActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/gate_2" />
 
     <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.82"
+        app:layout_constraintVertical_bias="0.7"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/gate" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="80dp"
+            android:layout_marginTop="40dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
             <android.widget.Button
                 android:id="@+id/btn_gate"
-                android:layout_width="wrap_content"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="로그인"
                 android:elevation="10dp"
+                android:textSize="20dp"
                 android:background="@drawable/button_border_2"
                 android:textColor="@color/black"
                 android:fontFamily="@font/font"
@@ -47,14 +50,15 @@
 
             <android.widget.Button
                 android:id="@+id/btn_gate2"
-                android:layout_width="wrap_content"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
+                android:layout_marginLeft="25dp"
                 android:text="회원가입"
                 android:fontFamily="@font/font"
                 android:elevation="10dp"
                 android:background="@drawable/button_border_2"
                 android:textColor="@color/black"
+                android:textSize="20dp"
                 android:textStyle="bold">
 
             </android.widget.Button>

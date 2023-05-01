@@ -21,7 +21,7 @@ public class MypageActivity extends AppCompatActivity {
     private static String ADDRESS_USER = "http://52.78.72.175/data/mypage";
     private static String ADDRESS_LOGOUT = "http://52.78.72.175/account/logout";
     private String token, nickname, intro, email;
-    private TextView name, comment, wishlist, setting, logout, delete;
+    private TextView name, comment, review, wishlist, setting, logout, delete;
     private FloatingActionButton home;
 
     @Override
@@ -38,6 +38,7 @@ public class MypageActivity extends AppCompatActivity {
         setting = findViewById(R.id.txt_btn_setting);
         logout = findViewById(R.id.txt_btn_logout);
         delete = findViewById(R.id.txt_btn_delete);
+        review = findViewById(R.id.mypage_review);
         home = findViewById(R.id.fab);
 
         home.setOnClickListener(v -> {
@@ -88,6 +89,12 @@ public class MypageActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, GateActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+
+        review.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ReviewUserActivity.class);
+            intent.putExtra("token", token);
             startActivity(intent);
         });
 

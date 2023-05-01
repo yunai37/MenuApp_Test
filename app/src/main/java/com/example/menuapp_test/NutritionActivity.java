@@ -62,7 +62,7 @@ public class NutritionActivity extends AppCompatActivity {
         try {
             mJsonstring = getNutrition.get();
         }catch (ExecutionException | InterruptedException e) {
-            Log.d("Menulist", "getMenu : ", e);
+            Log.d("Nutrition", "getMenu : ", e);
         }
 
         try {
@@ -125,7 +125,7 @@ public class NutritionActivity extends AppCompatActivity {
             else allergie.setText("-");
 
         } catch (JSONException e) {
-            Log.d("Menulist", "showResult : ", e);
+            Log.d("Nutrition", "showResult : ", e);
         }
 
     }

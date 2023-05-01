@@ -127,6 +127,9 @@ public class SettingActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AllergieUpdateActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("allergie", allergie.getText().toString());
+            intent.putExtra("nickname", nickname);
+            intent.putExtra("email", email);
+            intent.putExtra("intro", intro);
             startActivity(intent);
         });
         set_preference.setOnClickListener(v -> {
@@ -190,7 +193,7 @@ public class SettingActivity extends AppCompatActivity {
                 Log.d("GetAllergie : ", "response code : " + responseStatusCode);
 
                 InputStream inputStream;
-                if(responseStatusCode == conn.HTTP_OK){         // 연결 성공 시
+                if(responseStatusCode == conn.HTTP_OK || responseStatusCode == 201){         // 연결 성공 시
                     inputStream = conn.getInputStream();
                 }
                 else {                                          // 연결 실패 시

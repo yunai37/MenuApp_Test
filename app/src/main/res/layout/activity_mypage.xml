@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="마이페이지"
-        android:textSize="25dp"
+        android:textSize="30dp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
@@ -26,7 +26,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.055"/>
+        app:layout_constraintVertical_bias="0.05"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="130dp"
             android:layout_marginLeft="30dp"
@@ -50,7 +50,7 @@
                 android:padding="2dp"/>
 
             <LinearLayout
-                android:layout_width="180dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="20dp">
@@ -59,10 +59,9 @@
                     android:id="@+id/name_mypage"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:layout_marginTop="5dp"
                     android:text="닉네임"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
+                    android:textSize="25dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -70,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="한 줄의 자기소개"
-                    android:textSize="15sp" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -98,7 +97,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/favorite_fill0_wght400_grad0_opsz48" />
+                    android:src="@drawable/favorite_fill0_wght400_grad0_opsz40" />
 
                 <TextView
                     android:id="@+id/txt_btn_wish"
@@ -110,7 +109,7 @@
                     android:focusable="true"
                     android:text="가고 싶은 음식점"
                     android:textColor="@color/black"
-                    android:textSize="17sp" />
+                    android:textSize="22dp" />
 
             </LinearLayout>
 
@@ -135,7 +134,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/settings_fill0_wght400_grad0_opsz48" />
+                    android:src="@drawable/settings_suggest_fill0_wght400_grad0_opsz40" />
 
                 <TextView
                     android:id="@+id/txt_btn_setting"
@@ -147,7 +146,43 @@
                     android:focusable="true"
                     android:text="내 정보 수정"
                     android:textColor="@color/black"
-                    android:textSize="17sp"/>
+                    android:textSize="22dp"  />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="#EAEAEA" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:background="#EAEAEA"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp">
+
+                <ImageView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/edit_square_fill0_wght400_grad0_opsz40" />
+
+                <TextView
+                    android:id="@+id/mypage_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="리뷰 관리"
+                    android:textColor="@color/black"
+                    android:textSize="22dp"  />
 
             </LinearLayout>
 
@@ -167,7 +202,7 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/logout_fill0_wght400_grad0_opsz48" />
+                    android:src="@drawable/logout_fill0_wght400_grad0_opsz40" />
 
                 <TextView
                     android:id="@+id/txt_btn_logout"
@@ -179,7 +214,7 @@
                     android:focusable="true"
                     android:text="로그아웃"
                     android:textColor="@color/black"
-                    android:textSize="17sp"/>
+                    android:textSize="22dp"  />
 
             </LinearLayout>
 
@@ -217,7 +252,7 @@
                     android:focusable="true"
                     android:text="계정 삭제하기"
                     android:textColor="@color/black"
-                    android:textSize="17sp"/>
+                    android:textSize="22dp"  />
 
             </LinearLayout>
 

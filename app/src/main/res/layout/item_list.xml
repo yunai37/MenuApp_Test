@@ -43,11 +43,10 @@
                     android:layout_width="150dp"
                     android:layout_height="60dp"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
                     android:text="음식점 이름"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -82,7 +81,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="버거"
                     android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -104,7 +103,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:textSize="13sp"
+                        android:textSize="16sp"
                         android:gravity="center_vertical"
                         android:text="4.5" />
 
@@ -122,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="연수구 송도대로 어쩌구"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="10dp" />
@@ -139,7 +138,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:gravity="center_vertical"
-                        android:textSize="13sp"
+                        android:textSize="16sp"
                         android:text="400" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -147,7 +146,8 @@
                         android:layout_marginLeft="1dp"
                         android:layout_marginRight="5dp"
                         android:gravity="center_vertical"
-                    android:text="m" />
+                        android:textSize="16sp"
+                        android:text="m" />
                 </LinearLayout>
             </LinearLayout>
 

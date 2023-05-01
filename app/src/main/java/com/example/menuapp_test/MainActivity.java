@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private static final int REQUEST_CODE_LOCATION = 2;
     private TextView name, location;
-    private Button list, menu, review, mypage;
+    private Button list, menu, mypage;
     private String id, nickname, address, token, latitude, longitude;
 
     @Override
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         location = findViewById(R.id.location_main);
         list = findViewById(R.id.btn_main_list);
         menu = findViewById(R.id.btn_main_menu);
-        review = findViewById(R.id.btn_main_review);
         mypage = findViewById(R.id.btn_main_mypage);
 
         Intent getIntent = getIntent();
@@ -113,12 +112,6 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("token", token);
             intent.putExtra("id", id);
             intent.putExtra("nickname", nickname);
-            startActivity(intent);
-        });
-
-        review.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ReviewUserActivity.class);
-            intent.putExtra("token", token);
             startActivity(intent);
         });
 

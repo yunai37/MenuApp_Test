@@ -3,10 +3,6 @@
 
     <font android:fontStyle="normal"
         android:fontWeight="400"
-        android:font="@font/nanumgothic_regular"/>
-
-    <font android:fontStyle="normal"
-        android:fontWeight="700"
-        android:font="@font/nanumgothic_bold"/>
+        android:font="@font/gangwon"/>
 
 </font-family>
