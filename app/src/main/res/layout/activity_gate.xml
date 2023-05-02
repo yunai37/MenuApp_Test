@@ -25,7 +25,7 @@
             android:layout_width="300dp"
             android:layout_height="170dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/gate" />
+            android:src="@drawable/gate_2" />
 
         <ImageView
             android:layout_width="250dp"
