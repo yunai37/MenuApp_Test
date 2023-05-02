@@ -153,9 +153,8 @@ public class RecommendResActivity extends AppCompatActivity {
     }
     void showPop(String r) {
         if(r.equals("r")) {
-            Toast.makeText(getApplicationContext(), "확정되었습니다!", Toast.LENGTH_SHORT).show();
             // 리뷰 작성 팝업창 (예 - 리뷰 작성 페이지 / 아니오 - 메인 화면)
-            Intent intent = new Intent(this, PopupReview.class);
+            Intent intent = new Intent(RecommendResActivity.this, PopupReview.class);
             intent.putExtra("token", token);
             intent.putExtra("Mid", menuid);
             intent.putExtra("Rid", rid);
@@ -169,7 +168,7 @@ public class RecommendResActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else {
-            Intent intent = new Intent(this, PopupMain.class);
+            Intent intent = new Intent(RecommendResActivity.this, PopupMain.class);
             intent.putExtra("token", token);
             startActivity(intent);
         }

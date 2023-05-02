@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f6f6f6"
     tools:context=".AllergieUpdateActivity">
 
     <View
@@ -22,7 +23,7 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="130dp"
-            android:layout_marginLeft="40dp"
+            android:layout_gravity="center"
             android:text="알레르기 정보를 입력해 주세요!"
             android:textColor="@color/black"
             android:textSize="25dp"/>

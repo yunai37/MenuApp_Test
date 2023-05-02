@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.78"
+        app:layout_constraintVertical_bias="0.7"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -22,10 +23,9 @@
             android:layout_width="260dp"
             android:layout_height="260dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/gate"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -35,6 +35,7 @@
                 android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#ffffff"
                 android:fontFamily="@font/font"
                 android:textSize="20dp"
                 android:inputType="textEmailAddress" />
@@ -42,9 +43,9 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:hint="비밀번호">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -52,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font"
+                android:backgroundTint="#ffffff"
                 android:textSize="20dp"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -66,20 +68,21 @@
             android:text="자동 로그인"/>
 
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btn_login"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:text="로그인"
+            android:elevation="5dp"
             android:fontFamily="@font/font"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:backgroundTint="#faf4c0">
+            android:background="@drawable/button_border_2">
 
-        </Button>
+        </android.widget.Button>
 
 
         <LinearLayout
@@ -96,8 +99,7 @@
                 android:layout_marginRight="15dp"
                 android:text="회원 가입하기"
                 android:fontFamily="@font/font"
-                android:textColor="#747474"
-                android:textStyle="bold"
+                android:textColor="#000000"
                 android:textSize="20dp"
                 android:backgroundTint="#ffffff" />
         </LinearLayout>

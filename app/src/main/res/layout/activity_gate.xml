@@ -15,22 +15,29 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintVertical_bias="0.65"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_width="300dp"
+            android:layout_height="170dp"
             android:scaleType="fitCenter"
             android:src="@drawable/gate" />
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/character" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
 

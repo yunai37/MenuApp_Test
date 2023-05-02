@@ -79,7 +79,6 @@ public class AllergieUpdateActivity extends AppCompatActivity {
 
             sendAllergie(egg, milk, wheat, bean, peanut, fish, meat, shellfish, crab);
 
-            Toast.makeText(getApplicationContext(), e+m+w+b+p+f+me+s+c, Toast.LENGTH_LONG).show();
             InsertAllergie insertAllergie = new InsertAllergie();
             insertAllergie.execute(ADDRESS_PUT, e, m, w, b, p, f, me, s, c, token);
 

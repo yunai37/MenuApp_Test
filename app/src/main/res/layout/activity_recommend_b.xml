@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:padding="25dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,7 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:gravity="right|center"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -49,7 +50,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:gravity="center|right"
+                android:gravity="center"
                 android:orientation="horizontal"
                 tools:ignore="MissingConstraints">
 
@@ -67,16 +68,16 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="90dp"
             android:background="@drawable/recommend_border">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 tools:ignore="MissingConstraints">
@@ -93,7 +94,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="42dp"
                 android:gravity="center|right"
                 android:orientation="horizontal"
                 tools:ignore="MissingConstraints">
@@ -134,22 +135,81 @@
                     android:text="오늘의 날씨는 ?"
                     android:textSize="25dp"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:gravity="center|right"
+                android:gravity="center"
                 android:orientation="horizontal"
                 tools:ignore="MissingConstraints">
 
-                <Spinner
-                    android:id="@+id/spinner_weather"
+                <Button
+                    android:id="@+id/btn_sunny"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginRight="60dp"
-                    android:entries="@array/날씨"
-                    android:theme="@style/SpinnerDivideStyle" />
+                    android:layout_height="42dp"
+                    android:text="맑음"
+                    android:fontFamily="@font/font"
+                    android:textSize="20dp"
+                    android:textColor="#747474"
+                    android:background="@drawable/recommed_btn_border"
+                    app:backgroundTint="@null" />
 
+                <Button
+                    android:id="@+id/btn_cloud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="구름"
+                    android:fontFamily="@font/font"
+                    android:textSize="20dp"
+                    android:textColor="#747474"
+                    android:background="@drawable/recommed_btn_border"
+                    app:backgroundTint="@null" />
             </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+
+                    <Button
+                        android:id="@+id/btn_rain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="비"
+                        android:fontFamily="@font/font"
+                        android:textSize="20dp"
+                        android:textColor="#747474"
+                        android:background="@drawable/recommed_btn_border"
+                        app:backgroundTint="@null"/>
+
+                    <Button
+                        android:id="@+id/btn_snow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="눈"
+                        android:fontFamily="@font/font"
+                        android:textSize="20dp"
+                        android:textColor="#747474"
+                        android:background="@drawable/recommed_btn_border"
+                        app:backgroundTint="@null" />
+
+                    <Button
+                        android:id="@+id/btn_dust"
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="황사"
+                        android:fontFamily="@font/font"
+                        android:textSize="20dp"
+                        android:textColor="#747474"
+                        android:background="@drawable/recommed_btn_border"
+                        app:backgroundTint="@null" />
+                </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -171,18 +231,75 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:gravity="center|right"
+                android:gravity="center"
                 android:orientation="horizontal"
                 tools:ignore="MissingConstraints">
 
-                <Spinner
-                    android:id="@+id/spinner_emotion"
+                <Button
+                    android:id="@+id/btn_hungry"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginRight="60dp"
-                    android:entries="@array/기분"
-                    android:theme="@style/SpinnerDivideStyle" />
+                    android:layout_height="42dp"
+                    android:text="배고픔"
+                    android:fontFamily="@font/font"
+                    android:textSize="20dp"
+                    android:textColor="#747474"
+                    android:background="@drawable/recommed_btn_border"
+                    app:backgroundTint="@null" />
 
+                <Button
+                    android:id="@+id/btn_soso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="적당"
+                    android:fontFamily="@font/font"
+                    android:textSize="20dp"
+                    android:textColor="#747474"
+                    android:background="@drawable/recommed_btn_border"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <Button
+                    android:id="@+id/btn_good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:text="기쁨"
+                    android:fontFamily="@font/font"
+                    android:textSize="20dp"
+                    android:textColor="#747474"
+                    android:background="@drawable/recommed_btn_border"
+                    app:backgroundTint="@null"/>
+
+                <Button
+                    android:id="@+id/btn_tired"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="피곤"
+                    android:fontFamily="@font/font"
+                    android:textSize="20dp"
+                    android:textColor="#747474"
+                    android:background="@drawable/recommed_btn_border"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/btn_stress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="스트레스"
+                    android:fontFamily="@font/font"
+                    android:textSize="20dp"
+                    android:textColor="#747474"
+                    android:background="@drawable/recommed_btn_border"
+                    app:backgroundTint="@null" />
             </LinearLayout>
 
         </LinearLayout>
@@ -191,7 +308,7 @@
             android:id="@+id/btn_recommend"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="7dp"
             android:text="메뉴 추천받기"
             android:fontFamily="@font/font"
             android:textColor="@color/black"
@@ -219,13 +336,12 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="start"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center_horizontal"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="parent"
-            android:layout_marginTop="158dp"
-            android:layout_marginLeft="60dp"
+            android:layout_marginTop="140dp"
             android:src="@drawable/bappool_g" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
