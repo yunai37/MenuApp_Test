@@ -264,6 +264,7 @@
                 android:layout_height="48dp"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:layout_marginBottom="5dp"
                 tools:ignore="MissingConstraints">
 
                 <Button
@@ -342,7 +343,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="parent"
             android:scaleType="fitCenter"
-            android:layout_marginTop="119dp"
+            android:layout_marginTop="116dp"
             android:src="@drawable/bappool_g" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

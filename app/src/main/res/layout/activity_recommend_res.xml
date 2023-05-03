@@ -58,7 +58,7 @@
             android:layout_width="280dp"
             android:elevation="10dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="90dp"
             android:background="@drawable/linearlayout_border"
             android:gravity="center"
             android:orientation="vertical">
@@ -133,16 +133,16 @@
         android:layout_marginTop="10dp"
         android:gravity="center" >
 
-        <ImageButton
+        <android.widget.ImageButton
             android:id="@+id/btn_recommend_re"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
+            android:elevation="5dp"
             android:src="@drawable/refresh_fill1_wght400_grad0_opsz48"
             android:fontFamily="@font/font"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:backgroundTint="#faf4c0"/>
+            android:background="@drawable/button_res"
+            android:textStyle="bold"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -157,5 +157,20 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         app:srcCompat="@drawable/home_48px" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="119dp"
+            android:src="@drawable/bappool_res" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

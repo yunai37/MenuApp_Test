@@ -35,16 +35,15 @@
         android:layout_marginTop="100dp">
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:padding="20dp"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/listview_item_border"
                 android:orientation="vertical">
@@ -54,15 +53,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="10dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition2"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="5dp"
                         android:text="알레르기"
                         android:textSize="22dp"
                         android:textStyle="bold"/>
@@ -83,14 +80,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
-                        android:layout_marginLeft="3dp"
                         android:text="재료"
                         android:textSize="22dp"
                         android:textStyle="bold"/>
@@ -101,7 +97,6 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="6dp"
-                        android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
                         android:text="-"
                         android:textSize="17sp"
@@ -113,15 +108,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:padding="10dp"
                 android:background="@drawable/listview_item_border"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="10dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition3"
@@ -168,7 +164,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition4"
@@ -207,7 +203,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition5"
@@ -236,7 +232,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition6"
@@ -266,7 +262,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition7"
@@ -297,7 +293,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition8"
@@ -326,7 +322,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:layout_width="120dp"
@@ -356,7 +352,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition9"
@@ -385,7 +381,7 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition10"
@@ -414,7 +410,8 @@
                     android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="23dp">
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="16dp">
 
                     <TextView
                         android:id="@+id/txt_nutrition11"

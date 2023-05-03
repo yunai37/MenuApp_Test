@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintVertical_bias="0.65"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -75,7 +75,7 @@
             android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:text="로그인"
-            android:elevation="5dp"
+            android:elevation="3dp"
             android:fontFamily="@font/font"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/black"
@@ -87,21 +87,21 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:gravity="right"
             android:orientation="horizontal">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btn_login2"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
                 android:text="회원 가입하기"
                 android:fontFamily="@font/font"
+                android:elevation="3dp"
                 android:textColor="#000000"
                 android:textSize="20dp"
-                android:backgroundTint="#ffffff" />
+                android:background="@drawable/button_border_2"/>
         </LinearLayout>
 
     </LinearLayout>

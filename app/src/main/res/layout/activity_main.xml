@@ -97,7 +97,7 @@
                     android:textStyle="bold"
                     android:textSize="25dp"
                     android:fontFamily="@font/font"
-                    android:elevation="10dp"
+                    android:elevation="5dp"
                     android:background="@drawable/button_border"
                     android:textColor="@color/white" >
 
@@ -122,7 +122,7 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/font"
                     android:textSize="20dp"
-                    android:elevation="10dp"
+                    android:elevation="3dp"
                     android:background="@drawable/button_border_2"
                     android:textColor="@color/black">
 
@@ -135,7 +135,7 @@
                     android:text="마이페이지"
                     android:textStyle="bold"
                     android:fontFamily="@font/font"
-                    android:elevation="10dp"
+                    android:elevation="3dp"
                     android:textSize="20dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/button_border_2"

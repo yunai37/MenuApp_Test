@@ -135,6 +135,9 @@ public class SettingActivity extends AppCompatActivity {
         set_preference.setOnClickListener(v -> {
             Intent intent = new Intent(this, PreferenceUpdateActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("nickname", nickname);
+            intent.putExtra("email", email);
+            intent.putExtra("intro", intro);
             startActivity(intent);
         });
 

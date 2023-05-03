@@ -115,7 +115,7 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
 
             Toast.makeText(PreferenceUpdateActivity.this, "취향 정보가 저장되었습니다.", Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(PreferenceUpdateActivity.this, SettingActivity.class);
+            Intent intent = new Intent(this, SettingActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("nickname", nickname);
             intent.putExtra("email", email);

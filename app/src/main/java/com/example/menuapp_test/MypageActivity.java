@@ -31,6 +31,9 @@ public class MypageActivity extends AppCompatActivity {
 
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
+        nickname = getIntent.getStringExtra("nickname");
+        email = getIntent.getStringExtra("email");
+        intro = getIntent.getStringExtra("intro");
 
         name = findViewById(R.id.name_mypage);
         comment = findViewById(R.id.comment_mypage);
