@@ -71,12 +71,12 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
-
+/*
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         GetMenu getMenu = new GetMenu(PreferenceUpdateActivity.this);
         getMenu.execute(ADDRESS_MENU, token);
         adapter = new SurveyAdapter();

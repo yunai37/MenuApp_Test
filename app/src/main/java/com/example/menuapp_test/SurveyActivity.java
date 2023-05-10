@@ -55,12 +55,12 @@ public class SurveyActivity extends AppCompatActivity {
 
         Intent getintent = getIntent();
         token = getintent.getStringExtra("token");
-
+/*
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         GetPreference getPreference = new GetPreference(SurveyActivity.this);
         getPreference.execute(ADDRESS_SURVEY, token);
         adapter = new SurveyAdapter();
@@ -97,9 +97,10 @@ public class SurveyActivity extends AppCompatActivity {
                 postSurvey.execute(ADDRESS_PREFER, entrySet.getKey(), entrySet.getValue(), token);
             }
 
-            Toast.makeText(SurveyActivity.this, "취향 정보가 저장되었습니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(SurveyActivity.this, "가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
 
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            intent.putExtra("key", "s");
             startActivity(intent);
         });
     }

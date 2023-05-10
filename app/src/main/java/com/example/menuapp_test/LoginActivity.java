@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private static String ADDRESS_LOGIN = "http://52.78.72.175/account/login";
     private static String TAG = "logintest";
 
-    public String token;
+    public String token, key;
     private String duplicate;
     private TextInputEditText email, password;
     private Button next, join;
@@ -51,13 +51,18 @@ public class LoginActivity extends AppCompatActivity {
         join = findViewById(R.id.btn_login2);
         auto = findViewById(R.id.chk_login);
 
-        Map<String, String> loginInfo = SharedPreferencesManager.getLoginInfo(this);
-        if (!loginInfo.isEmpty()){
-            String Email = loginInfo.get("email");
-            String Password = loginInfo.get("password");
-            email.setText(Email);
-            password.setText(Password);
-            auto.setChecked(true);
+        Intent getIntent = getIntent();
+        key = getIntent.getStringExtra("key");
+
+        if(key.equals("g")) {
+            Map<String, String> loginInfo = SharedPreferencesManager.getLoginInfo(this);
+            if (!loginInfo.isEmpty()) {
+                String Email = loginInfo.get("email");
+                String Password = loginInfo.get("password");
+                email.setText(Email);
+                password.setText(Password);
+                auto.setChecked(true);
+            }
         }
 
         next.setOnClickListener(v -> {
