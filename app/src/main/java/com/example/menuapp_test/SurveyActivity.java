@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class SurveyActivity extends AppCompatActivity {
-    private static String ADDRESS_SURVEY = "http://52.78.72.175/data/preference/300";
+    private static String ADDRESS_SURVEY = "http://52.78.72.175/data/preference/10";
     private static String ADDRESS_PREFER = "http://52.78.72.175/data/preference/update";
     private Button skip, save;
     private String token;

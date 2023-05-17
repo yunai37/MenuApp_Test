@@ -55,6 +55,7 @@ public class RestaurantActivity extends AppCompatActivity {
         Intent getIntent = getIntent();
         token = getIntent.getStringExtra("token");
         rid = getIntent.getStringExtra("Rid");
+        listItem = (ListItem) getIntent.getSerializableExtra("listItem");
 
         restaurant = findViewById(R.id.img_restaurant);
         wish = findViewById(R.id.imgbtn_restaurant);
@@ -76,7 +77,7 @@ public class RestaurantActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        GetRestaurant getRestaurant = new GetRestaurant();
+        /*GetRestaurant getRestaurant = new GetRestaurant();
         getRestaurant.execute(ADDRESS_RESTAURANT, token);
         try {
             rJsonString = getRestaurant.get();
@@ -111,7 +112,7 @@ public class RestaurantActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         if(listItem.getWish()) wish.setChecked(true);
 

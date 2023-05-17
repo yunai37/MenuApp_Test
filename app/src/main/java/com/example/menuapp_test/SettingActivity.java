@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 
 public class SettingActivity extends AppCompatActivity {
     private static String ADDRESS_ALL = "http://52.78.72.175/data/allergy";
-    private static String ADDRESS_PRE = "http://52.78.72.175/data/preference/300";
+    private static String ADDRESS_PRE = "http://52.78.72.175/data/preference/all";
     private static String ADDRESS_USER = "http://52.78.72.175/data/mypage";
 
     private static String ADDRESS_NICKNAME = "http://52.78.72.175/account/checknickname";

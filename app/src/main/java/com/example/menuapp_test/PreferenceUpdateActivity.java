@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class PreferenceUpdateActivity extends AppCompatActivity {
-    private static String ADDRESS_MENU = "http://52.78.72.175/data/preference/300";
+    private static String ADDRESS_MENU = "http://52.78.72.175/data/preference/50";
     private static String ADDRESS_SURVEY = "http://52.78.72.175/data/preference/update";
     private Button skip, save;
     private String token, nickname, email, intro;
@@ -84,17 +84,12 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
         // 서버의 데이터를 순서대로 읽어 어댑터에 저장
         try {
             JSONArray jsonArray = new JSONArray(getMenu.get());
-            int j = 0;
 
             for(int i=0; i<50; i++){
                 String preference = "";
                 JSONObject item = new JSONObject();
-                do {
-                    item = jsonArray.getJSONObject(j);
-                    preference = item.getString("preference");
-                    j++;
-                } while (preference.contains("1")); // 이미 좋아하는 메뉴일 경우 어댑터에 저장하지 않음
-
+                item = jsonArray.getJSONObject(i);
+                preference = item.getString("preference");
                 int id = Integer.parseInt(item.getString("id"));
                 String category = item.getString("category");
                 String name = item.getString("name");

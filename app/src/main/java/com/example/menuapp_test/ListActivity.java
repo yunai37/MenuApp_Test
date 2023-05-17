@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -48,12 +49,12 @@ public class ListActivity extends AppCompatActivity {
     private static final String TAG_IMAGE = "image";
     private static String TAG_RATING = "rating";
     private ListView mlistView;
-    //private ArrayList<HashMap<String, String>> listItems;
     private ArrayList<ListItem> listItems = new ArrayList<ListItem>();
     private ListAdapter adapter;
     private String token, address, latitude, longitude, mJsonString, rid;
     private boolean Wish;
     private FloatingActionButton home;
+    private Button map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class ListActivity extends AppCompatActivity {
 
         mlistView = (ListView) findViewById(R.id.listv_list);
         home = findViewById(R.id.fab);
+        map = findViewById(R.id.btn_map);
 
         home.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
@@ -85,9 +87,18 @@ public class ListActivity extends AppCompatActivity {
             Intent intent = new Intent(this, RestaurantActivity.class);
             intent.putExtra("token", token);
             intent.putExtra("Rid", rid);
+            intent.putExtra("listItem", item);
             startActivity(intent);
         });
 
+        map.setOnClickListener(v-> {
+            Intent intent = new Intent(this, Map.class);
+            intent.putExtra("token", token);
+            intent.putExtra("longitude", longitude);
+            intent.putExtra("latitude", latitude);
+            intent.putExtra("listItems", listItems);
+            startActivity(intent);
+        });
     }
 
     private class GetData extends AsyncTask<String, Void, String> {

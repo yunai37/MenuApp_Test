@@ -20,6 +20,10 @@
         android:theme="@style/Theme.MenuApp_Test"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCU0AKCJk-bPZueqVHWtT4xuEbVKeRj8DI">
+        </meta-data>
         <activity
             android:name=".GateActivity"
             android:exported="true">
