@@ -34,8 +34,8 @@ public class PopupMap extends Activity {
 
         rname.setText(listItem.getName());
         category.setText(listItem.getCategory_name());
-        if(listItem.getPhone_number().equals("null")) phone.setText("-");
-        else phone.setText(listItem.getPhone_number());
+        if(listItem.getPhone_number().equals("null")) { phone.setText("-"); }
+        else { phone.setText(listItem.getPhone_number()); }
         address.setText(listItem.getAddress());
 
         info.setOnClickListener(v -> {

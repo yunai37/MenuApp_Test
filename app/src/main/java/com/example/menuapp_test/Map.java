@@ -82,6 +82,10 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         googleMap.addMarker(markerOptions);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(my, 15));
 
+        BitmapDrawable bitmapDrawable1 = (BitmapDrawable) getResources().getDrawable(R.drawable.marker_restaurant_3);
+        Bitmap b1 = bitmapDrawable1.getBitmap();
+        Bitmap mark1 = Bitmap.createScaledBitmap(b1,100, 100, false);
+
         for (int i=0; i<listItems.size(); i++) {
             listItem = listItems.get(i);
             double Latitude = Double.parseDouble(listItem.getLatitude());
@@ -92,10 +96,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             markerOptions1.position(new LatLng(Latitude, Longitude));
             markerOptions1.title(listItem.getName());
             markerOptions1.snippet(Rid);
-            BitmapDrawable bitmapDrawable1 = (BitmapDrawable) getResources().getDrawable(R.drawable.marker_restaurant_2);
-            Bitmap b1 = bitmapDrawable1.getBitmap();
-            Bitmap mark1 = Bitmap.createScaledBitmap(b1,100, 100, false);
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(mark1));
+            markerOptions1.icon(BitmapDescriptorFactory.fromBitmap(mark1));
             googleMap.addMarker(markerOptions1);
         }
 
