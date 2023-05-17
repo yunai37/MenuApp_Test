@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Androidstudio\\MenuApp.jks')
+            storePassword '230316'
+            keyPassword '230316'
+            keyAlias 'key0'
+        }
+    }
     namespace 'com.example.menuapp_test'
     compileSdk 33
 

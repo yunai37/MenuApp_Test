@@ -106,17 +106,19 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(@NonNull Marker marker) {
-            String rid = marker.getSnippet();
-            for (int i=0; i<listItems.size(); i++) {
-                listItem = listItems.get(i);
-                String Rid = String.valueOf(listItem.getId());
-                if(Rid.equals(rid)) break;
+            if(!marker.getTitle().equals("현재 위치")) {
+                String rid = marker.getSnippet();
+                for (int i = 0; i < listItems.size(); i++) {
+                    listItem = listItems.get(i);
+                    String Rid = String.valueOf(listItem.getId());
+                    if (Rid.equals(rid)) break;
+                }
+                Intent intent = new Intent(Map.this, PopupMap.class);
+                intent.putExtra("token", token);
+                intent.putExtra("listItem", listItem);
+                intent.putExtra("Rid", rid);
+                startActivity(intent);
             }
-            Intent intent = new Intent(Map.this, PopupMap.class);
-            intent.putExtra("token", token);
-            intent.putExtra("listItem", listItem);
-            intent.putExtra("Rid", rid);
-            startActivity(intent);
             return false;
         }
     };
