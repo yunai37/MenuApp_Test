@@ -153,7 +153,8 @@ public class RestaurantActivity extends AppCompatActivity {
         rname = listItem.getName();
         name.setText(rname);
         category.setText(listItem.getCategory_name());
-        phone.setText(listItem.getPhone_number());
+        if(listItem.getPhone_number().equals("null")) phone.setText("-");
+        else phone.setText(listItem.getPhone_number());
         address.setText(listItem.getAddress());
         time.setText(listItem.getBusiness_hours());
         rating.setText(listItem.getRating());
@@ -216,7 +217,6 @@ public class RestaurantActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     private class GetRestaurant extends AsyncTask<String, Void, String> {

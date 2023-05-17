@@ -14,6 +14,7 @@ import android.widget.Toast;
 public class PopupReview extends Activity {
     private Button ok, skip;
     private String token, mid, rid, rname, mname;
+    private RecommendItem recommendItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class PopupReview extends Activity {
         rid = getIntent.getStringExtra("Rid");
         rname = getIntent.getStringExtra("Rname");
         mname = getIntent.getStringExtra("Mname");
-        byte[] bytes = getIntent.getByteArrayExtra("BMP");
+        recommendItem = (RecommendItem) getIntent.getSerializableExtra("RecommendItem");
 
         ok.setOnClickListener(v -> {
             Intent intent = new Intent(this, ReviewWriteActivity.class);
@@ -40,7 +41,7 @@ public class PopupReview extends Activity {
             intent.putExtra("Rid", rid);
             intent.putExtra("Mname", mname);
             intent.putExtra("Rname", rname);
-            intent.putExtra("BMP",bytes);
+            intent.putExtra("RecommendItem", recommendItem);
             startActivity(intent);
         });
 

@@ -71,20 +71,13 @@ public class SurveyActivity extends AppCompatActivity {
             int j = 0;
 
             for(int i=0; i<10; i++){
-                String preference = "";
                 JSONObject item = new JSONObject();
-                do {
-                    item = jsonArray.getJSONObject(j);
-                    preference = item.getString("preference");
-                    j++;
-                } while (preference.contains("1") || preference.contains("0") || preference.contains("-1")); // 이미 평가된 메뉴일 경우 어댑터에 저장하지 않음
-
+                item = jsonArray.getJSONObject(i);
                 int id = Integer.parseInt(item.getString("id"));
-                String category = item.getString("category");
                 String name = item.getString("name");
                 String image = item.getString("image");
 
-                adapter.addSItem(id, category, name, image, Integer.parseInt(preference));
+                adapter.addSItem(id, name, image);
             }
         } catch (Exception e) {
             Log.d("survey", "Error ", e);
@@ -183,13 +176,11 @@ public class SurveyActivity extends AppCompatActivity {
             });
             return view;
         }
-        public void addSItem(int id, String category, String name, String image, int preference){
+        public void addSItem(int id, String name, String image){
             SurveyItem item = new SurveyItem();
             item.setId(id);
-            item.setCategory(category);
             item.setName(name);
             item.setImage(image);
-            item.setPreference(preference);
             data.add(item);
         }
     }

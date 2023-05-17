@@ -50,6 +50,7 @@
         <activity android:name=".RecommendResActivity" />
         <activity android:name=".PreferenceUpdateActivity" />
         <activity android:name=".RestaurantActivity" />
+        <activity android:name=".Map" />
         <activity
             android:name=".PopupPW"
             android:theme="@android:style/Theme.Dialog" />
@@ -58,6 +59,9 @@
             android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".PopupMain"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".PopupMap"
             android:theme="@android:style/Theme.Dialog" />
     </application>
 

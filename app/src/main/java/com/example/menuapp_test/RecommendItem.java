@@ -1,6 +1,8 @@
 package com.example.menuapp_test;
 
-public class RecommendItem {
+import java.io.Serializable;
+
+public class RecommendItem implements Serializable {
     private int id;
     private int restaurant;
     private String name;

@@ -91,11 +91,10 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
                 item = jsonArray.getJSONObject(i);
                 preference = item.getString("preference");
                 int id = Integer.parseInt(item.getString("id"));
-                String category = item.getString("category");
                 String name = item.getString("name");
                 String image = item.getString("image");
 
-                adapter.addSItem(id, category, name, image, Integer.parseInt(preference));
+                adapter.addSItem(id, name, image, Integer.parseInt(preference));
             }
         } catch (Exception e) {
             Log.d("survey", "Error ", e);
@@ -197,10 +196,9 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
             });
             return view;
         }
-        public void addSItem(int id, String category, String name, String image, int preference){
+        public void addSItem(int id, String name, String image, int preference){
             SurveyItem item = new SurveyItem();
             item.setId(id);
-            item.setCategory(category);
             item.setName(name);
             item.setImage(image);
             item.setPreference(preference);

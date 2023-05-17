@@ -49,6 +49,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -68,6 +69,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
     private String token, comment;
     private Uri uri;
     private Bitmap bitmap;
+    private RecommendItem recommendItem;
     private FloatingActionButton home;
 
     @Override
@@ -81,8 +83,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         rid = getIntent.getStringExtra("Rid");
         Mname = getIntent.getStringExtra("Mname");
         Rname = getIntent.getStringExtra("Rname");
-        byte[] bytes = getIntent.getByteArrayExtra("BMP");
-        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        recommendItem = (RecommendItem) getIntent.getSerializableExtra("RecommendItem");
         //menuid = "1";
         //rid = "1";
         //Mname = "해장국";
@@ -110,6 +111,34 @@ public class ReviewWriteActivity extends AppCompatActivity {
         comment = "";
         home = findViewById(R.id.fab);
 
+        if(!recommendItem.getImage().equals("http://52.78.72.175null")){
+            Thread thread = new Thread() {
+                @Override
+                public void run(){
+                    try {
+                        URL url = new URL(recommendItem.getImage());
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setDoInput(true);
+                        conn.connect();
+
+                        InputStream is = conn.getInputStream();
+                        bitmap = BitmapFactory.decodeStream(is);
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            thread.start();
+            try {
+                thread.join();
+                rimg.setImageBitmap(bitmap);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         home.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("token", token);
@@ -128,8 +157,6 @@ public class ReviewWriteActivity extends AppCompatActivity {
                 rating = r;
             }
         });
-
-        rimg.setImageBitmap(bitmap);
 
         good.setOnClickListener(v -> {
             comment += good.getText().toString() + " ";

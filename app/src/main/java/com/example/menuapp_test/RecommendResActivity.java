@@ -160,11 +160,7 @@ public class RecommendResActivity extends AppCompatActivity {
             intent.putExtra("Rid", rid);
             intent.putExtra("Rname", rname);
             intent.putExtra("Mname", mname);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] bytes = stream.toByteArray();
-            intent.putExtra("BMP",bytes);
-
+            intent.putExtra("RecommendItem", recommendItem);
             startActivity(intent);
         }
         else {

@@ -51,7 +51,7 @@ public class ListActivity extends AppCompatActivity {
     private ListView mlistView;
     private ArrayList<ListItem> listItems = new ArrayList<ListItem>();
     private ListAdapter adapter;
-    private String token, address, latitude, longitude, mJsonString, rid;
+    private String token, address, latitude, longitude, mJsonString, rid, rlatitude, rlongitude;
     private boolean Wish;
     private FloatingActionButton home;
     private Button map;
@@ -202,8 +202,12 @@ public class ListActivity extends AppCompatActivity {
                     rating = item.getDouble(TAG_RATING);
                 else rating = 0;
                 String Rating = String.format("%.1f", rating);
+                String Count = item.getString("count");
                 boolean wish = Boolean.parseBoolean(item.getString("favor"));
-                adapter.addRItem(id, name, address, image, Rating, distance, wish, category, phone, business);
+                String Latitude = item.getString("latitude");
+                String Longitude = item.getString("longitude");
+
+                adapter.addRItem(id, name, address, image, Rating, distance, wish, category, phone, business, Count, Latitude, Longitude);
             }
             mlistView.setAdapter(adapter);
         } catch (JSONException e) {
@@ -302,7 +306,7 @@ public class ListActivity extends AppCompatActivity {
             return view;
         }
 
-        void addRItem(int id, String name, String address, String image, String rating, int distance, boolean wish, String category, String phone, String business){
+        void addRItem(int id, String name, String address, String image, String rating, int distance, boolean wish, String category, String phone, String business, String count, String latitude, String longitude){
             ListItem item = new ListItem();
             item.setId(id);
             item.setName(name);
@@ -314,6 +318,9 @@ public class ListActivity extends AppCompatActivity {
             item.setCategory_name(category);
             item.setPhone_number(phone);
             item.setBusiness_hours(business);
+            item.setCount(count);
+            item.setLatitude(latitude);
+            item.setLongitude(longitude);
 
             listItems.add(item);
         }
