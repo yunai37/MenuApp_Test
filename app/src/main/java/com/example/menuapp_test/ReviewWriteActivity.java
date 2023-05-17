@@ -233,6 +233,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
             uri = data.getData();
             imagePath = getFilePathFromUri(uri);
             imageView.setImageURI(uri);
+            imageView.setVisibility(View.VISIBLE);
             // Image의 절대경로를 가져온다
 
         }
