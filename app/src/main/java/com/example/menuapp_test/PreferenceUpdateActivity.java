@@ -84,17 +84,22 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
         // 서버의 데이터를 순서대로 읽어 어댑터에 저장
         try {
             JSONArray jsonArray = new JSONArray(getMenu.get());
+            int j = 0;
 
             for(int i=0; i<50; i++){
                 String preference = "";
                 JSONObject item = new JSONObject();
+/*                do{
+                    item = jsonArray.getJSONObject(j);
+                    preference = item.getString("preference");
+                    j++;
+                } while (preference.equals("1"));*/
                 item = jsonArray.getJSONObject(i);
-                preference = item.getString("preference");
                 int id = Integer.parseInt(item.getString("id"));
                 String name = item.getString("name");
                 String image = item.getString("image");
 
-                adapter.addSItem(id, name, image, Integer.parseInt(preference));
+                adapter.addSItem(id, name, image);
             }
         } catch (Exception e) {
             Log.d("survey", "Error ", e);
@@ -196,12 +201,11 @@ public class PreferenceUpdateActivity extends AppCompatActivity {
             });
             return view;
         }
-        public void addSItem(int id, String name, String image, int preference){
+        public void addSItem(int id, String name, String image){
             SurveyItem item = new SurveyItem();
             item.setId(id);
             item.setName(name);
             item.setImage(image);
-            item.setPreference(preference);
             data.add(item);
         }
     }
