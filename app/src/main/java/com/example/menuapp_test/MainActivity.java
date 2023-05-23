@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         //latitude = String.valueOf(gpsTracker.getLatitude());
         //longitude = String.valueOf(gpsTracker.getLongitude());
-        latitude = "37.3748"; longitude = "126.6321";
+        latitude = "37.374251976251664"; longitude = "126.63174725430203";
 
         PostGPS postGPS = new PostGPS(MainActivity.this);
         postGPS.execute(ADDRESS_GPS, latitude, longitude, token);
