@@ -86,7 +86,7 @@ public class SettingActivity extends AppCompatActivity {
 
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if(jsonObject.getString("preference").contains("1")){
+                if(jsonObject.getString("preference").equals("1")){
                     String Name = jsonObject.getString("name");
                     Preference += Name + ",";
                 }
